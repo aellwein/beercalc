@@ -88,33 +88,39 @@
             </div>
             <div class="container-fluid">
               <div class="row">
-                <div class="col-6">Scheinbarer Restextrakt:</div>
-                <div class="col-6">{{calcResultPlato.re.plato.toFixed(1)}} °P</div>
+                <div class="col-8">Scheinbarer Restextrakt:</div>
+                <div class="col-4">{{calcResultPlato.re.plato.toFixed(1)}} °P</div>
               </div>
               <div class="row">
-                <div class="col-6">Tatsächlicher Restextrakt:</div>
-                <div class="col-6">{{calcResultPlato.formula.TRE.toFixed(1)}} %</div>
+                <div class="col-8">Tatsächlicher Restextrakt:</div>
+                <div class="col-4">{{calcResultPlato.formula.TRE.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-6">Scheinbarer EVG:</div>
-                <div class="col-6">{{calcResultPlato.formula.sEVG.toFixed(1)}} %</div>
+                <div class="col-8">Scheinbarer EVG:</div>
+                <div class="col-4">{{calcResultPlato.formula.sEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-6">Tatsächlicher EVG:</div>
-                <div class="col-6">{{calcResultPlato.formula.tEVG.toFixed(1)}} %</div>
+                <div class="col-8">Tatsächlicher EVG:</div>
+                <div class="col-4">{{calcResultPlato.formula.tEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-6">Alkohol in % des Gewichts:</div>
-                <div class="col-6">{{calcResultPlato.formula.alcGw.toFixed(1)}} % Gew.</div>
+                <div class="col-8">Alkohol in % des Gewichts:</div>
+                <div class="col-4">{{calcResultPlato.formula.alcGw.toFixed(1)}} % Gew.</div>
               </div>
               <div class="row">
-                <div class="col-6">Alkohol in % des Volumens:</div>
-                <div class="col-6">{{calcResultPlato.formula.alcVol.toFixed(1)}} % Vol.</div>
+                <div class="col-8">Alkohol in % des Volumens:</div>
+                <div class="col-4">{{calcResultPlato.formula.alcVol.toFixed(1)}} % Vol.</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="row" *ngIf="unit=='plato'&&!displayPlatoCalculations()">
+      <div class="col-12 alert alert-danger">Berechnung nicht möglich. Ungültige Eingaben.</div>
+    </div>
+    <div class="row" *ngIf="unit=='brix'&&!displayBrixCalculations()">
+      <div class="col-12 alert alert-danger">Berechnung nicht möglich. Ungültige Eingaben.</div>
     </div>
     <div class="row" *ngIf="displayBrixCalculations()">
       <div class="col-6">
@@ -127,28 +133,28 @@
             </div>
             <div class="container-fluid">
               <div class="row">
-                <div class="col-6">Scheinbarer Restextrakt:</div>
-                <div class="col-6">{{calcResultBrix.standard.SRE_Plato.toFixed(1)}} °P</div>
+                <div class="col-8">Scheinbarer Restextrakt:</div>
+                <div class="col-4">{{calcResultBrix.standard.SRE_Plato.toFixed(1)}} °P</div>
               </div>
               <div class="row">
-                <div class="col-6">Tatsächlicher Restextrakt:</div>
-                <div class="col-6">{{calcResultBrix.standard.TRE.toFixed(1)}} %</div>
+                <div class="col-8">Tatsächlicher Restextrakt:</div>
+                <div class="col-4">{{calcResultBrix.standard.TRE.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-6">Scheinbarer EVG:</div>
-                <div class="col-6">{{calcResultBrix.standard.sEVG.toFixed(1)}} %</div>
+                <div class="col-8">Scheinbarer EVG:</div>
+                <div class="col-4">{{calcResultBrix.standard.sEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-6">Tatsächlicher EVG:</div>
-                <div class="col-6">{{calcResultBrix.standard.tEVG.toFixed(1)}} %</div>
+                <div class="col-8">Tatsächlicher EVG:</div>
+                <div class="col-4">{{calcResultBrix.standard.tEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-6">Alkohol in % des Gewichts:</div>
-                <div class="col-6">{{calcResultBrix.standard.alcGw.toFixed(1)}} % Gew.</div>
+                <div class="col-8">Alkohol in % des Gewichts:</div>
+                <div class="col-4">{{calcResultBrix.standard.alcGw.toFixed(1)}} % Gew.</div>
               </div>
               <div class="row">
-                <div class="col-6">Alkohol in % des Volumens:</div>
-                <div class="col-6">{{calcResultBrix.standard.alcVol.toFixed(1)}} % Vol.</div>
+                <div class="col-8">Alkohol in % des Volumens:</div>
+                <div class="col-4">{{calcResultBrix.standard.alcVol.toFixed(1)}} % Vol.</div>
               </div>
             </div>
           </div>
@@ -164,28 +170,28 @@
             </div>
             <div class="container-fluid">
               <div class="row">
-                <div class="col-6">Scheinbarer Restextrakt:</div>
-                <div class="col-6">{{calcResultBrix.terrill.SRE_Plato.toFixed(1)}} °P</div>
+                <div class="col-8">Scheinbarer Restextrakt:</div>
+                <div class="col-4">{{calcResultBrix.terrill.SRE_Plato.toFixed(1)}} °P</div>
               </div>
               <div class="row">
-                <div class="col-6">Tatsächlicher Restextrakt:</div>
-                <div class="col-6">{{calcResultBrix.terrill.TRE.toFixed(1)}} %</div>
+                <div class="col-8">Tatsächlicher Restextrakt:</div>
+                <div class="col-4">{{calcResultBrix.terrill.TRE.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-6">Scheinbarer EVG:</div>
-                <div class="col-6">{{calcResultBrix.terrill.sEVG.toFixed(1)}} %</div>
+                <div class="col-8">Scheinbarer EVG:</div>
+                <div class="col-4">{{calcResultBrix.terrill.sEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-6">Tatsächlicher EVG:</div>
-                <div class="col-6">{{calcResultBrix.terrill.tEVG.toFixed(1)}} %</div>
+                <div class="col-8">Tatsächlicher EVG:</div>
+                <div class="col-4">{{calcResultBrix.terrill.tEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-6">Alkohol in % des Gewichts:</div>
-                <div class="col-6">{{calcResultBrix.terrill.alcGw.toFixed(1)}} % Gew.</div>
+                <div class="col-8">Alkohol in % des Gewichts:</div>
+                <div class="col-4">{{calcResultBrix.terrill.alcGw.toFixed(1)}} % Gew.</div>
               </div>
               <div class="row">
-                <div class="col-6">Alkohol in % des Volumens:</div>
-                <div class="col-6">{{calcResultBrix.terrill.alcVol.toFixed(1)}} % Vol.</div>
+                <div class="col-8">Alkohol in % des Volumens:</div>
+                <div class="col-4">{{calcResultBrix.terrill.alcVol.toFixed(1)}} % Vol.</div>
               </div>
             </div>
           </div>
