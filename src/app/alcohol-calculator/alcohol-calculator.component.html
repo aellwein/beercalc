@@ -1,8 +1,13 @@
 <div class="alcohol-rechner">
   <div class="container">
     <div class="row">
-      <div class="col-12">
-        <h2>Alkoholrechner</h2>
+      <div class="col-10">
+        <h2>{{_('alcohol calculator')}}</h2>
+      </div>
+      <div class="col-2">
+        <select class="input-group" [(ngModel)]="selectedLanguage" (change)="changeLang()">
+          <option *ngFor="let lang of languages" [ngValue]="lang.suffix">{{lang.description}}</option>
+        </select>
       </div>
     </div>
     <div class="row">
@@ -15,14 +20,14 @@
                   <label class="form-check-label">
                     <input class="form-check-input" type="radio" name="unit" value="brix" [(ngModel)]="unit"
                            (change)="changeUnit()">
-                    Brix
+                    {{_('brix')}}
                   </label>
                 </div>
                 <div class="col-6">
                   <label class="form-check-label">
                     <input class="form-check-input" type="radio" name="unit" value="plato" [(ngModel)]="unit"
                            (change)="changeUnit()">
-                    ° Plato
+                    {{_('plato')}}
                   </label>
                 </div>
               </div>
@@ -38,7 +43,7 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-4">
-                  <label for="stammwuerze">Stammwürze</label>
+                  <label for="stammwuerze">{{_('original gravity')}}</label>
                 </div>
                 <div class="col-4">
                   <div class="input-group">
@@ -56,7 +61,7 @@
               </div>
               <div class="row">
                 <div class="col-4">
-                  <label for="restextrakt">Restextrakt</label>
+                  <label for="restextrakt">{{_('final gravity')}}</label>
                 </div>
                 <div class="col-4">
                   <div class="input-group">
@@ -83,32 +88,32 @@
           <div class="card-body">
             <div class="card-title">
               <div class="text-center">
-                <h4>Ergebnisse</h4>
+                <h4>{{_('results')}}</h4>
               </div>
             </div>
             <div class="container-fluid">
               <div class="row">
-                <div class="col-8">Scheinbarer Restextrakt:</div>
+                <div class="col-8">{{_('apparent extract')}}:</div>
                 <div class="col-4">{{calcResultPlato.re.plato.toFixed(1)}} °P</div>
               </div>
               <div class="row">
-                <div class="col-8">Tatsächlicher Restextrakt:</div>
+                <div class="col-8">{{_('real extract')}}:</div>
                 <div class="col-4">{{calcResultPlato.formula.TRE.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Scheinbarer EVG:</div>
+                <div class="col-8">{{_('apparent attenuation')}}:</div>
                 <div class="col-4">{{calcResultPlato.formula.sEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Tatsächlicher EVG:</div>
+                <div class="col-8">{{_('real attenuation')}}:</div>
                 <div class="col-4">{{calcResultPlato.formula.tEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Alkohol in % des Gewichts:</div>
-                <div class="col-4">{{calcResultPlato.formula.alcGw.toFixed(1)}} % Gew.</div>
+                <div class="col-8">{{_('alcohol by weight')}}:</div>
+                <div class="col-4">{{calcResultPlato.formula.alcGw.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Alkohol in % des Volumens:</div>
+                <div class="col-8">{{_('alcohol by volume')}}:</div>
                 <div class="col-4">{{calcResultPlato.formula.alcVol.toFixed(1)}} % Vol.</div>
               </div>
             </div>
@@ -117,10 +122,10 @@
       </div>
     </div>
     <div class="row" *ngIf="unit=='plato'&&!displayPlatoCalculations()">
-      <div class="col-12 alert alert-danger">Berechnung nicht möglich. Ungültige Eingaben.</div>
+      <div class="col-12 alert alert-danger">{{_('calculation not possible')}}</div>
     </div>
     <div class="row" *ngIf="unit=='brix'&&!displayBrixCalculations()">
-      <div class="col-12 alert alert-danger">Berechnung nicht möglich. Ungültige Eingaben.</div>
+      <div class="col-12 alert alert-danger">{{_('calculation not possible')}}</div>
     </div>
     <div class="row" *ngIf="displayBrixCalculations()">
       <div class="col-6">
@@ -128,32 +133,32 @@
           <div class="card-body">
             <div class="card-title">
               <div class="text-center">
-                <h4>Berechnung nach Standard-Formel</h4>
+                <h4>{{_('standard equation')}}</h4>
               </div>
             </div>
             <div class="container-fluid">
               <div class="row">
-                <div class="col-8">Scheinbarer Restextrakt:</div>
+                <div class="col-8">{{_('apparent extract')}}:</div>
                 <div class="col-4">{{calcResultBrix.standard.SRE_Plato.toFixed(1)}} °P</div>
               </div>
               <div class="row">
-                <div class="col-8">Tatsächlicher Restextrakt:</div>
+                <div class="col-8">{{_('real extract')}}:</div>
                 <div class="col-4">{{calcResultBrix.standard.TRE.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Scheinbarer EVG:</div>
+                <div class="col-8">{{_('apparent attenuation')}}:</div>
                 <div class="col-4">{{calcResultBrix.standard.sEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Tatsächlicher EVG:</div>
+                <div class="col-8">{{_('real attenuation')}}:</div>
                 <div class="col-4">{{calcResultBrix.standard.tEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Alkohol in % des Gewichts:</div>
-                <div class="col-4">{{calcResultBrix.standard.alcGw.toFixed(1)}} % Gew.</div>
+                <div class="col-8">{{_('alcohol by weight')}}:</div>
+                <div class="col-4">{{calcResultBrix.standard.alcGw.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Alkohol in % des Volumens:</div>
+                <div class="col-8">{{_('alcohol by volume')}}:</div>
                 <div class="col-4">{{calcResultBrix.standard.alcVol.toFixed(1)}} % Vol.</div>
               </div>
             </div>
@@ -165,32 +170,32 @@
           <div class="card-body">
             <div class="card-title">
               <div class="text-center">
-                <h4>Berechnung nach Terrill-Formel</h4>
+                <h4>{{_('terrill equation')}}</h4>
               </div>
             </div>
             <div class="container-fluid">
               <div class="row">
-                <div class="col-8">Scheinbarer Restextrakt:</div>
+                <div class="col-8">{{_('apparent extract')}}:</div>
                 <div class="col-4">{{calcResultBrix.terrill.SRE_Plato.toFixed(1)}} °P</div>
               </div>
               <div class="row">
-                <div class="col-8">Tatsächlicher Restextrakt:</div>
+                <div class="col-8">{{_('real extract')}}:</div>
                 <div class="col-4">{{calcResultBrix.terrill.TRE.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Scheinbarer EVG:</div>
+                <div class="col-8">{{_('apparent attenuation')}}:</div>
                 <div class="col-4">{{calcResultBrix.terrill.sEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Tatsächlicher EVG:</div>
+                <div class="col-8">{{_('real attenuation')}}:</div>
                 <div class="col-4">{{calcResultBrix.terrill.tEVG.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Alkohol in % des Gewichts:</div>
-                <div class="col-4">{{calcResultBrix.terrill.alcGw.toFixed(1)}} % Gew.</div>
+                <div class="col-8">{{_('alcohol by weight')}}:</div>
+                <div class="col-4">{{calcResultBrix.terrill.alcGw.toFixed(1)}} %</div>
               </div>
               <div class="row">
-                <div class="col-8">Alkohol in % des Volumens:</div>
+                <div class="col-8">{{_('alcohol by volume')}}:</div>
                 <div class="col-4">{{calcResultBrix.terrill.alcVol.toFixed(1)}} % Vol.</div>
               </div>
             </div>

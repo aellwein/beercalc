@@ -1,0 +1,18 @@
+{
+  "title": "Bierrechner",
+  "alcohol calculator": "Alkoholrechner",
+  "brix": "Brix",
+  "plato": "° Plato",
+  "original gravity": "Stammwürze",
+  "final gravity": "Restextrakt",
+  "standard equation": "Berechnung nach Standard-Formel",
+  "terrill equation": "Berechnung nach Terrill-Formel",
+  "results": "Ergebnisse",
+  "apparent extract": "Scheinbarer Restextrakt",
+  "real extract": "Tatsächlicher Restextrakt",
+  "apparent attenuation": "Scheinbarer EVG",
+  "real attenuation": "Tatsächlicher EVG",
+  "alcohol by weight": "Alkohol in % des Gewichts",
+  "alcohol by volume": "Alkohol in % des Volumens",
+  "calculation not possible": "Berechnung nicht möglich. Ungültige Eingaben."
+}
