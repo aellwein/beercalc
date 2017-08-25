@@ -1,0 +1,18 @@
+{
+  "title": "beer calculators",
+  "alcohol calculator": "alcohol calculator",
+  "brix": "° Bx",
+  "plato": "° Plato",
+  "original gravity": "Original Gravity",
+  "final gravity": "Final Gravity",
+  "standard equation": "Standard Equation",
+  "terrill equation": "Terrill Equation",
+  "results": "Results",
+  "apparent extract": "Apparent Extract",
+  "real extract": "Real Extract",
+  "apparent attenuation": "Apparent Attenuation",
+  "real attenuation": "Real Attenuation",
+  "alcohol by weight": "Alcohol By Weight (%)",
+  "alcohol by volume": "Alcohol By Volume (%)",
+  "calculation not possible": "Calculation is not possible, the input is out of range."
+}

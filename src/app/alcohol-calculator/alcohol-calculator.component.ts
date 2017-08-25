@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CalcResultBrix, CalcResultPlato, CalcService} from '../calc.service';
+import {Language, TranslationService} from '../translation.service';
 
 @Component({
   selector: 'app-alcohol-calculator',
@@ -12,11 +13,21 @@ export class AlcoholCalculatorComponent implements OnInit {
   restextrakt = 6;
   calcResultBrix: CalcResultBrix;
   calcResultPlato: CalcResultPlato;
+  selectedLanguage = 'de';
+  languages: Language[];
 
-  constructor(private calcService: CalcService) {
+  constructor(private calcService: CalcService,
+              private translationService: TranslationService) {
+    this.languages = translationService.getLanguages();
   }
 
   ngOnInit() {
+    if (localStorage.selectedLanguage) {
+      this.selectedLanguage = localStorage.getItem('selectedLanguage');
+      this.translationService.setLanguage(this.selectedLanguage);
+    } else {
+      this.selectedLanguage = this.translationService.getLanguage();
+    }
     if (localStorage.stammwuerze) {
       this.stammwuerze = parseFloat(localStorage.getItem('stammwuerze'));
     }
@@ -27,6 +38,10 @@ export class AlcoholCalculatorComponent implements OnInit {
       this.unit = localStorage.getItem('unit');
     }
     this.calculate();
+  }
+
+  _(key: string): string {
+    return this.translationService._(key);
   }
 
   validInput(): boolean {
@@ -58,6 +73,11 @@ export class AlcoholCalculatorComponent implements OnInit {
       this.calcResultPlato.re.plato >= 0.0 &&
       this.calcResultPlato.formula.sEVG >= 0.0 &&
       this.calcResultPlato.formula.tEVG > 0;
+  }
+
+  changeLang(): void {
+    this.translationService.setLanguage(this.selectedLanguage);
+    localStorage.setItem('selectedLanguage', this.selectedLanguage);
   }
 
   changeUnit(): void {
