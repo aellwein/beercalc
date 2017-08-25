@@ -17,6 +17,15 @@ export class AlcoholCalculatorComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (localStorage.stammwuerze) {
+      this.stammwuerze = parseFloat(localStorage.getItem('stammwuerze'));
+    }
+    if (localStorage.restextrakt) {
+      this.restextrakt = parseFloat(localStorage.getItem('restextrakt'));
+    }
+    if (localStorage.unit) {
+      this.unit = localStorage.getItem('unit');
+    }
     this.calculate();
   }
 
@@ -61,6 +70,10 @@ export class AlcoholCalculatorComponent implements OnInit {
     if (!this.validInput()) {
       return;
     }
+    localStorage.setItem('stammwuerze', this.stammwuerze.toString());
+    localStorage.setItem('restextrakt', this.restextrakt.toString());
+    localStorage.setItem('unit', this.unit);
+
     if (this.unit === 'brix') {
       this.calcResultBrix = this.calcService.calculateFromBrix(this.stammwuerze, this.restextrakt);
     } else {
