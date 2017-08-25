@@ -51,6 +51,12 @@ export class AlcoholCalculatorComponent implements OnInit {
       this.calcResultPlato.formula.tEVG > 0;
   }
 
+  changeUnit(): void {
+    if (this.validInput()) {
+      this.calculate();
+    }
+  }
+
   calculate(): void {
     if (!this.validInput()) {
       return;
