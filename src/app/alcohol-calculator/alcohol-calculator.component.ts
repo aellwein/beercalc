@@ -19,26 +19,32 @@ export class AlcoholCalculatorComponent implements OnInit {
   constructor(private calcService: CalcService,
               private translationService: TranslationService) {
     this.languages = translationService.getLanguages();
+    this.selectedLanguage = this.translationService.getLanguage();
   }
 
   ngOnInit() {
-    if (localStorage.selectedLanguage) {
-      this.selectedLanguage = localStorage.getItem('selectedLanguage');
-      this.translationService.setLanguage(this.selectedLanguage);
-    } else {
-      this.selectedLanguage = this.translationService.getLanguage();
-    }
-    if (localStorage.stammwuerze) {
-      this.stammwuerze = parseFloat(localStorage.getItem('stammwuerze'));
-    }
-    if (localStorage.restextrakt) {
-      this.restextrakt = parseFloat(localStorage.getItem('restextrakt'));
-    }
-    if (localStorage.unit) {
-      this.unit = localStorage.getItem('unit');
-    }
+    this.restoreState();
     this.calculate();
   }
+
+  private restoreState(): void {
+    if (localStorage) {
+      if (localStorage.selectedLanguage) {
+        this.selectedLanguage = localStorage.getItem('selectedLanguage');
+        this.translationService.setLanguage(this.selectedLanguage);
+      }
+      if (localStorage.stammwuerze) {
+        this.stammwuerze = parseFloat(localStorage.getItem('stammwuerze'));
+      }
+      if (localStorage.restextrakt) {
+        this.restextrakt = parseFloat(localStorage.getItem('restextrakt'));
+      }
+      if (localStorage.unit) {
+        this.unit = localStorage.getItem('unit');
+      }
+    }
+  }
+
 
   _(key: string): string {
     return this.translationService._(key);
@@ -77,7 +83,9 @@ export class AlcoholCalculatorComponent implements OnInit {
 
   changeLang(): void {
     this.translationService.setLanguage(this.selectedLanguage);
-    localStorage.setItem('selectedLanguage', this.selectedLanguage);
+    if (localStorage) {
+      localStorage.setItem('selectedLanguage', this.selectedLanguage);
+    }
   }
 
   changeUnit(): void {
@@ -90,9 +98,11 @@ export class AlcoholCalculatorComponent implements OnInit {
     if (!this.validInput()) {
       return;
     }
-    localStorage.setItem('stammwuerze', this.stammwuerze.toString());
-    localStorage.setItem('restextrakt', this.restextrakt.toString());
-    localStorage.setItem('unit', this.unit);
+    if (localStorage) {
+      localStorage.setItem('stammwuerze', this.stammwuerze.toString());
+      localStorage.setItem('restextrakt', this.restextrakt.toString());
+      localStorage.setItem('unit', this.unit);
+    }
 
     if (this.unit === 'brix') {
       this.calcResultBrix = this.calcService.calculateFromBrix(this.stammwuerze, this.restextrakt);
