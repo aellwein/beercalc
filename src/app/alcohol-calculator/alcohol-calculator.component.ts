@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CalcResultBrix, CalcResultPlato, CalcService} from '../calc.service';
 import {Language, TranslationService} from '../translation.service';
+import {StorageService} from '../storage.service';
 
 @Component({
   selector: 'app-alcohol-calculator',
@@ -17,6 +18,7 @@ export class AlcoholCalculatorComponent implements OnInit {
   languages: Language[];
 
   constructor(private calcService: CalcService,
+              private storageService: StorageService,
               private translationService: TranslationService) {
     this.languages = translationService.getLanguages();
     this.selectedLanguage = this.translationService.getLanguage();
@@ -28,20 +30,18 @@ export class AlcoholCalculatorComponent implements OnInit {
   }
 
   private restoreState(): void {
-    if (localStorage) {
-      if (localStorage.selectedLanguage) {
-        this.selectedLanguage = localStorage.getItem('selectedLanguage');
-        this.translationService.setLanguage(this.selectedLanguage);
-      }
-      if (localStorage.stammwuerze) {
-        this.stammwuerze = parseFloat(localStorage.getItem('stammwuerze'));
-      }
-      if (localStorage.restextrakt) {
-        this.restextrakt = parseFloat(localStorage.getItem('restextrakt'));
-      }
-      if (localStorage.unit) {
-        this.unit = localStorage.getItem('unit');
-      }
+    if (this.storageService.hasItem('selectedLanguage')) {
+      this.selectedLanguage = this.storageService.getItem('selectedLanguage');
+      this.translationService.setLanguage(this.selectedLanguage);
+    }
+    if (this.storageService.hasItem('stammwuerze')) {
+      this.stammwuerze = parseFloat(this.storageService.getItem('stammwuerze'));
+    }
+    if (this.storageService.hasItem('restextrakt')) {
+      this.restextrakt = parseFloat(this.storageService.getItem('restextrakt'));
+    }
+    if (this.storageService.hasItem('unit')) {
+      this.unit = this.storageService.getItem('unit');
     }
   }
 
@@ -83,9 +83,7 @@ export class AlcoholCalculatorComponent implements OnInit {
 
   changeLang(): void {
     this.translationService.setLanguage(this.selectedLanguage);
-    if (localStorage) {
-      localStorage.setItem('selectedLanguage', this.selectedLanguage);
-    }
+    this.storageService.setItem('selectedLanguage', this.selectedLanguage);
   }
 
   changeUnit(): void {
@@ -98,11 +96,9 @@ export class AlcoholCalculatorComponent implements OnInit {
     if (!this.validInput()) {
       return;
     }
-    if (localStorage) {
-      localStorage.setItem('stammwuerze', this.stammwuerze.toString());
-      localStorage.setItem('restextrakt', this.restextrakt.toString());
-      localStorage.setItem('unit', this.unit);
-    }
+    this.storageService.setItem('stammwuerze', this.stammwuerze.toString());
+    this.storageService.setItem('restextrakt', this.restextrakt.toString());
+    this.storageService.setItem('unit', this.unit);
 
     if (this.unit === 'brix') {
       this.calcResultBrix = this.calcService.calculateFromBrix(this.stammwuerze, this.restextrakt);

@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {CalcService} from './calc.service';
 import {TranslationService} from './translation.service';
 import {HttpModule} from '@angular/http';
+import {StorageService} from './storage.service';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {HttpModule} from '@angular/http';
   providers: [
     CalcService,
     TranslationService,
+    StorageService,
     HttpModule,
     Title
   ],
