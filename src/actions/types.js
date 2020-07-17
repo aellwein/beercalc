@@ -1,0 +1,4 @@
+
+export const CHANGE_UNIT = 'CHANGE_UNIT';
+export const ORIGINAL_GRAVITY = 'ORIGINAL_GRAVITY';
+export const FINAL_GRAVITY = 'FINAL_GRAVITY';
