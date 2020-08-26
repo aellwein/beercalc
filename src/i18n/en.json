@@ -1,7 +1,6 @@
 {
     "title": "beer calculators",
     "alcohol calculator": "alcohol calculator",
-    "ibu calculator": "IBU calculator",
     "brix": "°Bx",
     "plato": "°Plato",
     "original gravity": "Original Gravity",
@@ -18,5 +17,21 @@
     "calculation not possible": "Calculation is not possible",
     "project on github": "GitHub project",
     "licensed under": "Licensed under the",
-    "mit license": "MIT License"
+    "mit license": "MIT License",
+    "ibu calculator": "IBU calculator",
+    "boiling time": "Boiling Time",
+    "minutes": "minutes",
+    "volume": "Volume",
+    "liter": "liters",
+    "flameout time": "Time After Flameout",
+    "flameout temp": "Temperature At The End Of Flameout",
+    "form": "Hops Form",
+    "whole": "Whole",
+    "plugs": "Plugs",
+    "amount": "Amount, g",
+    "alpha acid": "% α-acid",
+    "boil time": "Boil Time, mins",
+    "bitterness": "Bitterness",
+    "add hops": "Add Hops",
+    "hops addition": "Hops Addition"
 }

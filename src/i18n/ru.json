@@ -1,7 +1,6 @@
 {
     "title": "Пивные калькуляторы",
     "alcohol calculator": "Калькулятор алкоголя",
-    "ibu calculator": "Калькулятор IBU",
     "brix": "°Брикс",
     "plato": "°Плато",
     "original gravity": "Начальная плотность",
@@ -18,5 +17,21 @@
     "calculation not possible": "Расчёт невыполним",
     "project on github": "Проект на Гитxабe",
     "licensed under": "лицензировано по",
-    "mit license": "лицензии MIT"
+    "mit license": "лицензии MIT",
+    "ibu calculator": "Калькулятор горечи в IBU",
+    "boiling time": "Время кипячения",
+    "minutes": "минут",
+    "volume": "Объём",
+    "liter": "л",
+    "flameout time": "Время остывания",
+    "flameout temp": "Температура после остывания",
+    "form": "Форма",
+    "whole": "Пеллеты",
+    "plugs": "Шишки",
+    "amount": "Количество, г",
+    "alpha acid": "% Альфа-кислоты",
+    "boil time": "Время варки, мин",
+    "bitterness": "Горечь",
+    "add hops": "Добавить хмель",
+    "hops addition": "Хмель"
 }
