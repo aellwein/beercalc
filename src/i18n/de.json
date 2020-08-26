@@ -1,6 +1,7 @@
 {
     "title": "Bierrechner",
     "alcohol calculator": "Alkoholrechner",
+    "ibu calculator": "IBU-Rechner",
     "brix": "Brix",
     "plato": "°Plato",
     "original gravity": "Stammwürze",
@@ -14,5 +15,8 @@
     "real attenuation": "Tatsächlicher EVG",
     "alcohol by weight": "Alkohol in % des Gewichts",
     "alcohol by volume": "Alkohol in % des Volumens",
-    "calculation not possible": "Berechnung nicht möglich"
+    "calculation not possible": "Berechnung nicht möglich",
+    "project on github": "Github-Projekt",
+    "licensed under": "Lizensiert unter der",
+    "mit license": "MIT-Lizenz"
 }

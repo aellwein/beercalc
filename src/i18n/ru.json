@@ -1,6 +1,7 @@
 {
     "title": "Пивные калькуляторы",
     "alcohol calculator": "Калькулятор алкоголя",
+    "ibu calculator": "Калькулятор IBU",
     "brix": "°Брикс",
     "plato": "°Плато",
     "original gravity": "Начальная плотность",
@@ -14,5 +15,8 @@
     "real attenuation": "Действительное сбраживание",
     "alcohol by weight": "Алкоголь в % веса",
     "alcohol by volume": "Алкоголь в % объёма",
-    "calculation not possible": "Расчёт невыполним"
+    "calculation not possible": "Расчёт невыполним",
+    "project on github": "Проект на Гитxабe",
+    "licensed under": "лицензировано по",
+    "mit license": "лицензии MIT"
 }
