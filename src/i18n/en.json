@@ -1,6 +1,7 @@
 {
     "title": "beer calculators",
     "alcohol calculator": "alcohol calculator",
+    "ibu calculator": "IBU calculator",
     "brix": "°Bx",
     "plato": "°Plato",
     "original gravity": "Original Gravity",
@@ -14,5 +15,8 @@
     "real attenuation": "Real Attenuation",
     "alcohol by weight": "Alcohol By Weight (%)",
     "alcohol by volume": "Alcohol By Volume (%)",
-    "calculation not possible": "Calculation is not possible"
+    "calculation not possible": "Calculation is not possible",
+    "project on github": "GitHub project",
+    "licensed under": "Licensed under the",
+    "mit license": "MIT License"
 }
