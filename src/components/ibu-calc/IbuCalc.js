@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import HopsAdder from "./HopsAdder";
 import './IbuCalc.css';
 import IbuPreset from "./IbuPreset";
-import { convertUnits } from "../alcohol-calc/calculations";
+import { convertUnits } from "../units/calculations";
 
 const IbuCalc = (_) => {
     const { t } = useTranslation();

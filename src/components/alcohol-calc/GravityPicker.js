@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { finalGravity, originalGravity } from '../../actions';
-import ShowUnits from './ShowUnits';
+import ShowUnits from '../units/ShowUnits';
 
 const onChangeOg = (props, newOg) => {
     let og = parseFloat(newOg);

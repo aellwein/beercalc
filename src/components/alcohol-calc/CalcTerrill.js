@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import { alcoholTerrillFormula } from './calculations';
+import { alcoholTerrillFormula } from '../units/calculations';
 
 const calcNotPossible = (t) => {
     return (

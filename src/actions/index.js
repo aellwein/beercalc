@@ -1,4 +1,4 @@
-import { CHANGE_UNIT, ORIGINAL_GRAVITY, FINAL_GRAVITY, BOILING_TIME, VOLUME, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, REMOVE_HOPS_ADDITION, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_ALPHA, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM } from "./types"
+import { BOILING_TIME, CHANGE_HOPS_ALPHA, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM, CHANGE_MALT_COLOR, CHANGE_MALT_MASS, CHANGE_MALT_MASS_UNIT, CHANGE_UNIT, FINAL_GRAVITY, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, NEW_MALT_ADDITION, ORIGINAL_GRAVITY, REMOVE_HOPS_ADDITION, REMOVE_MALT_ADDITION, VOLUME } from "./types";
 
 export const changeUnit = (unit) => {
     return {
@@ -88,4 +88,39 @@ export const changeHopsForm = (idx, form) => {
         type: CHANGE_HOPS_FORM,
         payload: { idx, form }
     };
+}
+
+export const newMaltAddition = () => {
+    return {
+        type: NEW_MALT_ADDITION,
+        payload: null
+    }
+}
+
+export const removeMaltAddition = (idx) => {
+    return {
+        type: REMOVE_MALT_ADDITION,
+        payload: idx
+    }
+}
+
+export const changeMaltMass = (idx, mass) => {
+    return {
+        type: CHANGE_MALT_MASS,
+        payload: { idx, mass }
+    }
+}
+
+export const changeMaltMassUnit = (idx, massUnit) => {
+    return {
+        type: CHANGE_MALT_MASS_UNIT,
+        payload: { idx, massUnit }
+    }
+}
+
+export const changeMaltColor = (idx, color) => {
+    return {
+        type: CHANGE_MALT_COLOR,
+        payload: { idx, color }
+    }
 }

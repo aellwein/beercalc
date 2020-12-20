@@ -16,8 +16,8 @@
     "alcohol by volume": "Алкоголь в % объёма",
     "calculation not possible": "Расчёт невыполним",
     "project on github": "Проект на Гитxабe",
-    "licensed under": "лицензировано по",
-    "mit license": "лицензии MIT",
+    "licensed under": "лицензия",
+    "mit license": "MIT",
     "ibu calculator": "Калькулятор горечи в IBU",
     "boiling time": "Время кипячения",
     "minutes": "минут",
@@ -37,5 +37,12 @@
     "version": "Версия",
     "developer version": "Неофициальная версия",
     "commit": "commit",
-    "color calculator": "Калькулятор цвета пива"
+    "color calculator": "Калькулятор цвета пива",
+    "mass": "Вес",
+    "mass unit": "г / кг",
+    "color ebc": "Цвет по шкале EBC",
+    "add malt": "Добавить солод",
+    "g": "г",
+    "kg": "кг",
+    "malt": "Солод"
 }

@@ -37,5 +37,12 @@
     "version": "version",
     "developer version": "Developer Version",
     "commit": "commit",
-    "color calculator": "beer color calculator"
+    "color calculator": "beer color calculator",
+    "mass": "mass",
+    "mass unit": "mass unit, g/kg",
+    "color ebc": "color, EBC",
+    "add malt": "Add malt",
+    "g": "g",
+    "kg": "kg",
+    "malt": "malt"
 }

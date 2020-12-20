@@ -1,6 +1,6 @@
 {
     "title": "Bierrechner",
-    "alcohol calculator": "Alkoholrechner",
+    "alcohol calculator": "Alkohol-Rechner",
     "brix": "Brix",
     "plato": "°Plato",
     "original gravity": "Stammwürze",
@@ -37,5 +37,12 @@
     "version": "Version",
     "developer version": "Entwickler-Version",
     "commit": "Commit",
-    "color calculator": "Bierfarben-Rechner"
+    "color calculator": "Bierfarben-Rechner",
+    "mass": "Masse",
+    "mass unit": "Einheit, g/kg",
+    "color ebc": "Farbe (EBC)",
+    "add malt": "Malz hinzufügen",
+    "g": "g",
+    "kg": "kg",
+    "malt": "Malz"
 }

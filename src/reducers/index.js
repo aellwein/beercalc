@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { CHANGE_UNIT, ORIGINAL_GRAVITY, FINAL_GRAVITY, BOILING_TIME, VOLUME, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, REMOVE_HOPS_ADDITION, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_ALPHA, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM } from "../actions/types";
+import { BOILING_TIME, CHANGE_HOPS_ALPHA, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM, CHANGE_MALT_COLOR, CHANGE_MALT_MASS, CHANGE_MALT_MASS_UNIT, CHANGE_UNIT, FINAL_GRAVITY, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, NEW_MALT_ADDITION, ORIGINAL_GRAVITY, REMOVE_HOPS_ADDITION, REMOVE_MALT_ADDITION, VOLUME } from "../actions/types";
 
 const defaultState = {
     unit: 'brix',
@@ -13,7 +13,10 @@ const defaultState = {
         flameout: 5,
         flameoutTemp: 85,
         hops: [],
-    }
+    },
+    grain: {
+        malt: [],
+    },
 };
 
 const beerCalc = (state = defaultState, action) => {
@@ -67,6 +70,24 @@ const beerCalc = (state = defaultState, action) => {
             let ho = state.ibu.hops;
             ho[action.payload.idx].form = action.payload.form;
             return { ...state, ibu: { ...state.ibu, hops: ho } };
+        case NEW_MALT_ADDITION:
+            let malt = { mass: 5.0, massUnit: 'kg', color: 8 };
+            return { ...state, grain: { ...state.grain, malt: [...state.grain.malt, malt] } };
+        case REMOVE_MALT_ADDITION:
+            state.grain.malt.splice(action.payload, 1);
+            return { ...state, grain: { ...state.grain, malt: [...state.grain.malt] } };
+        case CHANGE_MALT_MASS:
+            let newMalt = state.grain.malt;
+            newMalt[action.payload.idx].mass = action.payload.mass;
+            return { ...state, grain: { ...state.grain, malt: newMalt } };
+        case CHANGE_MALT_MASS_UNIT:
+            let newMalt2 = state.grain.malt;
+            newMalt2[action.payload.idx].massUnit = action.payload.massUnit;
+            return { ...state, grain: { ...state.grain, malt: newMalt2 } };
+        case CHANGE_MALT_COLOR:
+            let newMalt3 = state.grain.malt;
+            newMalt3[action.payload.idx].color = action.payload.color;
+            return { ...state, grain: { ...state.grain, malt: newMalt3 } };
 
         default:
             return state;

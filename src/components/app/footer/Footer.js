@@ -22,7 +22,6 @@ const commit = (gitInfo, t) => {
     }
 }
 
-
 const Footer = () => {
     const gitInfo = GitInfo();
     const { t } = useTranslation();

@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import AlcoholCalc from '../alcohol-calc/AlcoholCalc';
+import ColorCalc from '../color-calc/ColorCalc';
 import IbuCalc from '../ibu-calc/IbuCalc';
 import LangPicker from '../lang-picker/LangPicker';
 
@@ -34,6 +35,7 @@ const NavBar = () => {
                     <div className="navbar-start">
                         <NavLink to="/alcohol" className="navbar-item" activeClassName="is-tab is-active">{t('alcohol calculator')}</NavLink>
                         <NavLink to="/ibu" className="navbar-item" activeClassName="is-tab is-active">{t('ibu calculator')}</NavLink>
+                        <NavLink to="/ebc" className="navbar-item" activeClassName="is-tab is-active">{t('color calculator')}</NavLink>
                     </div>
                     <div className="navbar-end">
                         <LangPicker />
@@ -47,6 +49,9 @@ const NavBar = () => {
                 </Route>
                 <Route path="/ibu">
                     <IbuCalc />
+                </Route>
+                <Route path="/ebc">
+                    <ColorCalc />
                 </Route>
             </Switch>
         </BrowserRouter>
