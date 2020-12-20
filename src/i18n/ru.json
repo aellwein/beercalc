@@ -33,5 +33,7 @@
     "boil time": "Время варки, мин",
     "bitterness": "Горечь",
     "add hops": "Добавить хмель",
-    "hops addition": "Хмель"
+    "hops addition": "Хмель",
+    "version": "Версия",
+    "commit": "commit"
 }

@@ -33,5 +33,7 @@
     "boil time": "Boil Time, mins",
     "bitterness": "Bitterness",
     "add hops": "Add Hops",
-    "hops addition": "Hops Addition"
+    "hops addition": "Hops Addition",
+    "version": "version",
+    "commit": "commit"
 }
