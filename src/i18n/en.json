@@ -35,5 +35,7 @@
     "add hops": "Add Hops",
     "hops addition": "Hops Addition",
     "version": "version",
-    "commit": "commit"
+    "developer version": "Developer Version",
+    "commit": "commit",
+    "color calculator": "beer color calculator"
 }

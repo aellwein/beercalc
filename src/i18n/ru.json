@@ -35,5 +35,7 @@
     "add hops": "Добавить хмель",
     "hops addition": "Хмель",
     "version": "Версия",
-    "commit": "commit"
+    "developer version": "Неофициальная версия",
+    "commit": "commit",
+    "color calculator": "Калькулятор цвета пива"
 }

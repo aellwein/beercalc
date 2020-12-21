@@ -35,5 +35,7 @@
     "add hops": "Hopfengabe",
     "hops addition": "Hopfengabe",
     "version": "Version",
-    "commit": "Commit"
+    "developer version": "Entwickler-Version",
+    "commit": "Commit",
+    "color calculator": "Bierfarben-Rechner"
 }
