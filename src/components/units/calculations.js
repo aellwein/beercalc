@@ -15,14 +15,24 @@ const sgToPlato = (sg) => {
     return 668.72 * sg - 463.37 - 205.347 * Math.pow(sg, 2);
 }
 
+const brixToOe = (brix) => {
+    return brix * 4.25;
+}
+
+const oeToBrix = (oe) => {
+    return oe / 4.25;
+}
+
 export const convertUnits = (amount, unit) => {
     switch (unit) {
         case 'brix':
-            return { brix: amount, plato: brixToPlato(amount), sg: platoToSg(brixToPlato(amount)) };
+            return { brix: amount, plato: brixToPlato(amount), sg: platoToSg(brixToPlato(amount)), oe: brixToOe(amount) };
         case 'plato':
-            return { brix: platoToBrix(amount), plato: amount, sg: platoToSg(amount) };
+            return { brix: platoToBrix(amount), plato: amount, sg: platoToSg(amount), oe:  brixToOe(platoToBrix(amount)) };
         case 'sg':
-            return { brix: platoToBrix(sgToPlato(amount)), plato: sgToPlato(amount), sg: amount };
+            return { brix: platoToBrix(sgToPlato(amount)), plato: sgToPlato(amount), sg: amount, oe: brixToOe(platoToBrix(sgToPlato(amount))) };
+        case 'oe':
+            return { brix: oeToBrix(amount), plato: brixToPlato(oeToBrix(amount)), sg: platoToSg(brixToPlato(oeToBrix(amount))), oe: amount };
         default:
             return {};
     }
