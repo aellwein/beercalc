@@ -3,18 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bulma": "^0.9.0",
-    "i18next": "^19.8.4",
-    "i18next-browser-languagedetector": "^6.0.1",
-    "i18next-http-backend": "^1.0.22",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "bulma": "^0.9.3",
+    "i18next": "^20.3.2",
+    "i18next-browser-languagedetector": "^6.1.2",
+    "i18next-http-backend": "^1.2.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-git-info": "^2.0.0",
-    "react-i18next": "^11.8.5",
-    "react-redux": "^7.2.2",
+    "react-i18next": "^11.11.0",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "redux": "^4.0.5"
+    "redux": "^4.1.0",
+    "serialize-javascript": "^6.0.0"
   },
   "resolutions": {
     "serialize-javascript": "^3.1.0"
