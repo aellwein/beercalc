@@ -9,37 +9,16 @@ import LangPicker from '../lang-picker/LangPicker';
 const NavBar = () => {
     const { t } = useTranslation();
 
-    const onBurgerClick = () => {
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-        if ($navbarBurgers.length > 0) {
-            $navbarBurgers.forEach(el => {
-                el.addEventListener('click', () => {
-                    const target = el.dataset.target;
-                    const $target = document.getElementById(target);
-                    el.classList.toggle('is-active');
-                    $target.classList.toggle('is-active');
-                });
-            });
-        }
-    }
-
     return (
         <BrowserRouter>
-            <nav className="navbar" role="navigation" aria-label="main navigation">
-                <div className="navbar-burger" style={{ border: "0", backgroundColor: "white" }} aria-label="menu" aria-expanded="false" data-target="navbarMenu" onClick={onBurgerClick}>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </div>
-                <div id="navbarMenu" className="navbar-menu">
-                    <div className="navbar-start">
-                        <NavLink to="/alcohol" className="navbar-item" activeClassName="is-tab is-active">{t('alcohol calculator')}</NavLink>
-                        <NavLink to="/ibu" className="navbar-item" activeClassName="is-tab is-active">{t('ibu calculator')}</NavLink>
-                        <NavLink to="/ebc" className="navbar-item" activeClassName="is-tab is-active">{t('color calculator')}</NavLink>
-                    </div>
-                    <div className="navbar-end">
-                        <LangPicker />
-                    </div>
+            <nav>
+                <div className="flex flex-row flex-wrap gap-10">
+                        <NavLink to="/alcohol" className="hover:underline" activeClassName="underline text-indigo-600">{t('alcohol calculator')}</NavLink>
+                        <NavLink to="/ibu" className="hover:underline" activeClassName="underline text-indigo-600">{t('ibu calculator')}</NavLink>
+                        <NavLink to="/ebc" className="hover:underline" activeClassName="underline text-indigo-600">{t('color calculator')}</NavLink>
+                        <div className="flex-grow flex-shrink-0 text-right">
+                            <LangPicker />
+                        </div>
                 </div>
             </nav>
             <Switch>

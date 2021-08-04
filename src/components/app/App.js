@@ -11,8 +11,10 @@ const App = () => {
 
   return (
     <Suspense fallback='loading'>
-      <NavBar />
-      <Footer />
+      <div className="p-4">
+        <NavBar />
+        <Footer />
+      </div>
     </Suspense >
   );
 }
