@@ -20,12 +20,10 @@ const LangPicker = (_) => {
     const { i18n } = useTranslation();
 
     return (
-        <div className="is-right">
-            <div className="select">
-                <select onChange={e => onChangeLang(e.target.value, i18n)} value={i18n.language}>
-                    {[...languages()]}
-                </select>
-            </div>
+        <div>
+            <select className="border-gray-300 p-1 border-solid border-1" onChange={e => onChangeLang(e.target.value, i18n)} value={i18n.language}>
+                {[...languages()]}
+            </select>
         </div>
     );
 }

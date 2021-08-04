@@ -11,9 +11,9 @@ const App = () => {
 
   return (
     <Suspense fallback='loading'>
-      <div className="p-4">
-        <NavBar />
-        <Footer />
+        <div className="container mx-auto p-3">
+          <NavBar />
+          <Footer />
       </div>
     </Suspense >
   );

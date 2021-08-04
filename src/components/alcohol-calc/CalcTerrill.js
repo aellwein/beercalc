@@ -5,8 +5,8 @@ import { alcoholTerrillFormula } from '../units/calculations';
 
 const calcNotPossible = (t) => {
     return (
-        <div className="columns is-centered">
-            <div className="column is-narrow">{t('calculation not possible')}</div>
+        <div className="flex flex-wrap flex-col shadow-md p-4 gap-2 flex-grow items-center">
+            <div className="text-center flex-grow text-red-400 table"><span className="table-cell align-middle">{t('calculation not possible')}</span></div>
         </div>
     )
 }
@@ -23,32 +23,33 @@ const calcTerrill = (props, t) => {
     }
 
     return (
-        <div>
-            <div className="columns">
-                <div className="column no-bottom-padding">{t('apparent extract')}:</div>
-                <div className="column no-bottom-padding is-narrow">{calc.apparentExtract.toFixed(1)} °P</div>
+        <div className="flex flex-wrap flex-col shadow-md p-4 gap-2 flex-grow">
+            <div className="text-2xl text-center my-3">{t('terrill equation')}</div>
+            <div className="flex flex-row flex-wrap gap-2">
+                <div className="text-left">{t('apparent extract')}:</div>
+                <div className="text-right flex-grow flex-shrink">{calc.apparentExtract.toFixed(1)} °P</div>
             </div>
-            <div className="columns">
-                <div className="column no-bottom-padding">{t('real extract')}:</div>
-                <div className="column no-bottom-padding is-narrow">{calc.realExtract.toFixed(1)} %</div>
+            <div className="flex flex-row flex-wrap gap-2">
+                <div className="text-left">{t('real extract')}:</div>
+                <div className="text-right flex-grow flex-shrink">{calc.realExtract.toFixed(1)} %</div>
             </div>
-            <div className="columns">
-                <div className="column no-bottom-padding">{t('apparent attenuation')}:</div>
-                <div className="column no-bottom-padding is-narrow">{calc.apparentAttenuation.toFixed(1)} %</div>
+            <div className="flex flex-row flex-wrap gap-2">
+                <div className="text-left">{t('apparent attenuation')}:</div>
+                <div className="text-right flex-grow flex-shrink">{calc.apparentAttenuation.toFixed(1)} %</div>
             </div>
-            <div className="columns">
-                <div className="column no-bottom-padding">{t('real attenuation')}:</div>
-                <div className="column no-bottom-padding is-narrow">{calc.realAttenuation.toFixed(1)} %</div>
+            <div className="flex flex-row flex-wrap gap-2">
+                <div className="text-left">{t('real attenuation')}:</div>
+                <div className="text-right flex-grow flex-shrink">{calc.realAttenuation.toFixed(1)} %</div>
             </div>
-            <div className="columns">
-                <div className="column no-bottom-padding">{t('alcohol by weight')}:</div>
-                <div className="column no-bottom-padding is-narrow">{calc.alcByWeight.toFixed(1)} %</div>
+            <div className="flex flex-row flex-wrap gap-2">
+                <div className="text-left">{t('alcohol by weight')}:</div>
+                <div className="text-right flex-grow flex-shrink">{calc.alcByWeight.toFixed(1)} %</div>
             </div>
-            <div className="columns">
-                <div className="column no-bottom-padding">{t('alcohol by volume')}:</div>
-                <div className="column no-bottom-padding is-narrow">{calc.alcByVolume.toFixed(1)} %</div>
+            <div className="flex flex-row flex-wrap gap-2">
+                <div className="text-left">{t('alcohol by volume')}:</div>
+                <div className="text-right flex-grow flex-shrink">{calc.alcByVolume.toFixed(1)} %</div>
             </div>
-        </div >
+        </div>
     );
 }
 
@@ -63,18 +64,7 @@ const CalcTerrill = (props) => {
         // (refractometer only)
         return <div></div>;
     }
-    return (
-        <div className="card">
-            <div className="card-content">
-                <div className="columns is-centered">
-                    <div className="column is-narrow">
-                        <div className="title is-4">{t('terrill equation')}</div>
-                    </div>
-                </div>
-                {calcTerrill(props, t)}
-            </div>
-        </div>
-    );
+    return calcTerrill(props, t);
 }
 
 

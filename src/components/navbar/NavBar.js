@@ -12,13 +12,13 @@ const NavBar = () => {
     return (
         <BrowserRouter>
             <nav>
-                <div className="flex flex-row flex-wrap gap-10">
-                        <NavLink to="/alcohol" className="hover:underline" activeClassName="underline text-indigo-600">{t('alcohol calculator')}</NavLink>
-                        <NavLink to="/ibu" className="hover:underline" activeClassName="underline text-indigo-600">{t('ibu calculator')}</NavLink>
-                        <NavLink to="/ebc" className="hover:underline" activeClassName="underline text-indigo-600">{t('color calculator')}</NavLink>
-                        <div className="flex-grow flex-shrink-0 text-right">
-                            <LangPicker />
-                        </div>
+                <div className="flex flex-row flex-wrap gap-8 xs:gap-2">
+                    <NavLink to="/alcohol" className="hover:underline flex-shrink-0 text-gray-500" activeClassName="underline text-indigo-600">{t('alcohol calculator')}</NavLink>
+                    <NavLink to="/ibu" className="hover:underline flex-shrink-0 text-gray-500" activeClassName="underline text-indigo-600">{t('ibu calculator')}</NavLink>
+                    <NavLink to="/ebc" className="hover:underline flex-shrink-0 text-gray-500" activeClassName="underline text-indigo-600">{t('color calculator')}</NavLink>
+                    <div className="flex-grow xs:flex-grow-0 flex-shrink-0 text-right">
+                        <LangPicker />
+                    </div>
                 </div>
             </nav>
             <Switch>

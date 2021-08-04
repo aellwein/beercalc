@@ -17,20 +17,15 @@ const UnitPicker = (props) => {
         return <div></div>;
     }
     return (
-        <div className="card">
-            <div className="card-content">
-                <div className="control">
-                    <label className="radio">
-                        <input type="radio" id="brix" name="unit" checked={isChecked(props.unit, 'brix')} onChange={e => onChange(props, e.target.id)} />
-                        &nbsp;&nbsp;{t('brix')}
-                    </label>
-                    <label className="radio">
-                        <input type="radio" id="plato" name="unit" checked={isChecked(props.unit, 'plato')} onChange={e => onChange(props, e.target.id)} />
-                        &nbsp;&nbsp;{t('plato')}
-                    </label>
-
-                </div>
-            </div>
+        <div className="flex flex-row gap-4 shadow-md p-4">
+            <label className="radio">
+                <input type="radio" id="brix" name="unit" checked={isChecked(props.unit, 'brix')} onChange={e => onChange(props, e.target.id)} />
+                &nbsp;&nbsp;{t('brix')}
+            </label>
+            <label className="radio">
+                <input type="radio" id="plato" name="unit" checked={isChecked(props.unit, 'plato')} onChange={e => onChange(props, e.target.id)} />
+                &nbsp;&nbsp;{t('plato')}
+            </label>
         </div>
     );
 }
