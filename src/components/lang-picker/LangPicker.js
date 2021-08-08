@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 
 const languages = function* () {
     const langs = [
-        { 'short': 'en', 'long': 'English' },
-        { 'short': 'de', 'long': 'Deutsch' },
-        { 'short': 'ru', 'long': 'Русский' },
+        { 'short': 'en', 'long': '🇺🇸 EN' },
+        { 'short': 'de', 'long': '🇩🇪 DE' },
+        { 'short': 'ru', 'long': '🇷🇺 РУ' },
     ];
     for (let i of langs) {
         yield <option key={i.short} value={i.short}>{i.long}</option>
