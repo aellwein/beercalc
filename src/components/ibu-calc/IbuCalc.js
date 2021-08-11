@@ -1,26 +1,17 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import HopsAdder from "./HopsAdder";
-import './IbuCalc.css';
-import IbuPreset from "./IbuPreset";
 import { convertUnits } from "../units/calculations";
+import HopsAdder from "./HopsAdder";
+import IbuPreset from "./IbuPreset";
 
 const IbuCalc = (_) => {
     const { t } = useTranslation();
     return (
-        <div className="container top-title">
-            <div className="columns">
-                <div className="column">
-                    <div className="title is-4">{t('ibu calculator')}</div>
-                </div>
-            </div>
-            <div className="columns">
-                <div className="column is-full"><IbuPreset /></div>
-            </div>
-            <div className="columns">
-                <div className="column is-full"><HopsAdder /></div>
-            </div>
+        <div className="flex flex-col gap-4">
+            <div className="text-2xl my-3">{t('ibu calculator')}</div>
+            <div><IbuPreset /></div>
+            <div><HopsAdder /></div>
         </div>
     );
 }

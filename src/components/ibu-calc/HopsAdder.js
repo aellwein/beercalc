@@ -67,34 +67,41 @@ const onChangeForm = (props, idx, form) => {
 const hopsAdditions = function* (props, t) {
     for (let i = 0; i < props.ibu.hops.length; i++) {
         let a = props.ibu.hops[i];
+        yield <div className="underline 2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right" key={i + "-col1-1"}>{t('hops addition') + ' #' + (i + 1)}</div>;
         yield (
-            <div className="columns is-multiline is-vcentered" key={"hops-" + i}>
-                <div className="column has-text-right">{t('hops addition') + ' #' + (i + 1)}</div>
-                <div className="column has-text-right">
-                    <div className="select">
-                        <select defaultValue="whole" onChange={(e) => onChangeForm(props, i, e.target.value)}>
-                            <option value="whole">{t('whole')}</option>
-                            <option value="plugs">{t('plugs')}</option>
-                        </select>
-                    </div>
-                </div>
-                <div className="column has-text-right">
-                    <input className="input" type="number" min="0" max="5000" step=".1" value={a.amount} onChange={(e) => onChangeAmount(props, i, e.target.value)}></input>
-                </div>
-                <div className="column has-text-right">
-                    <input className="input" type="number" min="0" max="90" step=".1" value={a.alpha} onChange={(e) => onChangeAlpha(props, i, e.target.value)}></input>
-                </div>
-                <div className="column has-text-right">
-                    <input className="input" type="number" min="0" max="600" value={a.boil} onChange={(e) => onChangeBoil(props, i, e.target.value)}></input>
-                </div>
-                <div className="column has-text-right">
-                    <div className="">{a.ibu}</div>
-                </div>
-                <div className="column is-1">
-                    <div className="button" onClick={() => onRemoveHopsClick(props, i)}>X</div>
-                </div>
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left" key={i + "col1-2"}>
+                <div className="">{a.ibu} <button className="py-2 px-2 bg-red-300 text-white hover:bg-red-600 p-1" onClick={() => onRemoveHopsClick(props, i)}>X</button></div>
             </div>
         );
+        yield <div key={i + "-col2-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('form')}</div>;
+        yield (
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left" key={i + "col2-2"}>
+                <select className="p-1 border-gray-300 border-1 border-solid" defaultValue="whole" onChange={(e) => onChangeForm(props, i, e.target.value)}>
+                    <option value="whole">{t('whole')}</option>
+                    <option value="plugs">{t('plugs')}</option>
+                </select>
+            </div>
+        );
+        yield <div key={i + "-col3-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('amount')}</div>;
+        yield (
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left" key={i + "col3-2"}>
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none" type="number" min="0" max="5000" step=".1" value={a.amount} onChange={(e) => onChangeAmount(props, i, e.target.value)}></input>
+            </div>
+        );
+        yield <div key={i + "-col4-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('alpha acid')}</div>;
+        yield (
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left" key={i + "col4-2"}>
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none" type="number" min="0" max="90" step=".1" value={a.alpha} onChange={(e) => onChangeAlpha(props, i, e.target.value)}></input>
+            </div>
+        );
+        yield <div key={i + "-col5-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('boil time')}</div>;
+        yield (
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left" key={i + "col5-2"}>
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none" type="number" min="0" max="600" value={a.boil} onChange={(e) => onChangeBoil(props, i, e.target.value)}></input>
+            </div>
+        );
+        yield <div key={i + "-col6-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('bitterness')}</div>;
+        yield <div key={i + "-col6-2"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{a.ibu} IBU</div>
     }
 }
 
@@ -112,33 +119,20 @@ const calcBitterness = (props) => {
 const HopsAdder = (props) => {
     const { t } = useTranslation();
     return (
-        <div className="card">
-            <div className="card-content">
-                <div className="columns is-multiline">
-                    <div className="column">&nbsp;</div>
-                    <div className="column has-text-right">{t('form')}</div>
-                    <div className="column has-text-right">{t('amount')}</div>
-                    <div className="column has-text-right">{t('alpha acid')}</div>
-                    <div className="column has-text-right">{t('boil time')}</div>
-                    <div className="column has-text-right">{t('bitterness')}</div>
-                    <div className="column is-1">&nbsp;</div>
-                </div>
-                {[...hopsAdditions(props, t)]}
-                <div className="columns is-multiline is-vcentered">
-                    <div className="column has-text-right"><div className="button is-primary" onClick={() => onAddHopsClick(props)}>{t('add hops')}</div></div>
-                    <div className="column has-text-right"></div>
-                    <div className="column has-text-right"></div>
-                    <div className="column has-text-right"></div>
-                    <div className="column has-text-right"></div>
-                    <div className="column has-text-right"><strong>{calcBitterness(props)}</strong></div>
-                    <div className="column is-1"><strong>IBU</strong></div>
-                </div>
+        <div className="grid grid-cols-12 gap-4 p-4 shadow-md items-baseline">
+            {[...hopsAdditions(props, t)]}
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-6 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right"><strong>{t('total bitterness')}</strong></div>
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-6 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right"><strong>{calcBitterness(props)} IBU</strong></div>
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-6 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">
+                <button className="py-2 px-4 text-white bg-green-500 rounded-lg shadow-md hover:bg-green-700" onClick={() => onAddHopsClick(props)}>{t('add hops')}</button>
             </div>
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-6 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right"></div>
         </div>
     );
 }
 
-const mapStateToProps = (state, ownProps) => {
+
+const mapStateToProps = (state, _) => {
     recalcIbu(state.beerCalc);
     return state.beerCalc;
 }
