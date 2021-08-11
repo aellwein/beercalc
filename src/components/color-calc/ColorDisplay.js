@@ -24,11 +24,11 @@ const ColorDisplay = (props) => {
     const ebc = calculateEbc(props);
 
     return (
-        <div className="columns is-vcentered">
-            <div className="column is-half">
-                <strong>{ebc} EBC</strong>
+        <div className="grid grid-cols-12 gap-3 shadow-md p-4 items-baseline">
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right mx-auto my-auto">
+                <span><strong>{ebc} EBC</strong></span>
             </div>
-            <div className="column is-half">
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">
                 <div className={(ebc >= 100) ? "ebc-100" : "ebc-" + ebc} style={{ height: "100px" }}></div>
             </div>
         </div>

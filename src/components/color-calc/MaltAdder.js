@@ -50,52 +50,45 @@ const onRemoveGrainClick = (props, idx) => {
 const grainAdditions = function* (props, t) {
     for (let i = 0; i < props.grain.malt.length; i++) {
         let a = props.grain.malt[i];
+        yield <div key={i + "col1-1"} className="underline 2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('malt') + ' #' + (i + 1)}</div>;
         yield (
-            <div className="columns is-multiline is-vcentered" key={"malt-" + i}>
-                <div className="column has-text-right">{t('malt') + ' #' + (i + 1)}</div>
-                <div className="column has-text-right">
-                    <input className="input" type="number" min="0" max="500" step=".1" value={a.mass} onChange={(e) => onChangeMass(props, i, e.target.value)}></input>
-                </div>
-                <div className="column has-text-right">
-                    <div className="select">
-                        <select defaultValue="kg" onChange={(e) => onChangeMassUnit(props, i, e.target.value)}>
-                            <option value="kg">{t('kg')}</option>
-                            <option value="g">{t('g')}</option>
-                        </select>
-                    </div>
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left" key={i + "col1-2"}>
+                <div className="">{a.ibu} <button className="py-2 px-2 bg-red-300 text-white hover:bg-red-600 p-1" onClick={() => onRemoveGrainClick(props, i)}>X</button></div>
+            </div>
+        );
 
-                </div>
-                <div className="column has-text-right">
-                    <input className="input" type="number" min="1" max="10000" step="1" value={a.color} onChange={(e) => onChangeEBC(props, i, e.target.value)}></input>
-                </div>
-                <div className="column is-1">
-                    <div className="button" onClick={() => onRemoveGrainClick(props, i)}>X</div>
-                </div>
+        yield <div key={i + "-col2-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('mass')}</div>;
+        yield (
+            <div key={i + "-col2-2"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left">
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none" type="number" min="0" max="500" step=".1" value={a.mass} onChange={(e) => onChangeMass(props, i, e.target.value)}></input>
+            </div>
+        );
+        yield <div key={i + "-col3-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('mass unit')}</div>;
+        yield (
+            <div key={i + "-col3-2"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left">
+                <select className="p-1 border-gray-300 border-1 border-solid" defaultValue="kg" onChange={(e) => onChangeMassUnit(props, i, e.target.value)}>
+                    <option value="kg">{t('kg')}</option>
+                    <option value="g">{t('g')}</option>
+                </select>
+            </div>
+        );
+        yield <div key={i + "-col4-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('color ebc')}</div>;
+        yield (
+            <div key={i + "-col-4-2"}
+                className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left">
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none" type="number" min="1" max="10000" step="1" value={a.color} onChange={(e) => onChangeEBC(props, i, e.target.value)}></input>
             </div>
         );
     }
 }
 
-
 const MaltAdder = (props) => {
     const { t } = useTranslation();
     return (
-        <div className="card">
-            <div className="card-content">
-                <div className="columns is-multiline">
-                    <div className="column">&nbsp;</div>
-                    <div className="column has-text-right">{t('mass')}</div>
-                    <div className="column has-text-right">{t('mass unit')}</div>
-                    <div className="column has-text-right">{t('color ebc')}</div>
-                    <div className="column is-1">&nbsp;</div>
-                </div>
-                {[...grainAdditions(props, t)]}
-                <div className="columns is-multiline is-vcentered">
-                    <div className="column has-text-right"><div className="button is-primary" onClick={() => onAddMalt(props)}>{t('add malt')}</div></div>
-                    <div className="column has-text-right"></div>
-                    <div className="column has-text-right"></div>
-                    <div className="column has-text-right"></div>
-                </div>
+        <div className="grid grid-cols-12 gap-4 shadow-md p-4 items-baseline">
+            {[...grainAdditions(props, t)]}
+            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-6 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">
+                <button className="py-2 px-4 bg-yellow-500 text-white rounded-lg shadow-md hover:bg-yellow-700" onClick={() => onAddMalt(props)}>{t('add malt')}</button>
             </div>
         </div>
     );
