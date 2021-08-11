@@ -5,6 +5,7 @@ import AlcoholCalc from '../alcohol-calc/AlcoholCalc';
 import ColorCalc from '../color-calc/ColorCalc';
 import IbuCalc from '../ibu-calc/IbuCalc';
 import LangPicker from '../lang-picker/LangPicker';
+import ModeToggle from '../mode-toggle/ModeToggle';
 
 const NavBar = () => {
     const { t } = useTranslation();
@@ -12,12 +13,15 @@ const NavBar = () => {
     return (
         <BrowserRouter>
             <nav>
-                <div className="flex flex-row flex-wrap gap-8 xs:gap-2">
+                <div className="flex flex-row flex-wrap gap-8 xs:gap-2 items-baseline">
                     <NavLink to="/alcohol" className="hover:underline flex-shrink-0 text-gray-500" activeClassName="underline text-indigo-600">{t('alcohol calculator')}</NavLink>
                     <NavLink to="/ibu" className="hover:underline flex-shrink-0 text-gray-500" activeClassName="underline text-indigo-600">{t('ibu calculator')}</NavLink>
                     <NavLink to="/ebc" className="hover:underline flex-shrink-0 text-gray-500" activeClassName="underline text-indigo-600">{t('color calculator')}</NavLink>
-                    <div className="flex-grow xs:flex-grow-0 flex-shrink-0 text-right">
-                        <LangPicker />
+                    <div className="flex-grow flex-shrink-0">
+                        <div className="flex flex-row gap-3 items-baseline justify-end">
+                            <ModeToggle />
+                            <LangPicker />
+                        </div>
                     </div>
                 </div>
             </nav>

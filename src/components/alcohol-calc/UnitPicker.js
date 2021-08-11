@@ -19,11 +19,11 @@ const UnitPicker = (props) => {
     return (
         <div className="flex flex-row gap-4 shadow-md p-4">
             <label className="radio">
-                <input type="radio" id="brix" name="unit" checked={isChecked(props.unit, 'brix')} onChange={e => onChange(props, e.target.id)} />
+                <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="brix" name="unit" checked={isChecked(props.unit, 'brix')} onChange={e => onChange(props, e.target.id)} />
                 &nbsp;&nbsp;{t('brix')}
             </label>
             <label className="radio">
-                <input type="radio" id="plato" name="unit" checked={isChecked(props.unit, 'plato')} onChange={e => onChange(props, e.target.id)} />
+                <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="plato" name="unit" checked={isChecked(props.unit, 'plato')} onChange={e => onChange(props, e.target.id)} />
                 &nbsp;&nbsp;{t('plato')}
             </label>
         </div>

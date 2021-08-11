@@ -8,7 +8,7 @@ import IbuPreset from "./IbuPreset";
 const IbuCalc = (_) => {
     const { t } = useTranslation();
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 dark:text-gray-400">
             <div className="text-2xl my-3">{t('ibu calculator')}</div>
             <div><IbuPreset /></div>
             <div><HopsAdder /></div>

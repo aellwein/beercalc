@@ -107,7 +107,7 @@ const IbuPreset = (props) => {
         <div className="grid grid-cols-12 gap-3 shadow-md p-4 items-baseline">
             <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('original gravity')}</div>
             <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 xs:col-span-8 col-span-8">
-                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none"
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
                     type="number"
                     min=".1"
                     max="40"
@@ -116,7 +116,7 @@ const IbuPreset = (props) => {
                     onChange={(e) => changeOriginalGravity(props, e.target.value)}></input>
             </div>
             <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">
-                <select className="p-1 border-gray-300 border-1 border-solid" onChange={(e) => onChangeUnit(props, e.target.value)}>
+                <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit(props, e.target.value)}>
                     {[...getOptions(props, t)]}
                 </select>
             </div>
@@ -124,28 +124,28 @@ const IbuPreset = (props) => {
 
             <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('boiling time')}</div>
             <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 xs:col-span-8 col-span-8">
-                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none" type="number" min="1" max="600" step="1" value={props.ibu.boiling} onChange={(e) => onBoilingChange(props, e.target.value)}></input>
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300" type="number" min="1" max="600" step="1" value={props.ibu.boiling} onChange={(e) => onBoilingChange(props, e.target.value)}></input>
             </div>
             <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">{t('minutes')}</div>
 
 
             <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('volume')}</div>
             <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 xs:col-span-8 col-span-8">
-                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none" type="number" min="1" max="500" step="1" value={props.ibu.volume} onChange={(e) => onVolumeChange(props, e.target.value)}></input>
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300" type="number" min="1" max="500" step="1" value={props.ibu.volume} onChange={(e) => onVolumeChange(props, e.target.value)}></input>
             </div>
             <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">{t('liter')}</div>
 
 
             <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('flameout time')}</div>
             <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 xs:col-span-8 col-span-8">
-                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none" type="number" min="0" max="90" step="1" value={props.ibu.flameout} onChange={(e) => onFlameoutChange(props, e.target.value)}></input>
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300" type="number" min="0" max="90" step="1" value={props.ibu.flameout} onChange={(e) => onFlameoutChange(props, e.target.value)}></input>
             </div>
             <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">{t('minutes')}</div>
 
 
             <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('flameout temp')}</div>
             <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 xs:col-span-8 col-span-8">
-                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none" type="number" min="20" max="100" step="1" value={props.ibu.flameoutTemp} onChange={(e) => onFlameoutTempChange(props, e.target.value)}></input>
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300" type="number" min="20" max="100" step="1" value={props.ibu.flameoutTemp} onChange={(e) => onFlameoutTempChange(props, e.target.value)}></input>
             </div>
             <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">°C</div>
         </div>

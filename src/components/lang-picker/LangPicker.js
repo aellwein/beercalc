@@ -21,7 +21,7 @@ const LangPicker = (_) => {
 
     return (
         <div>
-            <select className="border-gray-300 p-1 border-solid border-1" onChange={e => onChangeLang(e.target.value, i18n)} value={i18n.language}>
+            <select className="border-gray-300 p-1 border-solid border-1 dark:bg-gray-700 dark:text-gray-300" onChange={e => onChangeLang(e.target.value, i18n)} value={i18n.language}>
                 {[...languages()]}
             </select>
         </div>

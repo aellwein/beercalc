@@ -44,7 +44,7 @@ const GravityPicker = (props) => {
                 <span>{t('original gravity')}</span>
             </div>
             <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 col-span-12 xs:col-span-12">
-                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none"
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
                     type="number" id="og" min=".1" max="40" step=".1" value={props.gravity.original} onChange={e => onChangeOg(props, e.target.value)}></input>
             </div>
             <div className="2xl:col-span-8 xl:col-span-7 lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12 xs:col-span-12 2xl:text-left xl:text-left lg:text-left sm:text-right">
@@ -57,7 +57,7 @@ const GravityPicker = (props) => {
             </div>
 
             <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 sm:col-span-6 md:col-span-4 col-span-12 xs:col-span-12">
-                <input className="border-gray-300 p-1 border-solid border-1 flex-shrink flex-grow-0 focus:border-blue-300 focus:ring outline-none"
+                <input className="border-gray-300 p-1 border-solid border-1 flex-shrink flex-grow-0 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
                     type="number" id="fg" min=".1" max="40" step=".1" value={props.gravity.final} onChange={e => onChangeFg(props, e.target.value)}></input>
             </div>
             <div className="2xl:col-span-8 xl:col-span-7 lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12 xs:col-span-12 xl:text-left 2xl:text-left lg:text-left sm:text-right">

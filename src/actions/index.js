@@ -1,4 +1,4 @@
-import { BOILING_TIME, CHANGE_HOPS_ALPHA, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM, CHANGE_MALT_COLOR, CHANGE_MALT_MASS, CHANGE_MALT_MASS_UNIT, CHANGE_UNIT, FINAL_GRAVITY, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, NEW_MALT_ADDITION, ORIGINAL_GRAVITY, REMOVE_HOPS_ADDITION, REMOVE_MALT_ADDITION, VOLUME } from "./types";
+import { BOILING_TIME, CHANGE_HOPS_ALPHA, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM, CHANGE_MALT_COLOR, CHANGE_MALT_MASS, CHANGE_MALT_MASS_UNIT, CHANGE_UNIT, FINAL_GRAVITY, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, NEW_MALT_ADDITION, ORIGINAL_GRAVITY, REMOVE_HOPS_ADDITION, REMOVE_MALT_ADDITION, TURN_DARK_MODE, TURN_LITE_MODE, VOLUME } from "./types";
 
 export const changeUnit = (unit) => {
     return {
@@ -122,5 +122,19 @@ export const changeMaltColor = (idx, color) => {
     return {
         type: CHANGE_MALT_COLOR,
         payload: { idx, color }
+    }
+}
+
+export const turnDarkMode = () => {
+    return {
+        type: TURN_DARK_MODE,
+        payload: null
+    }
+}
+
+export const turnLiteMode = () => {
+    return {
+        type: TURN_LITE_MODE,
+        payload: null
     }
 }

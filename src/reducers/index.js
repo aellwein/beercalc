@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
-import { BOILING_TIME, CHANGE_HOPS_ALPHA, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM, CHANGE_MALT_COLOR, CHANGE_MALT_MASS, CHANGE_MALT_MASS_UNIT, CHANGE_UNIT, FINAL_GRAVITY, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, NEW_MALT_ADDITION, ORIGINAL_GRAVITY, REMOVE_HOPS_ADDITION, REMOVE_MALT_ADDITION, VOLUME } from "../actions/types";
+import { BOILING_TIME, CHANGE_HOPS_ALPHA, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM, CHANGE_MALT_COLOR, CHANGE_MALT_MASS, CHANGE_MALT_MASS_UNIT, CHANGE_UNIT, FINAL_GRAVITY, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, NEW_MALT_ADDITION, ORIGINAL_GRAVITY, REMOVE_HOPS_ADDITION, REMOVE_MALT_ADDITION, TURN_DARK_MODE, TURN_LITE_MODE, VOLUME } from "../actions/types";
 
 const defaultState = {
+    displayMode: 'lite',
     unit: 'brix',
     gravity: {
         original: 12.0,
@@ -88,7 +89,10 @@ const beerCalc = (state = defaultState, action) => {
             let newMalt3 = state.grain.malt;
             newMalt3[action.payload.idx].color = action.payload.color;
             return { ...state, grain: { ...state.grain, malt: newMalt3 } };
-
+        case TURN_DARK_MODE:
+            return { ...state,  displayMode: 'dark'};
+            case TURN_LITE_MODE:
+                return { ...state,  displayMode: 'lite'};
         default:
             return state;
     }

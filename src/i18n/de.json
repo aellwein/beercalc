@@ -46,5 +46,7 @@
     "add malt": "Malz hinzufügen",
     "g": "g",
     "kg": "kg",
-    "malt": "Malz"
+    "malt": "Malz",
+    "turn dark mode": "Dunkles Theme einschalten",
+    "turn light mode": "Helles Theme einschalten"
 }

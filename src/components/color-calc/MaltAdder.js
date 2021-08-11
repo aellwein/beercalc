@@ -60,13 +60,13 @@ const grainAdditions = function* (props, t) {
         yield <div key={i + "-col2-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('mass')}</div>;
         yield (
             <div key={i + "-col2-2"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left">
-                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none" type="number" min="0" max="500" step=".1" value={a.mass} onChange={(e) => onChangeMass(props, i, e.target.value)}></input>
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300" type="number" min="0" max="500" step=".1" value={a.mass} onChange={(e) => onChangeMass(props, i, e.target.value)}></input>
             </div>
         );
         yield <div key={i + "-col3-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('mass unit')}</div>;
         yield (
             <div key={i + "-col3-2"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left">
-                <select className="p-1 border-gray-300 border-1 border-solid" defaultValue="kg" onChange={(e) => onChangeMassUnit(props, i, e.target.value)}>
+                <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" defaultValue="kg" onChange={(e) => onChangeMassUnit(props, i, e.target.value)}>
                     <option value="kg">{t('kg')}</option>
                     <option value="g">{t('g')}</option>
                 </select>
@@ -76,7 +76,7 @@ const grainAdditions = function* (props, t) {
         yield (
             <div key={i + "-col-4-2"}
                 className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left">
-                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none" type="number" min="1" max="10000" step="1" value={a.color} onChange={(e) => onChangeEBC(props, i, e.target.value)}></input>
+                <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300" type="number" min="1" max="10000" step="1" value={a.color} onChange={(e) => onChangeEBC(props, i, e.target.value)}></input>
             </div>
         );
     }
@@ -88,7 +88,7 @@ const MaltAdder = (props) => {
         <div className="grid grid-cols-12 gap-4 shadow-md p-4 items-baseline">
             {[...grainAdditions(props, t)]}
             <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-6 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">
-                <button className="py-2 px-4 bg-yellow-500 text-white rounded-lg shadow-md hover:bg-yellow-700" onClick={() => onAddMalt(props)}>{t('add malt')}</button>
+                <button className="py-2 px-4 bg-yellow-500 dark:bg-yellow-700 text-white dark:text-gray-100 rounded-lg shadow-md hover:bg-yellow-700 dark:hover:bg-yellow-400 dark:hover:text-gray-800" onClick={() => onAddMalt(props)}>{t('add malt')}</button>
             </div>
         </div>
     );

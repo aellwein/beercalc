@@ -25,7 +25,7 @@ const Footer = () => {
     const gitInfo = GitInfo();
     const { t } = useTranslation();
     return (
-        <footer className="my-6 text-center">
+        <footer className="my-6 text-center dark:text-gray-400">
             <a className="text-indigo-600 hover:underline" href={baseUrl}>{t('project on github')}</a> | &nbsp;
             {version(gitInfo, t)} | &nbsp;
             {commit(gitInfo, t)} | &nbsp;

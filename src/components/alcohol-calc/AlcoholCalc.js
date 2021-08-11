@@ -32,7 +32,7 @@ const AlcoholCalc = (props) => {
     const { t } = useTranslation();
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 dark:text-gray-400">
             <div className="text-2xl my-3">{t('alcohol calculator')}</div>
             <div><UnitPicker /></div>
             <div><GravityPicker /></div>
