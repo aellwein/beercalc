@@ -4,6 +4,7 @@
     "brix": "°Bx",
     "plato": "°Plato",
     "oechsle": "°Oe",
+    "gravity unit": "Gravity Unit",
     "original gravity": "Original Gravity",
     "final gravity": "Final Gravity",
     "standard equation": "Standard Equation",
@@ -48,5 +49,6 @@
     "kg": "kg",
     "malt": "malt",
     "turn dark mode": "turn dark mode",
-    "turn light mode": "turn light mode"
+    "turn light mode": "turn light mode",
+    "brewhouse calculator": "brewhouse efficiency calculator"
 }

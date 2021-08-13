@@ -4,6 +4,7 @@
     "brix": "Brix",
     "plato": "°Plato",
     "oechsle": "°Oe",
+    "gravity unit": "Maßeinheit",
     "original gravity": "Stammwürze",
     "final gravity": "Restextrakt",
     "standard equation": "Berechnung nach Standard-Formel",
@@ -48,5 +49,6 @@
     "kg": "kg",
     "malt": "Malz",
     "turn dark mode": "Dunkles Theme einschalten",
-    "turn light mode": "Helles Theme einschalten"
+    "turn light mode": "Helles Theme einschalten",
+    "brewhouse calculator": "Sudhausausbeute-Rechner"
 }

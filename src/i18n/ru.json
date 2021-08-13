@@ -4,6 +4,7 @@
     "brix": "°Брикс",
     "plato": "°Плато",
     "oechsle": "°Oe",
+    "gravity unit": "Единица измерения плотности",
     "original gravity": "Начальная плотность",
     "final gravity": "Конечная плотность",
     "standard equation": "По стандартному уравнению",
@@ -48,5 +49,6 @@
     "kg": "кг",
     "malt": "Солод",
     "turn dark mode": "включить тёмный режим",
-    "turn light mode": "включить светлый режим"
+    "turn light mode": "включить светлый режим",
+    "brewhouse calculator": "Калькулятор эффективности пивоварни"
 }
