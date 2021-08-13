@@ -17,9 +17,9 @@ const ModeToggle = (props) => {
         return <div></div>;
     }
     if (props.displayMode === 'lite') {
-        return <button title={t('turn dark mode')} onClick={() => toggleMode(props)}>🌛</button>;
+        return <button className="rounded-3xl border-1 border-solid border-gray-300 p-1 dark:bg-gray-700 dark:text-gray-300" title={t('turn dark mode')} onClick={() => toggleMode(props)}>🌛</button>;
     } else if (props.displayMode === 'dark') {
-        return <button title={t('turn light mode')} onClick={() => toggleMode(props)}>🌞</button>;
+        return <button className="rounded-3xl border-1 border-solid border-gray-300 p-1 dark:bg-gray-700 dark:text-gray-300" title={t('turn light mode')} onClick={() => toggleMode(props)}>🌞</button>;
     } else {
         return <div>error: invalid mode!</div>
     }
