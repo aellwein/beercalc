@@ -1,8 +1,15 @@
-import { BOILING_TIME, CHANGE_HOPS_ALPHA, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM, CHANGE_MALT_COLOR, CHANGE_MALT_MASS, CHANGE_MALT_MASS_UNIT, CHANGE_UNIT, FINAL_GRAVITY, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, NEW_MALT_ADDITION, ORIGINAL_GRAVITY, REMOVE_HOPS_ADDITION, REMOVE_MALT_ADDITION, TURN_DARK_MODE, TURN_LITE_MODE, VOLUME } from "./types";
+import { BOILING_TIME, CHANGE_BREWHOUSE_EFFICIENCY, CHANGE_HOPS_ALPHA, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM, CHANGE_MALT_COLOR, CHANGE_MALT_MASS, CHANGE_MALT_MASS_UNIT, CHANGE_UNIT, CHANGE_UNIT_2, CHANGE_VOLUME_MEASURED_AT, CHANGE_VOLUME_MEASURED_AT_2, CHANGE_WORT_VOLUME, CHANGE_WORT_VOLUME_2, FINAL_GRAVITY, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, NEW_MALT_ADDITION, ORIGINAL_GRAVITY, ORIGINAL_GRAVITY_2, REMOVE_HOPS_ADDITION, REMOVE_MALT_ADDITION, SET_GRAIN_MASS_AND_UNIT, TURN_DARK_MODE, TURN_LITE_MODE, VOLUME } from "./types";
 
 export const changeUnit = (unit) => {
     return {
         type: CHANGE_UNIT,
+        payload: unit
+    };
+}
+
+export const changeUnit2 = (unit) => {
+    return {
+        type: CHANGE_UNIT_2,
         payload: unit
     };
 }
@@ -13,6 +20,14 @@ export const originalGravity = (newValue) => {
         payload: newValue
     };
 }
+
+export const originalGravity2 = (newValue) => {
+    return {
+        type: ORIGINAL_GRAVITY_2,
+        payload: newValue
+    };
+}
+
 export const finalGravity = (newValue) => {
     return {
         type: FINAL_GRAVITY,
@@ -125,6 +140,41 @@ export const changeMaltColor = (idx, color) => {
     }
 }
 
+export const setGrainMassAndUnit = (newMass, newUnit) => {
+    return {
+        type: SET_GRAIN_MASS_AND_UNIT,
+        payload: { grainMass: newMass, grainMassUnit: newUnit }
+    }
+}
+
+export const changeWortVolume = (wortVolume) => {
+    return {
+        type: CHANGE_WORT_VOLUME,
+        payload: { wortVolume }
+    }
+}
+
+export const changeWortVolume2 = (wortVolume) => {
+    return {
+        type: CHANGE_WORT_VOLUME_2,
+        payload: { wortVolume }
+    }
+}
+
+export const changeVolumeMeasuredAt = (volumeMeasuredAt) => {
+    return {
+        type: CHANGE_VOLUME_MEASURED_AT,
+        payload: { volumeMeasuredAt }
+    }
+}
+
+export const changeVolumeMeasuredAt2 = (volumeMeasuredAt) => {
+    return {
+        type: CHANGE_VOLUME_MEASURED_AT_2,
+        payload: { volumeMeasuredAt }
+    }
+}
+
 export const turnDarkMode = () => {
     return {
         type: TURN_DARK_MODE,
@@ -136,5 +186,12 @@ export const turnLiteMode = () => {
     return {
         type: TURN_LITE_MODE,
         payload: null
+    }
+}
+
+export const changeBrewhouseEfficiency = (be) => {
+    return {
+        type: CHANGE_BREWHOUSE_EFFICIENCY,
+        payload: { brewhouseEfficiency: be }
     }
 }

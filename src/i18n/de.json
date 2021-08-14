@@ -50,5 +50,10 @@
     "malt": "Malz",
     "turn dark mode": "Dunkles Theme einschalten",
     "turn light mode": "Helles Theme einschalten",
-    "brewhouse calculator": "Sudhausausbeute-Rechner"
+    "brewhouse calculator": "Sudhausausbeute-Rechner",
+    "grain mass": "Schüttung",
+    "wort volume": "Ausschlagwürze",
+    "volume measured at": "Volumen gemessen bei",
+    "brewhouse efficiency": "Sudhausausbeute",
+    "grain mass relative to brewhouse efficiency": "Schüttung bei bekannter Sudhausausbeute"
 }

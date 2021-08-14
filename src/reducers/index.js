@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { BOILING_TIME, CHANGE_HOPS_ALPHA, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM, CHANGE_MALT_COLOR, CHANGE_MALT_MASS, CHANGE_MALT_MASS_UNIT, CHANGE_UNIT, FINAL_GRAVITY, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, NEW_MALT_ADDITION, ORIGINAL_GRAVITY, REMOVE_HOPS_ADDITION, REMOVE_MALT_ADDITION, TURN_DARK_MODE, TURN_LITE_MODE, VOLUME } from "../actions/types";
+import { BOILING_TIME, CHANGE_BREWHOUSE_EFFICIENCY, CHANGE_HOPS_ALPHA, CHANGE_HOPS_AMOUNT, CHANGE_HOPS_BOIL, CHANGE_HOPS_FORM, CHANGE_MALT_COLOR, CHANGE_MALT_MASS, CHANGE_MALT_MASS_UNIT, CHANGE_UNIT, CHANGE_UNIT_2, CHANGE_VOLUME_MEASURED_AT, CHANGE_VOLUME_MEASURED_AT_2, CHANGE_WORT_VOLUME, CHANGE_WORT_VOLUME_2, FINAL_GRAVITY, FLAMEOUT, FLAMEOUT_TEMP, NEW_HOPS_ADDITION, NEW_MALT_ADDITION, ORIGINAL_GRAVITY, ORIGINAL_GRAVITY_2, REMOVE_HOPS_ADDITION, REMOVE_MALT_ADDITION, SET_GRAIN_MASS_AND_UNIT, TURN_DARK_MODE, TURN_LITE_MODE, VOLUME } from "../actions/types";
 
 const defaultState = {
     displayMode: 'lite',
@@ -18,14 +18,28 @@ const defaultState = {
     grain: {
         malt: [],
     },
+    brewhouse: {
+        volumeMeasuredAt: '100',
+        grainMassFromBrewhouse: {
+            originalGravity: 12,
+            originalGravityUnit: 'brix',
+            wortVolume: 20,
+            volumeMeasuredAt: '100',
+            brewhouseEfficiency: 65
+        }
+    },
 };
 
 const beerCalc = (state = defaultState, action) => {
     switch (action.type) {
         case CHANGE_UNIT:
             return { ...state, unit: action.payload };
+        case CHANGE_UNIT_2:
+            return { ...state, brewhouse: { ...state.brewhouse, grainMassFromBrewhouse: { ...state.brewhouse.grainMassFromBrewhouse, originalGravityUnit: action.payload } } };
         case ORIGINAL_GRAVITY:
             return { ...state, gravity: { ...state.gravity, original: action.payload } };
+        case ORIGINAL_GRAVITY_2:
+            return { ...state, brewhouse: { ...state.brewhouse, grainMassFromBrewhouse: { ...state.brewhouse.grainMassFromBrewhouse, originalGravity: action.payload } } };
         case FINAL_GRAVITY:
             return { ...state, gravity: { ...state.gravity, final: action.payload } };
         case BOILING_TIME:
@@ -90,9 +104,21 @@ const beerCalc = (state = defaultState, action) => {
             newMalt3[action.payload.idx].color = action.payload.color;
             return { ...state, grain: { ...state.grain, malt: newMalt3 } };
         case TURN_DARK_MODE:
-            return { ...state,  displayMode: 'dark'};
-            case TURN_LITE_MODE:
-                return { ...state,  displayMode: 'lite'};
+            return { ...state, displayMode: 'dark' };
+        case TURN_LITE_MODE:
+            return { ...state, displayMode: 'lite' };
+        case SET_GRAIN_MASS_AND_UNIT:
+            return { ...state, brewhouse: { ...state.brewhouse, grainMass: action.payload.grainMass, grainMassUnit: action.payload.grainMassUnit } };
+        case CHANGE_WORT_VOLUME:
+            return { ...state, brewhouse: { ...state.brewhouse, wortVolume: action.payload.wortVolume } };
+        case CHANGE_WORT_VOLUME_2:
+            return { ...state, brewhouse: { ...state.brewhouse, grainMassFromBrewhouse: { ...state.brewhouse.grainMassFromBrewhouse, wortVolume: action.payload.wortVolume } } };
+        case CHANGE_VOLUME_MEASURED_AT:
+            return { ...state, brewhouse: { ...state.brewhouse, volumeMeasuredAt: action.payload.volumeMeasuredAt } };
+        case CHANGE_VOLUME_MEASURED_AT_2:
+            return { ...state, brewhouse: { ...state.brewhouse, grainMassFromBrewhouse: { ...state.brewhouse.grainMassFromBrewhouse, volumeMeasuredAt: action.payload.volumeMeasuredAt } } };
+        case CHANGE_BREWHOUSE_EFFICIENCY:
+            return { ...state, brewhouse: { ...state.brewhouse, grainMassFromBrewhouse: { ...state.brewhouse.grainMassFromBrewhouse, brewhouseEfficiency: action.payload.brewhouseEfficiency } } };
         default:
             return state;
     }

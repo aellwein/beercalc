@@ -50,5 +50,10 @@
     "malt": "malt",
     "turn dark mode": "turn dark mode",
     "turn light mode": "turn light mode",
-    "brewhouse calculator": "brewhouse efficiency calculator"
+    "brewhouse calculator": "brewhouse efficiency calculator",
+    "grain mass": "Grain mass",
+    "wort volume": "Wort volume",
+    "volume measured at": "volume measured at",
+    "brewhouse efficiency": "brewhouse efficiency",
+    "grain mass relative to brewhouse efficiency": "grain mass relative to brewhouse efficiency"
 }
