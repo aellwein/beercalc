@@ -5,18 +5,10 @@ import { boilingTime, changeFlameout, changeFlameoutTemp, changeUnit, changeVolu
 
 const changeOriginalGravity = (props, newOg) => {
     let og = parseFloat(newOg);
-    if (isNaN(og)) {
+    if (isNaN(og) || og === null) {
         return;
     }
-    if (og < .1) {
-        og = .1;
-    }
-    if (og > 40) {
-        og = 40;
-    }
-    if (og !== null) {
-        props.originalGravity(og);
-    }
+    props.originalGravity(og);
 }
 
 const getOptions = function* (props, t) {
@@ -35,66 +27,35 @@ const onChangeUnit = (props, unit) => {
 
 const onBoilingChange = (props, time) => {
     let boil = parseFloat(time);
-    if (isNaN(boil)) {
+    if (isNaN(boil) || boil === null) {
         return;
     }
-    if (boil < 1) {
-        boil = 1;
-    }
-    if (boil > 600) {
-        boil = 600;
-    }
-    if (boil !== null) {
-        props.boilingTime(boil);
-    }
+    props.boilingTime(boil);
+
 }
 
 const onVolumeChange = (props, newVol) => {
     let vol = parseFloat(newVol);
-    if (isNaN(vol)) {
+    if (isNaN(vol) || vol === null) {
         return;
     }
-    if (vol < 1) {
-        vol = 1;
-    }
-    if (vol > 500) {
-        vol = 500;
-    }
-    if (vol !== null) {
-        props.changeVolume(vol);
-    }
+    props.changeVolume(vol);
 }
 
 const onFlameoutChange = (props, newTime) => {
     let time = parseFloat(newTime);
-    if (isNaN(time)) {
+    if (isNaN(time) || time === null) {
         return;
     }
-    if (time < 0) {
-        time = 0;
-    }
-    if (time > 90) {
-        time = 90;
-    }
-    if (time !== null) {
-        props.changeFlameout(time);
-    }
+    props.changeFlameout(time);
 }
 
 const onFlameoutTempChange = (props, newTemp) => {
     let temp = parseFloat(newTemp);
-    if (isNaN(temp)) {
+    if (isNaN(temp) || temp === null) {
         return;
     }
-    if (temp < 20) {
-        temp = 20;
-    }
-    if (temp > 100) {
-        temp = 100;
-    }
-    if (temp !== null) {
-        props.changeFlameoutTemp(temp);
-    }
+    props.changeFlameoutTemp(temp);
 }
 
 

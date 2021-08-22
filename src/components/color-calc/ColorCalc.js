@@ -7,34 +7,18 @@ import MaltAdder from './MaltAdder';
 
 const changeOriginalGravity = (props, newOg) => {
     let og = parseFloat(newOg);
-    if (isNaN(og)) {
+    if (isNaN(og) || og === null) {
         return;
     }
-    if (og < .1) {
-        og = .1;
-    }
-    if (og > 40) {
-        og = 40;
-    }
-    if (og !== null) {
-        props.originalGravity(og);
-    }
+    props.originalGravity(og);
 }
 
 const onBoilingChange = (props, time) => {
     let boil = parseFloat(time);
-    if (isNaN(boil)) {
+    if (isNaN(boil) || boil === null) {
         return;
     }
-    if (boil < 1) {
-        boil = 1;
-    }
-    if (boil > 600) {
-        boil = 600;
-    }
-    if (boil !== null) {
-        props.boilingTime(boil);
-    }
+    props.boilingTime(boil);
 }
 
 const getOptions = function* (props, t) {

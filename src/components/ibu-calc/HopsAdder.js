@@ -14,50 +14,29 @@ const onRemoveHopsClick = (props, idx) => {
 
 const onChangeAmount = (props, idx, amount) => {
     let a = parseFloat(amount);
-    if (isNaN(a)) {
+    if (isNaN(a) || a === null) {
         return;
     }
-    if (a < 0) {
-        a = 0;
-    }
-    if (a > 5000) {
-        a = 5000;
-    }
-    if (a !== null) {
-        props.changeHopsAmount(idx, a);
-    }
+    props.changeHopsAmount(idx, a);
 }
 
 const onChangeAlpha = (props, idx, newAlpha) => {
     let a = parseFloat(newAlpha);
-    if (isNaN(a)) {
+    if (isNaN(a) || a === null) {
         return;
     }
-    if (a < 0) {
-        a = 0;
-    }
-    if (a > 90) {
-        a = 90;
-    }
-    if (a !== null) {
-        props.changeHopsAlpha(idx, a);
-    }
+    props.changeHopsAlpha(idx, a);
 }
 
 const onChangeBoil = (props, idx, boilTime) => {
     let b = parseFloat(boilTime);
-    if (isNaN(b)) {
+    if (isNaN(b) || b === null) {
         return;
-    }
-    if (b < 0) {
-        b = 0;
     }
     if (b > Math.min(b, props.ibu.boiling)) {
         b = Math.min(b, props.ibu.boiling)
     }
-    if (b !== null) {
-        props.changeHopsBoil(idx, b);
-    }
+    props.changeHopsBoil(idx, b);
 }
 
 const onChangeForm = (props, idx, form) => {

@@ -13,34 +13,19 @@ const onChangeMassUnit = (props, idx, val) => {
 
 const onChangeMass = (props, idx, val) => {
     let a = parseFloat(val);
-    if (isNaN(a)) {
+    if (isNaN(a) || a === null) {
         return;
     }
-    if (a < .1) {
-        a = .1;
-    }
-    if (a > 5000) {
-        a = 5000;
-    }
-    if (a !== null) {
-        props.changeMaltMass(idx, a);
-    }
+    props.changeMaltMass(idx, a);
+
 }
 
 const onChangeEBC = (props, idx, color) => {
     let a = parseInt(color);
-    if (isNaN(a)) {
+    if (isNaN(a) || a === null) {
         return;
     }
-    if (a < 1) {
-        a = 1;
-    }
-    if (a > 10000) {
-        a = 10000;
-    }
-    if (a !== null) {
-        props.changeMaltColor(idx, a);
-    }
+    props.changeMaltColor(idx, a);
 }
 
 const onRemoveGrainClick = (props, idx) => {

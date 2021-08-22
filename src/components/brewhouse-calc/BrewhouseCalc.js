@@ -6,12 +6,10 @@ import { convertUnits } from "../units/calculations";
 
 const changeGrainMass = (props, val) => {
     let mass = parseFloat(val);
-    if (isNaN(mass)) {
+    if (isNaN(mass) || mass === null) {
         return;
     }
-    if (mass >= .1 && mass <= 10000) {
-        props.setGrainMassAndUnit(mass, props.brewhouse.grainMassUnit);
-    }
+    props.setGrainMassAndUnit(mass, props.brewhouse.grainMassUnit);
 }
 
 const changeGrainMassUnit = (props, unit) => {
@@ -20,44 +18,26 @@ const changeGrainMassUnit = (props, unit) => {
 
 const changeOriginalGravity = (props, newOg) => {
     let og = parseFloat(newOg);
-    if (isNaN(og)) {
+    if (isNaN(og) || og === null) {
         return;
     }
-    if (og < .1) {
-        og = .1;
-    }
-    if (og > 40) {
-        og = 40;
-    }
-    if (og !== null) {
-        props.originalGravity(og);
-    }
+    props.originalGravity(og);
 }
 
 const changeOriginalGravity2 = (props, newOg) => {
     let og = parseFloat(newOg);
-    if (isNaN(og)) {
+    if (isNaN(og) || og === null) {
         return;
     }
-    if (og < .1) {
-        og = .1;
-    }
-    if (og > 40) {
-        og = 40;
-    }
-    if (og !== null) {
-        props.originalGravity2(og);
-    }
+    props.originalGravity2(og);
 }
 
 const onChangeBrewhouseEfficiency = (props, val) => {
     let be = parseFloat(val);
-    if (isNaN(be)) {
+    if (isNaN(be) || be === null) {
         return;
     }
-    if (be > 0 && be <= 100) {
-        props.changeBrewhouseEfficiency(be);
-    }
+    props.changeBrewhouseEfficiency(be);
 }
 
 const getOptions = function* (props, t) {
@@ -90,7 +70,7 @@ const onChangeUnit2 = (props, unit) => {
 
 const onChangeWortVolume = (props, val) => {
     let wortVol = parseFloat(val);
-    if (isNaN(wortVol)) {
+    if (isNaN(wortVol) || wortVol === null) {
         return;
     }
     props.changeWortVolume(wortVol);
@@ -98,7 +78,7 @@ const onChangeWortVolume = (props, val) => {
 
 const onChangeWortVolume2 = (props, val) => {
     let wortVol = parseFloat(val);
-    if (isNaN(wortVol)) {
+    if (isNaN(wortVol) || wortVol === null) {
         return;
     }
     props.changeWortVolume2(wortVol);
@@ -115,15 +95,15 @@ const onChangeVolumeMeasuredAt2 = (props, val) => {
 
 const getBrewhouseEfficiency = (props) => {
     const og = convertUnits(props.gravity.original, props.unit);
-    const grainMassKg = (props.brewhouse.grainMassUnit === 'g')? props.brewhouse.grainMass / 1000 : props.brewhouse.grainMass;
-    const tempFactor = (props.brewhouse.volumeMeasuredAt === '100')? 0.96: 1;
-    const brewhouseEfficiency = (props.brewhouse.wortVolume * og.sg * (og.plato / 100) * tempFactor / grainMassKg) * 100; 
+    const grainMassKg = (props.brewhouse.grainMassUnit === 'g') ? props.brewhouse.grainMass / 1000 : props.brewhouse.grainMass;
+    const tempFactor = (props.brewhouse.volumeMeasuredAt === '100') ? 0.96 : 1;
+    const brewhouseEfficiency = (props.brewhouse.wortVolume * og.sg * (og.plato / 100) * tempFactor / grainMassKg) * 100;
     return brewhouseEfficiency.toFixed(1);
 }
 
 const getGrainMassFromBrewhouse = (props) => {
     const og = convertUnits(props.brewhouse.grainMassFromBrewhouse.originalGravity, props.brewhouse.grainMassFromBrewhouse.originalGravityUnit);
-    const tempFactor = (props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === '100')? 0.96: 1;
+    const tempFactor = (props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === '100') ? 0.96 : 1;
     const grainMassKg = (props.brewhouse.grainMassFromBrewhouse.wortVolume * og.sg * (og.plato / 100) * tempFactor / props.brewhouse.grainMassFromBrewhouse.brewhouseEfficiency) * 100;
     return grainMassKg.toFixed(1);
 }
@@ -276,5 +256,7 @@ const mapStateToProps = (state, _) => {
     return { ...state.beerCalc, brewhouse };
 }
 
-export default connect(mapStateToProps, { setGrainMassAndUnit, changeUnit, changeUnit2, originalGravity, originalGravity2, 
-    changeWortVolume, changeVolumeMeasuredAt, changeWortVolume2, changeVolumeMeasuredAt2, changeBrewhouseEfficiency })(BrewhouseEfficiencyCalc);
+export default connect(mapStateToProps, {
+    setGrainMassAndUnit, changeUnit, changeUnit2, originalGravity, originalGravity2,
+    changeWortVolume, changeVolumeMeasuredAt, changeWortVolume2, changeVolumeMeasuredAt2, changeBrewhouseEfficiency
+})(BrewhouseEfficiencyCalc);

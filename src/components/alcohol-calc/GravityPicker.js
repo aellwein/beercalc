@@ -6,34 +6,18 @@ import ShowUnits from '../units/ShowUnits';
 
 const onChangeOg = (props, newOg) => {
     let og = parseFloat(newOg);
-    if (isNaN(og)) {
+    if (isNaN(og) || og === null) {
         return;
     }
-    if (og < .1) {
-        og = .1;
-    }
-    if (og > 40) {
-        og = 40;
-    }
-    if (og !== null) {
-        props.originalGravity(og);
-    }
+    props.originalGravity(og);
 }
 
 const onChangeFg = (props, newFg) => {
     let fg = parseFloat(newFg);
-    if (isNaN(fg)) {
+    if (isNaN(fg) || fg === null) {
         return;
     }
-    if (fg < .1) {
-        fg = .1;
-    }
-    if (fg > 40) {
-        fg = 40;
-    }
-    if (fg !== null) {
-        props.finalGravity(fg);
-    }
+    props.finalGravity(fg);
 }
 
 const GravityPicker = (props) => {
