@@ -1,18 +1,20 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
-import { boilingTime, changeFlameout, changeFlameoutTemp, changeUnit, changeVolume, originalGravity } from '../../actions';
+import { TFunction, useTranslation } from "react-i18next";
+import { connect, ConnectedProps } from "react-redux";
+import { boilingTime, changeFlameout, changeFlameoutTemp, changeUnit, changeVolume, setOriginalGravity } from '../../actions';
+import { CalculatorState, Unit } from "../../types";
 
-const changeOriginalGravity = (props, newOg) => {
+interface IbuPresetProps extends PropsFromRedux { }
+
+const changeOriginalGravity = (props: IbuPresetProps, newOg: string) => {
     let og = parseFloat(newOg);
     if (isNaN(og) || og === null) {
         return;
     }
-    props.originalGravity(og);
+    props.setOriginalGravity({ unit: props.originalGravity.unit, amount: og });
 }
 
-const getOptions = function* (props, t) {
-    if (props.unit === 'brix') {
+const getOptions = function* (props: IbuPresetProps, t: TFunction<"translation", undefined>) {
+    if (props.unit === Unit.Brix) {
         yield <option value='brix' key='brix'>{t('brix')}</option>;
         yield <option value='plato' key='plato'>{t('plato')}</option>;
     } else {
@@ -21,11 +23,11 @@ const getOptions = function* (props, t) {
     }
 }
 
-const onChangeUnit = (props, unit) => {
+const onChangeUnit = (props: IbuPresetProps, unit: Unit) => {
     props.changeUnit(unit);
 }
 
-const onBoilingChange = (props, time) => {
+const onBoilingChange = (props: IbuPresetProps, time: string) => {
     let boil = parseFloat(time);
     if (isNaN(boil) || boil === null) {
         return;
@@ -34,7 +36,7 @@ const onBoilingChange = (props, time) => {
 
 }
 
-const onVolumeChange = (props, newVol) => {
+const onVolumeChange = (props: IbuPresetProps, newVol: string) => {
     let vol = parseFloat(newVol);
     if (isNaN(vol) || vol === null) {
         return;
@@ -42,7 +44,7 @@ const onVolumeChange = (props, newVol) => {
     props.changeVolume(vol);
 }
 
-const onFlameoutChange = (props, newTime) => {
+const onFlameoutChange = (props: IbuPresetProps, newTime: string) => {
     let time = parseFloat(newTime);
     if (isNaN(time) || time === null) {
         return;
@@ -50,7 +52,7 @@ const onFlameoutChange = (props, newTime) => {
     props.changeFlameout(time);
 }
 
-const onFlameoutTempChange = (props, newTemp) => {
+const onFlameoutTempChange = (props: IbuPresetProps, newTemp: string) => {
     let temp = parseFloat(newTemp);
     if (isNaN(temp) || temp === null) {
         return;
@@ -59,7 +61,7 @@ const onFlameoutTempChange = (props, newTemp) => {
 }
 
 
-const IbuPreset = (props) => {
+const IbuPreset: React.FC<IbuPresetProps> = (props: IbuPresetProps) => {
     const { t } = useTranslation();
     if (!props || !props.unit) {
         return <div>Loading...</div>;
@@ -73,11 +75,11 @@ const IbuPreset = (props) => {
                     min=".1"
                     max="40"
                     step=".1"
-                    value={props.gravity.original}
+                    value={props.originalGravity.amount}
                     onChange={(e) => changeOriginalGravity(props, e.target.value)}></input>
             </div>
             <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">
-                <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit(props, e.target.value)}>
+                <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit(props, e.target.value as Unit)}>
                     {[...getOptions(props, t)]}
                 </select>
             </div>
@@ -113,8 +115,11 @@ const IbuPreset = (props) => {
     );
 }
 
-const mapStateToProps = (state, _) => {
-    return state.beerCalc;
+const mapStateToProps = (rootState: any) => {
+    return rootState.beerCalc as CalculatorState;
 }
 
-export default connect(mapStateToProps, { originalGravity, changeUnit, changeFlameout, changeFlameoutTemp, boilingTime, changeVolume })(IbuPreset);
+const connector = connect(mapStateToProps, { setOriginalGravity, changeUnit, changeFlameout, changeFlameoutTemp, boilingTime, changeVolume });
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(IbuPreset);

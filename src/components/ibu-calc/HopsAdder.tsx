@@ -1,18 +1,21 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
-import { changeHopsAlpha, changeHopsAmount, changeHopsForm, changeHopsBoil, newHopsAddition, removeHopsAddition } from '../../actions';
-import { recalcIbu } from "./IbuCalc";
+import { TFunction, useTranslation } from "react-i18next";
+import { connect, ConnectedProps } from "react-redux";
+import { changeHopsAlpha, changeHopsAmount, changeHopsBoil, changeHopsForm, newHopsAddition, removeHopsAddition } from '../../actions';
+import { CalculatorState, HopsForm } from "../../types";
+import { convertUnits } from "../units/calculations";
 
-const onAddHopsClick = (props) => {
+interface IbuCalcProps extends PropsFromRedux {
+}
+
+const onAddHopsClick = (props: IbuCalcProps) => {
     props.newHopsAddition();
 }
 
-const onRemoveHopsClick = (props, idx) => {
+const onRemoveHopsClick = (props: IbuCalcProps, idx: number) => {
     props.removeHopsAddition(idx);
 }
 
-const onChangeAmount = (props, idx, amount) => {
+const onChangeAmount = (props: IbuCalcProps, idx: number, amount: string) => {
     let a = parseFloat(amount);
     if (isNaN(a) || a === null) {
         return;
@@ -20,7 +23,7 @@ const onChangeAmount = (props, idx, amount) => {
     props.changeHopsAmount(idx, a);
 }
 
-const onChangeAlpha = (props, idx, newAlpha) => {
+const onChangeAlpha = (props: IbuCalcProps, idx: number, newAlpha: string) => {
     let a = parseFloat(newAlpha);
     if (isNaN(a) || a === null) {
         return;
@@ -28,7 +31,7 @@ const onChangeAlpha = (props, idx, newAlpha) => {
     props.changeHopsAlpha(idx, a);
 }
 
-const onChangeBoil = (props, idx, boilTime) => {
+const onChangeBoil = (props: IbuCalcProps, idx: number, boilTime: string) => {
     let b = parseFloat(boilTime);
     if (isNaN(b) || b === null) {
         return;
@@ -39,11 +42,11 @@ const onChangeBoil = (props, idx, boilTime) => {
     props.changeHopsBoil(idx, b);
 }
 
-const onChangeForm = (props, idx, form) => {
+const onChangeForm = (props: IbuCalcProps, idx: number, form: HopsForm) => {
     props.changeHopsForm(idx, form);
 }
 
-const hopsAdditions = function* (props, t) {
+const hopsAdditions = function* (props: IbuCalcProps, t: TFunction<"translation", undefined>) {
     for (let i = 0; i < props.ibu.hops.length; i++) {
         let a = props.ibu.hops[i];
         yield <div className="underline 2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right" key={i + "-col1-1"}>{t('hops addition') + ' #' + (i + 1)}</div>;
@@ -55,7 +58,7 @@ const hopsAdditions = function* (props, t) {
         yield <div key={i + "-col2-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('form')}</div>;
         yield (
             <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left" key={i + "col2-2"}>
-                <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" defaultValue="whole" onChange={(e) => onChangeForm(props, i, e.target.value)}>
+                <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" defaultValue="whole" onChange={(e) => onChangeForm(props, i, e.target.value as HopsForm)}>
                     <option value="whole">{t('whole')}</option>
                     <option value="plugs">{t('plugs')}</option>
                 </select>
@@ -84,18 +87,18 @@ const hopsAdditions = function* (props, t) {
     }
 }
 
-const calcBitterness = (props) => {
+const calcBitterness = (props: IbuCalcProps): number => {
     let b = 0.0;
     if (props.ibu.hops.length === 0) {
         return b;
     }
     for (let h of props.ibu.hops) {
-        b += parseFloat(h.ibu);
+        b += h.ibu;
     }
-    return b.toFixed(1);
+    return Number.parseFloat(b.toFixed(1));
 }
 
-const HopsAdder = (props) => {
+const HopsAdder: React.FC<IbuCalcProps> = (props: IbuCalcProps) => {
     const { t } = useTranslation();
     return (
         <div className="grid grid-cols-12 gap-4 p-4 shadow-md items-baseline">
@@ -110,10 +113,26 @@ const HopsAdder = (props) => {
     );
 }
 
-
-const mapStateToProps = (state, _) => {
-    recalcIbu(state.beerCalc);
-    return state.beerCalc;
+const recalcIbu = (state: CalculatorState) => {
+    const og = convertUnits(state.originalGravity.amount, state.originalGravity.unit);
+    // isomerization speed factor + time
+    const isoSpeedFactor = 0.046 * Math.exp(0.031 * state.ibu.flameoutTemp);
+    const addIsoTime = isoSpeedFactor * state.ibu.flameout;
+    for (let h of state.ibu.hops) {
+        // better alpha acid isomerization through pellets
+        const hopsFactor = (h.form === HopsForm.Whole) ? 1.1 : 1.0;
+        const ibu = (hopsFactor * ((h.amount * h.alpha * 10) / state.ibu.volume) * (1.65 * Math.pow(0.000125, (0.004 * og.plato))) * ((1 - Math.exp(-0.04 * (h.boil + addIsoTime))) / 4.15)).toFixed(1);
+        h.ibu = Number.parseFloat(ibu);
+    }
 }
 
-export default connect(mapStateToProps, { newHopsAddition, removeHopsAddition, changeHopsAmount, changeHopsForm, changeHopsAlpha, changeHopsBoil })(HopsAdder);
+const mapStateToProps = (rootState: any) => {
+    let state: CalculatorState = rootState.beerCalc;
+    recalcIbu(state);
+    return state;
+}
+
+const connector = connect(mapStateToProps, { newHopsAddition, removeHopsAddition, changeHopsAmount, changeHopsForm, changeHopsAlpha, changeHopsBoil });
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(HopsAdder);

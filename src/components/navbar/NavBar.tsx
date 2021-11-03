@@ -1,8 +1,7 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import AlcoholCalc from '../alcohol-calc/AlcoholCalc';
-import BrewhouseEfficiencyCalc from '../brewhouse-calc/BrewhouseCalc';
+import BrewhouseCalc from '../brewhouse-calc/BrewhouseCalc';
 import ColorCalc from '../color-calc/ColorCalc';
 import IbuCalc from '../ibu-calc/IbuCalc';
 import LangPicker from '../lang-picker/LangPicker';
@@ -39,7 +38,7 @@ const NavBar = () => {
                     <ColorCalc />
                 </Route>
                 <Route path="/brewhouse">
-                    <BrewhouseEfficiencyCalc />
+                    <BrewhouseCalc />
                 </Route>
             </Switch>
         </BrowserRouter>

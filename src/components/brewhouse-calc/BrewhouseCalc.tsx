@@ -1,38 +1,48 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
-import { changeUnit, changeUnit2, changeVolumeMeasuredAt, changeVolumeMeasuredAt2, changeWortVolume, changeWortVolume2, originalGravity, originalGravity2, setGrainMassAndUnit, changeBrewhouseEfficiency } from '../../actions';
+import { TFunction, useTranslation } from "react-i18next";
+import { connect, ConnectedProps } from "react-redux";
+import { changeBrewhouseEfficiency, changeUnit, changeUnit2, changeVolumeMeasuredAt, changeVolumeMeasuredAt2, changeWortVolume, changeWortVolume2, setGrainMassAndUnit, setOriginalGravity, setOriginalGravity2 } from '../../actions';
+import { BrewhouseEfficiencyState, CalculatorState, Gravity, MassUnit, Unit, VolumeMeasuredAt } from "../../types";
 import { convertUnits } from "../units/calculations";
 
-const changeGrainMass = (props, val) => {
+interface BrewhouseCalcProps extends PropsFromRedux {
+    unit: Unit;
+    originalGravity: Gravity,
+    brewhouse: BrewhouseEfficiencyState
+}
+
+const changeGrainMass = (props: BrewhouseCalcProps, val: string) => {
     let mass = parseFloat(val);
     if (isNaN(mass) || mass === null) {
         return;
     }
-    props.setGrainMassAndUnit(mass, props.brewhouse.grainMassUnit);
+    if (props.brewhouse.grainMassUnit) {
+        props.setGrainMassAndUnit(mass, props.brewhouse.grainMassUnit);
+    }
 }
 
-const changeGrainMassUnit = (props, unit) => {
-    props.setGrainMassAndUnit(props.brewhouse.grainMass, unit);
+const changeGrainMassUnit = (props: BrewhouseCalcProps, unit: MassUnit) => {
+    if (props.brewhouse.grainMass) {
+        props.setGrainMassAndUnit(props.brewhouse.grainMass, unit);
+    }
 }
 
-const changeOriginalGravity = (props, newOg) => {
+const changeOriginalGravity = (props: BrewhouseCalcProps, newOg: string) => {
     let og = parseFloat(newOg);
     if (isNaN(og) || og === null) {
         return;
     }
-    props.originalGravity(og);
+    props.setOriginalGravity({ unit: props.unit, amount: og });
 }
 
-const changeOriginalGravity2 = (props, newOg) => {
+const changeOriginalGravity2 = (props: BrewhouseCalcProps, newOg: string) => {
     let og = parseFloat(newOg);
     if (isNaN(og) || og === null) {
         return;
     }
-    props.originalGravity2(og);
+    props.setOriginalGravity2({ unit: props.unit, amount: og });
 }
 
-const onChangeBrewhouseEfficiency = (props, val) => {
+const onChangeBrewhouseEfficiency = (props: BrewhouseCalcProps, val: string) => {
     let be = parseFloat(val);
     if (isNaN(be) || be === null) {
         return;
@@ -40,8 +50,8 @@ const onChangeBrewhouseEfficiency = (props, val) => {
     props.changeBrewhouseEfficiency(be);
 }
 
-const getOptions = function* (props, t) {
-    if (props.unit === 'brix') {
+const getOptions = function* (props: BrewhouseCalcProps, t: TFunction<"translation", undefined>): Generator<JSX.Element, void, undefined> {
+    if (props.unit === Unit.Brix) {
         yield <option value='brix' key='brix'>{t('brix')}</option>;
         yield <option value='plato' key='plato'>{t('plato')}</option>;
     } else {
@@ -50,8 +60,8 @@ const getOptions = function* (props, t) {
     }
 }
 
-const getOptions2 = function* (props, t) {
-    if (props.brewhouse.grainMassFromBrewhouse.originalGravityUnit === 'brix') {
+const getOptions2 = function* (props: BrewhouseCalcProps, t: TFunction<"translation", undefined>): Generator<JSX.Element, void, undefined> {
+    if (props.brewhouse.grainMassFromBrewhouse.originalGravity.unit === Unit.Brix) {
         yield <option value='brix' key='brix'>{t('brix')}</option>;
         yield <option value='plato' key='plato'>{t('plato')}</option>;
     } else {
@@ -60,15 +70,15 @@ const getOptions2 = function* (props, t) {
     }
 }
 
-const onChangeUnit = (props, unit) => {
+const onChangeUnit = (props: BrewhouseCalcProps, unit: Unit) => {
     props.changeUnit(unit);
 }
 
-const onChangeUnit2 = (props, unit) => {
+const onChangeUnit2 = (props: BrewhouseCalcProps, unit: Unit) => {
     props.changeUnit2(unit);
 }
 
-const onChangeWortVolume = (props, val) => {
+const onChangeWortVolume = (props: BrewhouseCalcProps, val: string) => {
     let wortVol = parseFloat(val);
     if (isNaN(wortVol) || wortVol === null) {
         return;
@@ -76,7 +86,7 @@ const onChangeWortVolume = (props, val) => {
     props.changeWortVolume(wortVol);
 }
 
-const onChangeWortVolume2 = (props, val) => {
+const onChangeWortVolume2 = (props: BrewhouseCalcProps, val: string) => {
     let wortVol = parseFloat(val);
     if (isNaN(wortVol) || wortVol === null) {
         return;
@@ -85,30 +95,30 @@ const onChangeWortVolume2 = (props, val) => {
 }
 
 
-const onChangeVolumeMeasuredAt = (props, val) => {
+const onChangeVolumeMeasuredAt = (props: BrewhouseCalcProps, val: VolumeMeasuredAt) => {
     props.changeVolumeMeasuredAt(val);
 }
 
-const onChangeVolumeMeasuredAt2 = (props, val) => {
+const onChangeVolumeMeasuredAt2 = (props: BrewhouseCalcProps, val: VolumeMeasuredAt) => {
     props.changeVolumeMeasuredAt2(val);
 }
 
-const getBrewhouseEfficiency = (props) => {
-    const og = convertUnits(props.gravity.original, props.unit);
-    const grainMassKg = (props.brewhouse.grainMassUnit === 'g') ? props.brewhouse.grainMass / 1000 : props.brewhouse.grainMass;
-    const tempFactor = (props.brewhouse.volumeMeasuredAt === '100') ? 0.96 : 1;
+const getBrewhouseEfficiency = (props: BrewhouseCalcProps): number => {
+    const og = convertUnits(props.originalGravity.amount, props.originalGravity.unit);
+    const grainMassKg = (props.brewhouse.grainMassUnit === MassUnit.Gram) ? props.brewhouse.grainMass / 1000 : props.brewhouse.grainMass;
+    const tempFactor = (props.brewhouse.volumeMeasuredAt === VolumeMeasuredAt.Hundred) ? 0.96 : 1;
     const brewhouseEfficiency = (props.brewhouse.wortVolume * og.sg * (og.plato / 100) * tempFactor / grainMassKg) * 100;
-    return brewhouseEfficiency.toFixed(1);
+    return Number.parseFloat(brewhouseEfficiency.toFixed(1));
 }
 
-const getGrainMassFromBrewhouse = (props) => {
-    const og = convertUnits(props.brewhouse.grainMassFromBrewhouse.originalGravity, props.brewhouse.grainMassFromBrewhouse.originalGravityUnit);
-    const tempFactor = (props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === '100') ? 0.96 : 1;
+const getGrainMassFromBrewhouse = (props: BrewhouseCalcProps): number => {
+    const og = convertUnits(props.brewhouse.grainMassFromBrewhouse.originalGravity.amount, props.brewhouse.grainMassFromBrewhouse.originalGravity.unit);
+    const tempFactor = (props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === VolumeMeasuredAt.Hundred) ? 0.96 : 1;
     const grainMassKg = (props.brewhouse.grainMassFromBrewhouse.wortVolume * og.sg * (og.plato / 100) * tempFactor / props.brewhouse.grainMassFromBrewhouse.brewhouseEfficiency) * 100;
-    return grainMassKg.toFixed(1);
+    return Number.parseFloat(grainMassKg.toFixed(1));
 }
 
-const BrewhouseEfficiencyCalc = (props) => {
+const BrewhouseEfficiencyCalc: React.FC<BrewhouseCalcProps> = (props: BrewhouseCalcProps) => {
     const { t } = useTranslation();
     return (
         <div className="flex flex-col gap-4 dark:text-gray-400">
@@ -128,7 +138,7 @@ const BrewhouseEfficiencyCalc = (props) => {
                     ></input>
                 </div>
                 <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">
-                    <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={e => changeGrainMassUnit(props, e.target.value)}>
+                    <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={e => changeGrainMassUnit(props, e.target.value as MassUnit)}>
                         <option value="kg">{t('kg')}</option>
                         <option value="g">{t('g')}</option>
                     </select>
@@ -140,11 +150,11 @@ const BrewhouseEfficiencyCalc = (props) => {
                         min=".1"
                         max="40"
                         step=".1"
-                        value={props.gravity.original}
+                        value={props.originalGravity.amount}
                         onChange={(e) => changeOriginalGravity(props, e.target.value)}></input>
                 </div>
                 <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">
-                    <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit(props, e.target.value)}>
+                    <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit(props, e.target.value as Unit)}>
                         {[...getOptions(props, t)]}
                     </select>
                 </div>
@@ -162,13 +172,13 @@ const BrewhouseEfficiencyCalc = (props) => {
                 <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('volume measured at')}</div>
                 <div className="2xl:col-span-1 xl:col-span-1 lg:col-span-2 md:col-span-3 col-span-12 xs:col-span-12">
                     <label>
-                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="100_C" name="hundred" checked={props.brewhouse.volumeMeasuredAt === '100'} onChange={() => onChangeVolumeMeasuredAt(props, '100')} />
+                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="100_C" name="hundred" checked={props.brewhouse.volumeMeasuredAt === VolumeMeasuredAt.Hundred} onChange={() => onChangeVolumeMeasuredAt(props, VolumeMeasuredAt.Hundred)} />
                         &nbsp;&nbsp;100 °C
                     </label>
                 </div>
                 <div className="2xl:col-span-8 xl:col-span-7 lg:col-span-5 md:col-span-3 col-span-12 xs:col-span-12">
                     <label>
-                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="20_C" name="twenty" checked={props.brewhouse.volumeMeasuredAt === '20'} onChange={() => onChangeVolumeMeasuredAt(props, '20')} />
+                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="20_C" name="twenty" checked={props.brewhouse.volumeMeasuredAt === VolumeMeasuredAt.Twenty} onChange={() => onChangeVolumeMeasuredAt(props, VolumeMeasuredAt.Twenty)} />
                         &nbsp;&nbsp;20 °C
                     </label>
                 </div>
@@ -196,11 +206,11 @@ const BrewhouseEfficiencyCalc = (props) => {
                         min=".1"
                         max="40"
                         step=".1"
-                        value={props.brewhouse.grainMassFromBrewhouse.originalGravity}
+                        value={props.brewhouse.grainMassFromBrewhouse.originalGravity.amount}
                         onChange={(e) => changeOriginalGravity2(props, e.target.value)}></input>
                 </div>
                 <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">
-                    <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit2(props, e.target.value)}>
+                    <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit2(props, e.target.value as Unit)}>
                         {[...getOptions2(props, t)]}
                     </select>
                 </div>
@@ -218,13 +228,13 @@ const BrewhouseEfficiencyCalc = (props) => {
                 <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('volume measured at')}</div>
                 <div className="2xl:col-span-1 xl:col-span-1 lg:col-span-2 md:col-span-3 col-span-12 xs:col-span-12">
                     <label>
-                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="2_100_C" name="2_hundred" checked={props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === '100'} onChange={() => onChangeVolumeMeasuredAt2(props, '100')} />
+                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="2_100_C" name="2_hundred" checked={props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === VolumeMeasuredAt.Hundred} onChange={() => onChangeVolumeMeasuredAt2(props, VolumeMeasuredAt.Hundred)} />
                         &nbsp;&nbsp;100 °C
                     </label>
                 </div>
                 <div className="2xl:col-span-8 xl:col-span-7 lg:col-span-5 md:col-span-3 col-span-12 xs:col-span-12">
                     <label>
-                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="2_20_C" name="2_twenty" checked={props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === '20'} onChange={() => onChangeVolumeMeasuredAt2(props, '20')} />
+                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="2_20_C" name="2_twenty" checked={props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === VolumeMeasuredAt.Twenty} onChange={() => onChangeVolumeMeasuredAt2(props, VolumeMeasuredAt.Twenty)} />
                         &nbsp;&nbsp;20 °C
                     </label>
                 </div>
@@ -234,29 +244,44 @@ const BrewhouseEfficiencyCalc = (props) => {
     );
 }
 
-const mapStateToProps = (state, _) => {
-    let brewhouse = state.beerCalc.brewhouse;
-    if ((typeof (state.beerCalc.brewhouse.grainMass) === 'undefined') || (typeof (state.beerCalc.brewhouse.grainMassUnit) === 'undefined')) {
-        if ((typeof (state.beerCalc.grain.malt) !== 'undefined') && state.beerCalc.grain.malt.length > 0) {
-            for (let i = 0; i < state.beerCalc.grain.malt.length; i++) {
-                if (state.beerCalc.grain.malt[i].massUnit === 'g') {
-                    brewhouse.grainMass += 0.001 * state.beerCalc.grain.malt[i].mass;
-                } else {
-                    brewhouse.grainMass += state.beerCalc.grain.malt[i].mass;
-                }
+const mapStateToProps = (rootState: any) => {
+    const state: CalculatorState = rootState.beerCalc;
+    let brewh: BrewhouseEfficiencyState = {
+        grainMass: state.brewhouse.grainMass,
+        grainMassUnit: MassUnit.Kilogram,
+        volumeMeasuredAt: state.brewhouse.volumeMeasuredAt,
+        grainMassFromBrewhouse: state.brewhouse.grainMassFromBrewhouse,
+        wortVolume: state.brewhouse.wortVolume,
+    };
+
+    if (state.grain.malt.length > 0) {
+        for (let i = 0; i < state.grain.malt.length; i++) {
+            if (state.grain.malt[i].massUnit === MassUnit.Gram) {
+                brewh.grainMass += 0.001 * state.grain.malt[i].amount;
+            } else if (state.grain.malt[i].massUnit === MassUnit.Kilogram) {
+                brewh.grainMass += state.grain.malt[i].amount;
             }
-        } else {
-            brewhouse.grainMass = 5;
-            brewhouse.grainMassUnit = 'kg';
         }
     }
-    if ((typeof (brewhouse.wortVolume) === 'undefined')) {
-        brewhouse.wortVolume = 28;
-    }
-    return { ...state.beerCalc, brewhouse };
+    return {
+        brewhouse: brewh,
+        originalGravity: state.originalGravity,
+        unit: state.unit,
+    };
 }
 
-export default connect(mapStateToProps, {
-    setGrainMassAndUnit, changeUnit, changeUnit2, originalGravity, originalGravity2,
-    changeWortVolume, changeVolumeMeasuredAt, changeWortVolume2, changeVolumeMeasuredAt2, changeBrewhouseEfficiency
-})(BrewhouseEfficiencyCalc);
+const connector = connect(mapStateToProps, {
+    setGrainMassAndUnit,
+    changeUnit,
+    changeUnit2,
+    setOriginalGravity,
+    setOriginalGravity2,
+    changeWortVolume,
+    changeVolumeMeasuredAt,
+    changeWortVolume2,
+    changeVolumeMeasuredAt2,
+    changeBrewhouseEfficiency
+});
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(BrewhouseEfficiencyCalc);

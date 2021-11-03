@@ -1,19 +1,25 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { connect } from "react-redux";
-import { boilingTime, changeUnit, originalGravity } from "../../actions";
+import { TFunction, useTranslation } from 'react-i18next';
+import { connect, ConnectedProps } from "react-redux";
+import { boilingTime, changeUnit, setOriginalGravity } from "../../actions";
+import { CalculatorState, Gravity, IbuState, Unit } from '../../types';
 import ColorDisplay from './ColorDisplay';
 import MaltAdder from './MaltAdder';
 
-const changeOriginalGravity = (props, newOg) => {
+interface ColorCalcProps extends PropsFromRedux {
+    originalGravity: Gravity;
+    unit: Unit;
+    ibu: IbuState;
+}
+
+const changeOriginalGravity = (props: ColorCalcProps, newOg: string) => {
     let og = parseFloat(newOg);
     if (isNaN(og) || og === null) {
         return;
     }
-    props.originalGravity(og);
+    props.setOriginalGravity({ unit: props.originalGravity.unit, amount: og });
 }
 
-const onBoilingChange = (props, time) => {
+const onBoilingChange = (props: ColorCalcProps, time: string) => {
     let boil = parseFloat(time);
     if (isNaN(boil) || boil === null) {
         return;
@@ -21,8 +27,8 @@ const onBoilingChange = (props, time) => {
     props.boilingTime(boil);
 }
 
-const getOptions = function* (props, t) {
-    if (props.unit === 'brix') {
+const getOptions = function* (props: ColorCalcProps, t: TFunction<"translation", undefined>) {
+    if (props.unit === Unit.Brix) {
         yield <option value='brix' key='brix'>{t('brix')}</option>;
         yield <option value='plato' key='plato'>{t('plato')}</option>;
     } else {
@@ -31,11 +37,11 @@ const getOptions = function* (props, t) {
     }
 }
 
-const onChangeUnit = (props, unit) => {
+const onChangeUnit = (props: ColorCalcProps, unit: Unit) => {
     props.changeUnit(unit);
 }
 
-const ColorCalc = (props) => {
+const ColorCalc: React.FC<ColorCalcProps> = (props: ColorCalcProps) => {
     const { t } = useTranslation();
     return (
         <div className="flex flex-col gap-4 dark:text-gray-400">
@@ -49,11 +55,11 @@ const ColorCalc = (props) => {
                         max="40"
                         step=".1"
                         className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
-                        value={props.gravity.original}
+                        value={props.originalGravity.amount}
                         onChange={(e) => changeOriginalGravity(props, e.target.value)}></input>
                 </div>
-                <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4" onChange={(e) => onChangeUnit(props, e.target.value)}>
-                    <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300">
+                <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">
+                    <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit(props, e.target.value as Unit)}>
                         {[...getOptions(props, t)]}
                     </select>
                 </div>
@@ -70,8 +76,12 @@ const ColorCalc = (props) => {
     );
 }
 
-const mapStateToProps = (state) => {
-    return { gravity: state.beerCalc.gravity, unit: state.beerCalc.unit, ibu: state.beerCalc.ibu };
+const mapStateToProps = (rootState: any) => {
+    let state: CalculatorState = rootState.beerCalc;
+    return { originalGravity: state.originalGravity, unit: state.unit, ibu: state.ibu };
 }
 
-export default connect(mapStateToProps, { changeUnit, originalGravity, boilingTime })(ColorCalc);
+const connector = connect(mapStateToProps, { changeUnit, setOriginalGravity, boilingTime });
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(ColorCalc);

@@ -1,43 +1,47 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { turnDarkMode, turnLiteMode } from '../../actions';
+import { CalculatorState, DisplayMode } from '../../types';
 
-const toggleMode = (props) => {
-    if (props.displayMode === 'dark') {
+interface ModeToggleProps extends PropsFromRedux {
+}
+
+const toggleMode = (props: ModeToggleProps) => {
+    if (props.displayMode === DisplayMode.Dark) {
         props.turnLiteMode();
     } else {
         props.turnDarkMode();
     }
 }
 
-const ModeToggle = (props) => {
+const ModeToggle: React.FC<ModeToggleProps> = (props: ModeToggleProps) => {
     const { t } = useTranslation();
     if (typeof (props.displayMode) === 'undefined') {
         return <div></div>;
     }
-    if (props.displayMode === 'lite') {
+    if (props.displayMode === DisplayMode.Lite) {
         return <button className="rounded-3xl border-1 border-solid border-gray-300 p-1 dark:bg-gray-700 dark:text-gray-300" title={t('turn dark mode')} onClick={() => toggleMode(props)}>🌛</button>;
-    } else if (props.displayMode === 'dark') {
+    } else if (props.displayMode === DisplayMode.Dark) {
         return <button className="rounded-3xl border-1 border-solid border-gray-300 p-1 dark:bg-gray-700 dark:text-gray-300" title={t('turn light mode')} onClick={() => toggleMode(props)}>🌞</button>;
     } else {
         return <div>error: invalid mode!</div>
     }
 }
 
-const mapStateToProps = (state, _) => {
-    const displayMode = state.beerCalc.displayMode;
+const mapStateToProps = (rootState: any) => {
+    const state: CalculatorState = rootState.beerCalc;
+    const displayMode = state.displayMode;
     switch (displayMode) {
-        case 'dark':
+        case DisplayMode.Dark:
             document.documentElement.classList.add('dark');
             break;
-        case 'lite':
+        case DisplayMode.Lite:
             document.documentElement.classList.remove('dark');
-            break;
-        default:
             break;
     }
     return { displayMode };
 }
 
-export default connect(mapStateToProps, { turnDarkMode, turnLiteMode })(ModeToggle);
+const connector = connect(mapStateToProps, { turnDarkMode, turnLiteMode });
+type PropsFromRedux = ConnectedProps<typeof connector>;
+export default connector(ModeToggle);

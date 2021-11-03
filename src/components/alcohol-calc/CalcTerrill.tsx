@@ -1,37 +1,36 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { TFunction, useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import { alcoholStandardFormula, alcoholStandardFormulaPlato } from '../units/calculations';
+import { CalculatorState, Gravity, Unit } from '../../types';
+import { alcoholTerrillFormula } from '../units/calculations';
 
-const calcNotPossible = (t) => {
+interface TerrillCalcProps {
+    originalGravity: Gravity;
+    finalGravity: Gravity;
+    unit: Unit;
+}
+
+const calcNotPossible = (t: TFunction<"translation", undefined>): JSX.Element => {
     return (
-        <div className="flex flex-wrap flex-col shadow-md p-4 gap-2 flex-grow">
+        <div className="flex flex-wrap flex-col shadow-md p-4 gap-2 flex-grow items-center">
             <div className="text-center flex-grow text-red-400 table"><span className="table-cell align-middle">{t('calculation not possible')}</span></div>
         </div>
     )
 }
 
-const calcStandard = (props, t) => {
-    if (props.gravity.original <= props.gravity.final) {
+const calcTerrill = (props: TerrillCalcProps, t: TFunction<"translation", undefined>): JSX.Element => {
+
+    if (props.originalGravity.amount <= props.finalGravity.amount) {
         return calcNotPossible(t);
     }
 
-    let calc = {};
-    if (props.unit === 'brix') {
-        calc = alcoholStandardFormula(props.gravity.original, props.gravity.final, props.unit);
-        if (calc.apparentExtract.toFixed(1) <= 0.0 || calc.apparentAttenuation.toFixed(1) >= 100.0) {
-            return calcNotPossible(t);
-        }
-    } else if (props.unit === 'plato') {
-        calc = alcoholStandardFormulaPlato(props.gravity.original, props.gravity.final, props.unit);
-        if (calc.apparentExtract.toFixed(1) <= 0.0 || calc.apparentAttenuation.toFixed(1) >= 100.0) {
-            return calcNotPossible(t);
-        }
+    const calc = alcoholTerrillFormula(props.originalGravity, props.finalGravity);
+    if (Number.parseFloat(calc.apparentExtract.toFixed(1)) <= 0.0 || Number.parseFloat(calc.apparentAttenuation.toFixed(1)) >= 100.0) {
+        return calcNotPossible(t);
     }
 
     return (
-        <div className={"flex flex-wrap flex-col shadow-md p-4 gap-2 " + ((props.unit === 'brix')? "flex-grow": "")}>
-            <div className="text-2xl text-center my-3">{props.unit === 'brix' ? t('standard equation') : t('results')}</div>
+        <div className="flex flex-wrap flex-col shadow-md p-4 gap-2 flex-grow">
+            <div className="text-2xl text-center my-3">{t('terrill equation')}</div>
             <div className="flex flex-row flex-wrap gap-2">
                 <div className="text-left">{t('apparent extract')}:</div>
                 <div className="text-right flex-grow flex-shrink">{calc.apparentExtract.toFixed(1)} °P</div>
@@ -60,16 +59,28 @@ const calcStandard = (props, t) => {
     );
 }
 
-const CalcStandard = (props) => {
+const CalcTerrill = (props: TerrillCalcProps) => {
     const { t } = useTranslation();
-    if (!props.unit || !props.gravity) {
-        return <div>...</div>;
+
+    if (!props.unit || !props.originalGravity || !props.finalGravity) {
+        return <div></div>;
     }
-    return calcStandard(props, t);
+    if (props.unit !== Unit.Brix) {
+        // the Terrill formula doesn't work for extracts taken in Plato
+        // (refractometer only)
+        return <div></div>;
+    }
+    return calcTerrill(props, t);
 }
 
-const mapStateToProps = (state) => {
-    return state.beerCalc;
+
+const mapStateToProps = (rootState: any): TerrillCalcProps => {
+    const state: CalculatorState = rootState.beerCalc;
+    return {
+        unit: state.unit,
+        originalGravity: state.originalGravity,
+        finalGravity: state.finalGravity,
+    };
 }
 
-export default connect(mapStateToProps, {})(CalcStandard);
+export default connect(mapStateToProps, {})(CalcTerrill);

@@ -1,10 +1,9 @@
-import React from 'react';
-import GitInfo from 'react-git-info/macro';
-import { useTranslation } from 'react-i18next';
+import GitInfo, { GitInformation } from 'react-git-info/macro';
+import { TFunction, useTranslation } from 'react-i18next';
 
 const baseUrl = "https://github.com/aellwein/beercalc";
 
-const commit = (gitInfo, t) => {
+const commit = (gitInfo: GitInformation, t: TFunction<"translation", undefined>) => {
     if (gitInfo.branch !== 'master') {
         return <span>{t('commit')} {gitInfo.commit.shortHash}</span>;
     } else {

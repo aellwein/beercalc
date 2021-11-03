@@ -1,29 +1,22 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Gravity, Unit } from '../../types';
 import { convertUnits } from './calculations';
 
-const calcUnits = (props) => {
-    switch (props.type) {
-        case 'og':
-            return convertUnits(props.gravity.original, props.unit);
-        case 'fg':
-            return convertUnits(props.gravity.final, props.unit);
-        default:
-            return {};
-    }
+interface ShowUnitsProps {
+    gravity: Gravity;
 }
 
-const ShowUnits = (props) => {
+const ShowUnits: React.FC<ShowUnitsProps> = (props: ShowUnitsProps) => {
     const { t } = useTranslation();
-    if (!props.type || !props.unit) {
+    if (!props.gravity) {
         return <span></span>;
     }
-    const units = calcUnits(props);
+    const units = convertUnits(props.gravity.amount, props.gravity.unit);
 
-    switch (props.unit) {
-        case 'brix':
+    switch (props.gravity.unit) {
+        case Unit.Brix:
             return <span>{units.brix.toFixed(1)} {t('brix')} / {units.plato.toFixed(1)} {t('plato')} / {units.oe.toFixed(1)} {t('oechsle')} / {units.sg.toFixed(3)} SG</span>;
-        case 'plato':
+        case Unit.Plato:
             return <span>{units.plato.toFixed(1)} {t('plato')} / {units.brix.toFixed(1)} {t('brix')} / {units.oe.toFixed(1)} {t('oechsle')} / {units.sg.toFixed(3)} SG</span>;
         default:
             return <span></span>;

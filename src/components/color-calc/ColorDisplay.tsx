@@ -1,23 +1,30 @@
-import React from 'react';
 import { connect } from 'react-redux';
+import { CalculatorState, ColorCalcState, Gravity, MassUnit, Unit } from '../../types';
 import { convertUnits } from '../units/calculations';
 import './EBC.css';
 
-const calculateEbc = (props) => {
-    const og_plato = convertUnits(props.gravity.original, props.unit).plato;
+interface ColorDisplayProps {
+    unit: Unit;
+    originalGravity: Gravity;
+    boiling: number;
+    grain: ColorCalcState;
+}
+
+const calculateEbc = (props: ColorDisplayProps): number => {
+    const og_plato = convertUnits(props.originalGravity.amount, props.originalGravity.unit).plato;
     let totalMass = 0;
     let prodMassEbc = 0;
     for (let i = 0; i < props.grain.malt.length; i++) {
-        const factor = (props.grain.malt[i].massUnit === 'kg') ? 1 : 0.001;
-        totalMass += props.grain.malt[i].mass * factor;
-        prodMassEbc += props.grain.malt[i].mass * factor * props.grain.malt[i].color;
+        const factor = (props.grain.malt[i].massUnit === MassUnit.Kilogram) ? 1 : 0.001;
+        totalMass += props.grain.malt[i].amount * factor;
+        prodMassEbc += props.grain.malt[i].amount * factor * props.grain.malt[i].color;
     }
     const ebc = (prodMassEbc / totalMass) * og_plato / 10 + 1.5 * props.boiling / 60;
-    return ebc.toFixed(0);
+    return Number.parseFloat(ebc.toFixed(0));
 }
 
-const ColorDisplay = (props) => {
-    if (typeof (props.grain.malt) === 'undefined' || props.grain.malt.length === 0) {
+const ColorDisplay: React.FC<ColorDisplayProps> = (props: ColorDisplayProps) => {
+    if (props.grain.malt.length === 0) {
         return <div></div>;
     }
 
@@ -35,12 +42,13 @@ const ColorDisplay = (props) => {
     );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (rootState: any) => {
+    const state: CalculatorState = rootState.beerCalc;
     return {
-        boiling: state.beerCalc.ibu.boiling,
-        grain: state.beerCalc.grain,
-        gravity: state.beerCalc.gravity,
-        unit: state.beerCalc.unit
+        boiling: state.ibu.boiling,
+        grain: state.grain,
+        originalGravity: state.originalGravity,
+        unit: state.unit
     };
 }
 
