@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
-import { Action, ActionType, CalculatorState, DisplayMode, HopsAddition, HopsForm, MaltAddition, MassUnit, Unit, VolumeMeasuredAt } from "../types";
+import { Action, ActionType } from "../action-types/ActionTypes";
+import { CalculatorState, DisplayMode, HopsAddition, HopsForm, MaltAddition, MassUnit, Unit, VolumeMeasuredAt } from "../types";
 
 const defaultState: CalculatorState = {
     displayMode: DisplayMode.Lite,
@@ -75,9 +76,9 @@ const beerCalc = (state: CalculatorState = defaultState, action: Action): Calcul
                     }
                 }
             };
-        case ActionType.FinalGravity:
+        case ActionType.SetFinalGravity:
             return { ...state, finalGravity: action.payload };
-        case ActionType.BoilingTime:
+        case ActionType.SetBoilingTime:
             // we have to check the hops additions here, to reduce the
             // boiling time of the particular hops addition to be not longer then the total boiling time.
             if (state.ibu.hops) {
@@ -86,11 +87,11 @@ const beerCalc = (state: CalculatorState = defaultState, action: Action): Calcul
                 }
             }
             return { ...state, ibu: { ...state.ibu, boiling: action.payload } };
-        case ActionType.Volume:
+        case ActionType.SetVolume:
             return { ...state, ibu: { ...state.ibu, volume: action.payload } };
-        case ActionType.FlameOut:
+        case ActionType.SetFlameOut:
             return { ...state, ibu: { ...state.ibu, flameout: action.payload } };
-        case ActionType.FlameOutTemp:
+        case ActionType.SetFlameOutTemp:
             return { ...state, ibu: { ...state.ibu, flameoutTemp: action.payload } };
         case ActionType.NewHopsAddition:
             let ha: HopsAddition = {
@@ -145,15 +146,15 @@ const beerCalc = (state: CalculatorState = defaultState, action: Action): Calcul
         case ActionType.SetGrainMassAndUnit:
             return { ...state, brewhouse: { ...state.brewhouse, grainMass: action.payload.grainMass, grainMassUnit: action.payload.grainMassUnit } };
         case ActionType.ChangeWortVolume:
-            return { ...state, brewhouse: { ...state.brewhouse, wortVolume: action.payload.wortVolume } };
+            return { ...state, brewhouse: { ...state.brewhouse, wortVolume: action.payload } };
         case ActionType.ChangeWortVolume2:
-            return { ...state, brewhouse: { ...state.brewhouse, grainMassFromBrewhouse: { ...state.brewhouse.grainMassFromBrewhouse, wortVolume: action.payload.wortVolume } } };
+            return { ...state, brewhouse: { ...state.brewhouse, grainMassFromBrewhouse: { ...state.brewhouse.grainMassFromBrewhouse, wortVolume: action.payload } } };
         case ActionType.ChangeVolumeMeasuredAt:
-            return { ...state, brewhouse: { ...state.brewhouse, volumeMeasuredAt: action.payload.volumeMeasuredAt } };
+            return { ...state, brewhouse: { ...state.brewhouse, volumeMeasuredAt: action.payload } };
         case ActionType.ChangeVolumeMeasuredAt2:
-            return { ...state, brewhouse: { ...state.brewhouse, grainMassFromBrewhouse: { ...state.brewhouse.grainMassFromBrewhouse, volumeMeasuredAt: action.payload.volumeMeasuredAt } } };
+            return { ...state, brewhouse: { ...state.brewhouse, grainMassFromBrewhouse: { ...state.brewhouse.grainMassFromBrewhouse, volumeMeasuredAt: action.payload } } };
         case ActionType.ChangeBrewhouseEfficiency:
-            return { ...state, brewhouse: { ...state.brewhouse, grainMassFromBrewhouse: { ...state.brewhouse.grainMassFromBrewhouse, brewhouseEfficiency: action.payload.brewhouseEfficiency } } };
+            return { ...state, brewhouse: { ...state.brewhouse, grainMassFromBrewhouse: { ...state.brewhouse.grainMassFromBrewhouse, brewhouseEfficiency: action.payload } } };
         default:
             return state;
     }

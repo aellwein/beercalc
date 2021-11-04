@@ -1,39 +1,3 @@
-export enum ActionType {
-    ChangeUnit = "ChangeUnit",
-    ChangeUnit2 = "ChangeUnit2",
-    SetOriginalGravity = "SetOriginalGravity",
-    SetOriginalGravity2 = "SetOriginalGravity2",
-    FinalGravity = "FinalGravity",
-    BoilingTime = "BoilingTime",
-    Volume = "Volume",
-    FlameOut = "FlameOut",
-    FlameOutTemp = "FlameOutTemp",
-    NewHopsAddition = "NewHopsAddition",
-    RemoveHopsAddition = "RemoveHopsAddition",
-    ChangeHopsAmount = "ChangeHopsAmount",
-    ChangeHopsAlpha = "ChangeHopsAlpha",
-    ChangeHopsBoil = "ChangeHopsBoil",
-    ChangeHopsForm = "ChangeHopsForm",
-    NewMaltAddition = "NewMaltAddition",
-    RemoveMaltAddition = "RemoveMaltAddition",
-    ChangeMaltMass = "ChangeMaltMass",
-    ChangeMaltMassUnit = "ChangeMaltMassUnit",
-    ChangeMaltColor = "ChangeMaltColor",
-    SetGrainMassAndUnit = "SetGrainMassAndUnit",
-    ChangeWortVolume = "ChangeWortVolume",
-    ChangeWortVolume2 = "ChangeWortVolume2",
-    ChangeVolumeMeasuredAt = "ChangeVolumeMeasuredAt",
-    ChangeVolumeMeasuredAt2 = "ChangeVolumeMeasuredAt2",
-    ChangeBrewhouseEfficiency = "ChangeBrewhouseEfficiency",
-    TurnDarkMode = "TurnDarkMode",
-    TurnLiteMode = "TurnLiteMode",
-}
-
-export interface Action {
-    payload: any;
-    type: ActionType;
-}
-
 export enum DisplayMode {
     Lite = 'lite',
     Dark = 'dark',

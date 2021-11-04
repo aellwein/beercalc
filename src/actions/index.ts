@@ -1,4 +1,5 @@
-import { Action, ActionType, Gravity, HopsForm, MassUnit, Unit, VolumeMeasuredAt } from "../types";
+import { Action, ActionType } from "../action-types/ActionTypes";
+import { Gravity, HopsForm, MassUnit, Unit, VolumeMeasuredAt } from "../types";
 
 export const changeUnit = (unit: Unit): Action => {
     return {
@@ -30,35 +31,35 @@ export const setOriginalGravity2 = (originalGravity: Gravity): Action => {
 
 export const setFinalGravity = (fg: Gravity): Action => {
     return {
-        type: ActionType.FinalGravity,
+        type: ActionType.SetFinalGravity,
         payload: fg
     };
 }
 
 export const boilingTime = (boilingTime: number): Action => {
     return {
-        type: ActionType.BoilingTime,
+        type: ActionType.SetBoilingTime,
         payload: boilingTime,
     };
 }
 
 export const changeVolume = (volume: number): Action => {
     return {
-        type: ActionType.Volume,
+        type: ActionType.SetVolume,
         payload: volume
     };
 }
 
 export const changeFlameout = (flameout: number): Action => {
     return {
-        type: ActionType.FlameOut,
+        type: ActionType.SetFlameOut,
         payload: flameout
     };
 }
 
 export const changeFlameoutTemp = (flameoutTemp: number): Action => {
     return {
-        type: ActionType.FlameOutTemp,
+        type: ActionType.SetFlameOutTemp,
         payload: flameoutTemp
     };
 }
@@ -66,7 +67,6 @@ export const changeFlameoutTemp = (flameoutTemp: number): Action => {
 export const newHopsAddition = (): Action => {
     return {
         type: ActionType.NewHopsAddition,
-        payload: null
     };
 }
 
@@ -108,7 +108,6 @@ export const changeHopsForm = (idx: number, form: HopsForm): Action => {
 export const newMaltAddition = (): Action => {
     return {
         type: ActionType.NewMaltAddition,
-        payload: null
     }
 }
 
@@ -150,48 +149,46 @@ export const setGrainMassAndUnit = (newMass: number, newUnit: MassUnit): Action 
 export const changeWortVolume = (wortVolume: number): Action => {
     return {
         type: ActionType.ChangeWortVolume,
-        payload: { wortVolume }
+        payload: wortVolume
     }
 }
 
 export const changeWortVolume2 = (wortVolume: number): Action => {
     return {
         type: ActionType.ChangeWortVolume2,
-        payload: { wortVolume }
+        payload: wortVolume
     }
 }
 
 export const changeVolumeMeasuredAt = (volumeMeasuredAt: VolumeMeasuredAt): Action => {
     return {
         type: ActionType.ChangeVolumeMeasuredAt,
-        payload: { volumeMeasuredAt }
+        payload: volumeMeasuredAt
     }
 }
 
 export const changeVolumeMeasuredAt2 = (volumeMeasuredAt: VolumeMeasuredAt): Action => {
     return {
         type: ActionType.ChangeVolumeMeasuredAt2,
-        payload: { volumeMeasuredAt }
+        payload: volumeMeasuredAt
     }
 }
 
 export const turnDarkMode = (): Action => {
     return {
-        type: ActionType.TurnDarkMode,
-        payload: null
+        type: ActionType.TurnDarkMode
     }
 }
 
 export const turnLiteMode = (): Action => {
     return {
-        type: ActionType.TurnLiteMode,
-        payload: null
+        type: ActionType.TurnLiteMode
     }
 }
 
 export const changeBrewhouseEfficiency = (be: number): Action => {
     return {
         type: ActionType.ChangeBrewhouseEfficiency,
-        payload: { brewhouseEfficiency: be }
+        payload: be
     }
 }
