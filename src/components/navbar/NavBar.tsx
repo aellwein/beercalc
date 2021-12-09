@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { BrowserRouter, NavLink, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Navigate, NavLink, Route, Routes } from 'react-router-dom';
 import AlcoholCalc from '../alcohol-calc/AlcoholCalc';
 import BrewhouseCalc from '../brewhouse-calc/BrewhouseCalc';
 import ColorCalc from '../color-calc/ColorCalc';
@@ -14,10 +14,10 @@ const NavBar = () => {
         <BrowserRouter>
             <nav>
                 <div className="flex flex-row flex-wrap gap-8 xs:gap-2 items-baseline">
-                    <NavLink to="/alcohol" className="hover:underline flex-shrink-0 text-gray-500" activeClassName="underline text-indigo-600">{t('alcohol calculator')}</NavLink>
-                    <NavLink to="/ibu" className="hover:underline flex-shrink-0 text-gray-500" activeClassName="underline text-indigo-600">{t('ibu calculator')}</NavLink>
-                    <NavLink to="/ebc" className="hover:underline flex-shrink-0 text-gray-500" activeClassName="underline text-indigo-600">{t('color calculator')}</NavLink>
-                    <NavLink to="/brewhouse" className="hover:underline flex-shrink-0 text-gray-500" activeClassName="underline text-indigo-600">{t('brewhouse calculator')}</NavLink>
+                    <NavLink to="/alcohol" className={({isActive}) => "nav-link " + (isActive? "text-indigo-600": "hover:underline flex-shrink-0 text-gray-500")}>{t('alcohol calculator')}</NavLink>
+                    <NavLink to="/ibu" className={({isActive}) => "nav-link " + (isActive? "text-indigo-600": "hover:underline flex-shrink-0 text-gray-500")}>{t('ibu calculator')}</NavLink>
+                    <NavLink to="/ebc" className={({isActive}) => "nav-link " + (isActive? "text-indigo-600": "hover:underline flex-shrink-0 text-gray-500")}>{t('color calculator')}</NavLink>
+                    <NavLink to="/brewhouse" className={({isActive}) => "nav-link " + (isActive? "text-indigo-600": "hover:underline flex-shrink-0 text-gray-500")}>{t('brewhouse calculator')}</NavLink>
                     <div className="flex-grow flex-shrink-0">
                         <div className="flex flex-row gap-3 items-baseline justify-end">
                             <LangPicker />
@@ -26,21 +26,13 @@ const NavBar = () => {
                     </div>
                 </div>
             </nav>
-            <Switch>
-                <Redirect exact from="/" to="/alcohol" />
-                <Route path="/alcohol">
-                    <AlcoholCalc />
-                </Route>
-                <Route path="/ibu">
-                    <IbuCalc />
-                </Route>
-                <Route path="/ebc">
-                    <ColorCalc />
-                </Route>
-                <Route path="/brewhouse">
-                    <BrewhouseCalc />
-                </Route>
-            </Switch>
+            <Routes>
+                <Route path="/" element={<Navigate replace to="/alcohol" />} />
+                <Route path="/alcohol" element={<AlcoholCalc />} />
+                <Route path="/ibu" element={<IbuCalc />} />
+                <Route path="/ebc" element={<ColorCalc />} />
+                <Route path="/brewhouse" element={<BrewhouseCalc />} />
+            </Routes>
         </BrowserRouter>
     );
 }
