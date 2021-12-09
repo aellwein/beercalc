@@ -42,7 +42,7 @@ const grainAdditions = function* (props: MaltAdderProps, t: TFunction<"translati
         yield <div key={i + "col1-1"} className="underline 2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('malt') + ' #' + (i + 1)}</div>;
         yield (
             <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left" key={i + "col1-2"}>
-                <div className="">{a.color} <button className="py-2 px-2 bg-red-300 text-white hover:bg-red-600 p-1" onClick={() => onRemoveGrainClick(props, i)}>X</button></div>
+                <div className="">{a.color} EBC <button className="py-2 px-2 bg-red-300 text-white hover:bg-red-600 p-1" onClick={() => onRemoveGrainClick(props, i)}>X</button></div>
             </div>
         );
 
