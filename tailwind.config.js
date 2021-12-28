@@ -1,6 +1,8 @@
 module.exports = {
-  purge: [],
-  darkMode: 'class', // or 'media' or 'class'
+  content: [
+      "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  darkMode: 'class',
   theme: {
     extend: {
       container: {
@@ -16,9 +18,6 @@ module.exports = {
         'narrow-3': 'grid-template-columns: repeat(3, minmax(auto, 1fr))',
       },
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [],
 }
