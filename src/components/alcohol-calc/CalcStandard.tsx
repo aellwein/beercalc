@@ -44,31 +44,31 @@ const calcStandard = (props: StandardCalcProps, t: TFunction<"translation", unde
     }
 
     return (
-        <div className={"flex flex-wrap flex-col shadow-md p-4 gap-2 " + ((props.unit === 'brix') ? "flex-grow" : "")}>
+        <div className="flex flex-wrap flex-col shadow-md p-4 gap-2 flex-grow">
             <div className="text-2xl text-center my-3">{props.unit === 'brix' ? t('standard equation') : t('results')}</div>
-            <div className="flex flex-row flex-wrap gap-2">
-                <div className="text-left">{t('apparent extract')}:</div>
-                <div className="text-right flex-grow flex-shrink">{calc.apparentExtract.toFixed(1)} °P</div>
+            <div className="flex flex-row flex-wrap gap-2 hover:border-b-1 hover:border-neutral-700 dark:hover:border-neutral-500">
+                <div className="text-left flex-grow">{t('apparent extract')}:</div>
+                <div className="text-right">{calc.apparentExtract.toFixed(1)} °P</div>
             </div>
-            <div className="flex flex-row flex-wrap gap-2">
-                <div className="text-left">{t('real extract')}:</div>
-                <div className="text-right flex-grow flex-shrink">{calc.realExtract.toFixed(1)} %</div>
+            <div className="flex flex-row flex-wrap gap-2 hover:border-b-1 hover:border-neutral-700 dark:hover:border-neutral-500">
+                <div className="text-left flex-grow">{t('real extract')}:</div>
+                <div className="text-right">{calc.realExtract.toFixed(1)} %</div>
             </div>
-            <div className="flex flex-row flex-wrap gap-2">
-                <div className="text-left">{t('apparent attenuation')}:</div>
-                <div className="text-right flex-grow flex-shrink">{calc.apparentAttenuation.toFixed(1)} %</div>
+            <div className="flex flex-row flex-wrap gap-2 hover:border-b-1 hover:border-neutral-700 dark:hover:border-neutral-500">
+                <div className="text-left flex-grow">{t('apparent attenuation')}:</div>
+                <div className="text-right">{calc.apparentAttenuation.toFixed(1)} %</div>
             </div>
-            <div className="flex flex-row flex-wrap gap-2">
-                <div className="text-left">{t('real attenuation')}:</div>
-                <div className="text-right flex-grow flex-shrink">{calc.realAttenuation.toFixed(1)} %</div>
+            <div className="flex flex-row flex-wrap gap-2 hover:border-b-1 hover:border-neutral-700 dark:hover:border-neutral-500">
+                <div className="text-left flex-grow">{t('real attenuation')}:</div>
+                <div className="text-right">{calc.realAttenuation.toFixed(1)} %</div>
             </div>
-            <div className="flex flex-row flex-wrap gap-2">
-                <div className="text-left">{t('alcohol by weight')}:</div>
-                <div className="text-right flex-grow flex-shrink">{calc.alcByWeight.toFixed(1)} %</div>
+            <div className="flex flex-row flex-wrap gap-2 hover:border-b-1 hover:border-neutral-700 dark:hover:border-neutral-500">
+                <div className="text-left flex-grow">{t('alcohol by weight')}:</div>
+                <div className="text-right">{calc.alcByWeight.toFixed(1)} %</div>
             </div>
-            <div className="flex flex-row flex-wrap gap-2">
-                <div className="text-left">{t('alcohol by volume')}:</div>
-                <div className="text-right flex-grow flex-shrink">{calc.alcByVolume.toFixed(1)} %</div>
+            <div className="flex flex-row flex-wrap gap-2 hover:border-b-1 hover:border-neutral-700 dark:hover:border-neutral-500">
+                <div className="text-left flex-grow">{t('alcohol by volume')}:</div>
+                <div className="text-right">{calc.alcByVolume.toFixed(1)} %</div>
             </div>
         </div>
     );

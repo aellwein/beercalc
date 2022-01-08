@@ -123,122 +123,114 @@ const BrewhouseEfficiencyCalc: React.FC<BrewhouseCalcProps> = (props: BrewhouseC
     return (
         <div className="flex flex-col gap-4 dark:text-gray-400">
             <div className="text-2xl my-3">{t('brewhouse calculator')}</div>
-            <div className="grid grid-cols-12 gap-3 shadow-md p-4 items-baseline">
-                <div className="col-span-12 text-xl">{t('brewhouse efficiency')}</div>
-                <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('grain mass')}</div>
-                <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 xs:col-span-8 col-span-8">
-                    <input
-                        type="number"
-                        min=".1"
-                        max="10000"
-                        step=".1"
-                        className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
-                        value={props.brewhouse.grainMass}
-                        onChange={e => changeGrainMass(props, e.target.value)}
-                    ></input>
+            <div className='flex flex-row gap-4 flex-wrap'>
+                <div className="flex flex-col gap-4 shadow-md p-4 items-baseline grow">
+                    <div className="text-xl">{t('brewhouse efficiency')}</div>
+                    <div className="flex flex-row gap-4 items-baseline flex-wrap">
+                        <div>{t('grain mass')}</div>
+                        <input
+                            type="number"
+                            min=".1"
+                            max="10000"
+                            step=".1"
+                            className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
+                            value={props.brewhouse.grainMass}
+                            onChange={e => changeGrainMass(props, e.target.value)}
+                        ></input>
+                        <select className="p-1 appearance-none rounded-none bg-white border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={e => changeGrainMassUnit(props, e.target.value as MassUnit)}>
+                            <option value="kg">{t('kg')}</option>
+                            <option value="g">{t('g')}</option>
+                        </select>
+                    </div>
+                    <div className="flex flex-row gap-4 items-baseline flex-wrap">
+                        <div>{t('original gravity')}</div>
+                        <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
+                            type="number"
+                            min=".1"
+                            max="40"
+                            step=".1"
+                            value={props.originalGravity.amount}
+                            onChange={(e) => changeOriginalGravity(props, e.target.value)}></input>
+                        <select className="p-1 appearance-none rounded-none bg-white border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit(props, e.target.value as Unit)}>
+                            {[...getOptions(props, t)]}
+                        </select>
+                    </div>
+                    <div className="flex flex-row gap-4 items-baseline flex-wrap">
+                        <div>{t('wort volume')}</div>
+                        <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
+                            type="number"
+                            min=".1"
+                            max="40"
+                            step=".1"
+                            value={props.brewhouse.wortVolume}
+                            onChange={(e) => onChangeWortVolume(props, e.target.value)}></input>
+                        <div>{t('liter')}</div>
+                    </div>
+                    <div className="flex flex-row gap-4 items-baseline flex-wrap">
+                        <div>{t('volume measured at')}</div>
+                        <label>
+                            <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="100_C" name="hundred" checked={props.brewhouse.volumeMeasuredAt === VolumeMeasuredAt.Hundred} onChange={() => onChangeVolumeMeasuredAt(props, VolumeMeasuredAt.Hundred)} />
+                            &nbsp;&nbsp;100 °C
+                        </label>
+                        <label>
+                            <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="20_C" name="twenty" checked={props.brewhouse.volumeMeasuredAt === VolumeMeasuredAt.Twenty} onChange={() => onChangeVolumeMeasuredAt(props, VolumeMeasuredAt.Twenty)} />
+                            &nbsp;&nbsp;20 °C
+                        </label>
+                    </div>
+                    <div><strong>{t('brewhouse efficiency')}:&nbsp;{getBrewhouseEfficiency(props)}&nbsp;%</strong></div>
                 </div>
-                <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">
-                    <select className="p-1 appearance-none rounded-none border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={e => changeGrainMassUnit(props, e.target.value as MassUnit)}>
-                        <option value="kg">{t('kg')}</option>
-                        <option value="g">{t('g')}</option>
-                    </select>
-                </div>
-                <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('original gravity')}</div>
-                <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 xs:col-span-8 col-span-8">
-                    <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
-                        type="number"
-                        min=".1"
-                        max="40"
-                        step=".1"
-                        value={props.originalGravity.amount}
-                        onChange={(e) => changeOriginalGravity(props, e.target.value)}></input>
-                </div>
-                <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">
-                    <select className="p-1 appearance-none rounded-none border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit(props, e.target.value as Unit)}>
-                        {[...getOptions(props, t)]}
-                    </select>
-                </div>
-                <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('wort volume')}</div>
-                <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 xs:col-span-8 col-span-8">
-                    <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
-                        type="number"
-                        min=".1"
-                        max="40"
-                        step=".1"
-                        value={props.brewhouse.wortVolume}
-                        onChange={(e) => onChangeWortVolume(props, e.target.value)}></input>
-                </div>
-                <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">{t('liter')}</div>
-                <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('volume measured at')}</div>
-                <div className="2xl:col-span-1 xl:col-span-1 lg:col-span-2 md:col-span-3 col-span-12 xs:col-span-12">
-                    <label>
-                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="100_C" name="hundred" checked={props.brewhouse.volumeMeasuredAt === VolumeMeasuredAt.Hundred} onChange={() => onChangeVolumeMeasuredAt(props, VolumeMeasuredAt.Hundred)} />
-                        &nbsp;&nbsp;100 °C
-                    </label>
-                </div>
-                <div className="2xl:col-span-8 xl:col-span-7 lg:col-span-5 md:col-span-3 col-span-12 xs:col-span-12">
-                    <label>
-                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="20_C" name="twenty" checked={props.brewhouse.volumeMeasuredAt === VolumeMeasuredAt.Twenty} onChange={() => onChangeVolumeMeasuredAt(props, VolumeMeasuredAt.Twenty)} />
-                        &nbsp;&nbsp;20 °C
-                    </label>
-                </div>
-                <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12"><strong>{t('brewhouse efficiency')}:&nbsp;{getBrewhouseEfficiency(props)}&nbsp;%</strong></div>
-            </div>
 
 
-            <div className="grid grid-cols-12 gap-3 shadow-md p-4 items-baseline">
-                <div className="col-span-12 text-xl">{t('grain mass relative to brewhouse efficiency')}</div>
-                <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('brewhouse efficiency')}</div>
-                <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 xs:col-span-8 col-span-8">
-                    <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
-                        type="number"
-                        min=".1"
-                        max="100"
-                        step=".1"
-                        value={props.brewhouse.grainMassFromBrewhouse.brewhouseEfficiency}
-                        onChange={(e) => onChangeBrewhouseEfficiency(props, e.target.value)}></input>
+                <div className="flex flex-col gap-4 shadow-md p-4 dark:text-gray-400 grow">
+                    <div className="text-xl">{t('grain mass relative to brewhouse efficiency')}</div>
+                    <div className="flex flex-row gap-4 items-baseline flex-wrap">
+                        <div>{t('brewhouse efficiency')}</div>
+                        <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
+                            type="number"
+                            min=".1"
+                            max="100"
+                            step=".1"
+                            value={props.brewhouse.grainMassFromBrewhouse.brewhouseEfficiency}
+                            onChange={(e) => onChangeBrewhouseEfficiency(props, e.target.value)}></input>
+                        <div >%</div>
+                    </div>
+                    <div className="flex flex-row gap-4 items-baseline flex-wrap">
+                        <div>{t('original gravity')}</div>
+                        <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
+                            type="number"
+                            min=".1"
+                            max="40"
+                            step=".1"
+                            value={props.brewhouse.grainMassFromBrewhouse.originalGravity.amount}
+                            onChange={(e) => changeOriginalGravity2(props, e.target.value)}></input>
+                        <select className="p-1 appearance-none rounded-none bg-white border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit2(props, e.target.value as Unit)}>
+                            {[...getOptions2(props, t)]}
+                        </select>
+                    </div>
+                    <div className="flex flex-row gap-4 items-baseline flex-wrap">
+                        <div>{t('wort volume')}</div>
+                        <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
+                            type="number"
+                            min=".1"
+                            max="40"
+                            step=".1"
+                            value={props.brewhouse.grainMassFromBrewhouse.wortVolume}
+                            onChange={(e) => onChangeWortVolume2(props, e.target.value)}></input>
+                        <div>{t('liter')}</div>
+                    </div>
+                    <div className="flex flex-row gap-4 items-baseline flex-wrap">
+                        <div>{t('volume measured at')}</div>
+                        <label>
+                            <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="2_100_C" name="2_hundred" checked={props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === VolumeMeasuredAt.Hundred} onChange={() => onChangeVolumeMeasuredAt2(props, VolumeMeasuredAt.Hundred)} />
+                            &nbsp;&nbsp;100 °C
+                        </label>
+                        <label>
+                            <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="2_20_C" name="2_twenty" checked={props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === VolumeMeasuredAt.Twenty} onChange={() => onChangeVolumeMeasuredAt2(props, VolumeMeasuredAt.Twenty)} />
+                            &nbsp;&nbsp;20 °C
+                        </label>
+                    </div>
+                    <div><strong>{t('grain mass')}:&nbsp;{getGrainMassFromBrewhouse(props)}&nbsp;{t('kg')}</strong></div>
                 </div>
-                <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">%</div>
-                <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('original gravity')}</div>
-                <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 xs:col-span-8 col-span-8">
-                    <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
-                        type="number"
-                        min=".1"
-                        max="40"
-                        step=".1"
-                        value={props.brewhouse.grainMassFromBrewhouse.originalGravity.amount}
-                        onChange={(e) => changeOriginalGravity2(props, e.target.value)}></input>
-                </div>
-                <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">
-                    <select className="p-1 appearance-none rounded-none border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit2(props, e.target.value as Unit)}>
-                        {[...getOptions2(props, t)]}
-                    </select>
-                </div>
-                <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('wort volume')}</div>
-                <div className="2xl:col-span-2 xl:col-span-3 lg:col-span-3 md:col-span-4 sm:col-span-6 xs:col-span-8 col-span-8">
-                    <input className="border-gray-300 p-1 border-solid border-1 focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
-                        type="number"
-                        min=".1"
-                        max="40"
-                        step=".1"
-                        value={props.brewhouse.grainMassFromBrewhouse.wortVolume}
-                        onChange={(e) => onChangeWortVolume2(props, e.target.value)}></input>
-                </div>
-                <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">{t('liter')}</div>
-                <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right">{t('volume measured at')}</div>
-                <div className="2xl:col-span-1 xl:col-span-1 lg:col-span-2 md:col-span-3 col-span-12 xs:col-span-12">
-                    <label>
-                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="2_100_C" name="2_hundred" checked={props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === VolumeMeasuredAt.Hundred} onChange={() => onChangeVolumeMeasuredAt2(props, VolumeMeasuredAt.Hundred)} />
-                        &nbsp;&nbsp;100 °C
-                    </label>
-                </div>
-                <div className="2xl:col-span-8 xl:col-span-7 lg:col-span-5 md:col-span-3 col-span-12 xs:col-span-12">
-                    <label>
-                        <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="2_20_C" name="2_twenty" checked={props.brewhouse.grainMassFromBrewhouse.volumeMeasuredAt === VolumeMeasuredAt.Twenty} onChange={() => onChangeVolumeMeasuredAt2(props, VolumeMeasuredAt.Twenty)} />
-                        &nbsp;&nbsp;20 °C
-                    </label>
-                </div>
-                <div className="2xl:col-span-3 xl:col-span-4 lg:col-span-5 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12"><strong>{t('grain mass')}:&nbsp;{getGrainMassFromBrewhouse(props)}&nbsp;{t('kg')}</strong></div>
             </div>
         </div>
     );

@@ -29,15 +29,11 @@ const ColorDisplay: React.FC<ColorDisplayProps> = (props: ColorDisplayProps) => 
     }
 
     const ebc = calculateEbc(props);
-
+    const ebcClassName = (ebc >= 100) ? "ebc-100" : "ebc-" + ebc;
     return (
-        <div className="grid grid-cols-12 gap-3 shadow-md p-4 items-baseline">
-            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right mx-auto my-auto">
-                <span><strong>{ebc} EBC</strong></span>
-            </div>
-            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">
-                <div className={(ebc >= 100) ? "ebc-100" : "ebc-" + ebc} style={{ height: "100px" }}></div>
-            </div>
+        <div className="flex flex-row shadow-md p-4 gap-4 items-baseline">
+            <div className='my-auto grow'><strong>{ebc} EBC</strong></div>
+            <div className={ebcClassName + " grow"} style={{ height: "100px" }}></div>
         </div>
     );
 }

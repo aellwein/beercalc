@@ -16,20 +16,14 @@ export interface AlcoholCalcProps {
 const columns = function* (props: AlcoholCalcProps): Generator<JSX.Element, void, undefined> {
     if (props.unit === Unit.Brix) {
         yield (
-            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12" key="calc-standard">
-                <CalcStandard />
-            </div>
+                <CalcStandard key='calc-standard' />
         );
         yield (
-            <div className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-12 xs:col-span-12 col-span-12" key="calc-terrill">
-                <CalcTerrill />
-            </div>
+                <CalcTerrill key='calc-terrill' />
         );
     } else {
         yield (
-            <div className="col-span-12" key="calc-standard">
-                <CalcStandard />
-            </div>
+                <CalcStandard key='calc-standard' />
         );
     }
 }
@@ -41,7 +35,7 @@ const AlcoholCalc: React.FC<AlcoholCalcProps> = (props: AlcoholCalcProps) => {
             <div className="text-2xl my-3">{t('alcohol calculator')}</div>
             <div><UnitPicker /></div>
             <div><GravityPicker /></div>
-            <div className="grid grid-cols-12 gap-4">
+            <div className="flex flex-row flex-wrap gap-4">
                 {[...columns(props)]}
             </div>
         </div>

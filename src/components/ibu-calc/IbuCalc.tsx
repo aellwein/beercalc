@@ -9,8 +9,8 @@ const IbuCalc: React.FC<void> = () => {
     return (
         <div className="flex flex-col gap-4 dark:text-gray-400">
             <div className="text-2xl my-3">{t('ibu calculator')}</div>
-            <div><IbuPreset /></div>
-            <div><HopsAdder /></div>
+            <IbuPreset />
+            <HopsAdder />
         </div>
     );
 }

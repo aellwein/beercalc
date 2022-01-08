@@ -17,15 +17,15 @@ const UnitPicker: React.FC<UnitPickerProps> = (props: UnitPickerProps) => {
         return <div></div>;
     }
     return (
-        <div className="grid grid-cols-12 gap-3 shadow-md p-4">
-            <span className="2xl:col-span-3 xl:col-span-3 lg:col-span-4 md:col-span-5 sm:col-span-6 col-span-12 xs:col-span-12 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-left xs:text-left text-left">{t('gravity unit')}</span>
-            <div className="2xl:col-span-1 xl:col-span-1 lg:col-span-2 md:col-span-3 col-span-12 xs:col-span-12">
+        <div className="flex flex-row gap-4 shadow-md p-4">
+            <span>{t('gravity unit')}</span>
+            <div>
                 <label>
                     <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="brix" name="unit" checked={props.unit === Unit.Brix} onChange={e => onChange(props, e.target.id as Unit)} />
                     &nbsp;&nbsp;{t('brix')}
                 </label>
             </div>
-            <div className="2xl:col-span-1 xl:col-span-1 lg:col-span-2 md:col-span-3 col-span-12 xs:col-span-12">
+            <div>
                 <label>
                     <input type="radio" className="dark:bg-gray-700 dark:text-gray-300" id="plato" name="unit" checked={props.unit === Unit.Plato} onChange={e => onChange(props, e.target.id as Unit)} />
                     &nbsp;&nbsp;{t('plato')}
