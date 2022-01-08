@@ -12,7 +12,7 @@ const App = () => {
 
   return (
     <Suspense fallback='loading'>
-        <div className="container mx-auto p-3 dark:bg-gray-800">
+        <div className="container p-3 dark:bg-gray-800">
           <NavBar />
           <Footer />
       </div>
