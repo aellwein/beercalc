@@ -20,9 +20,9 @@ const ModeToggle: React.FC<ModeToggleProps> = (props: ModeToggleProps) => {
         return <div></div>;
     }
     if (props.displayMode === DisplayMode.Lite) {
-        return <button className="rounded-3xl border-1 border-solid border-gray-300 p-1 dark:bg-gray-700 dark:text-gray-300" title={t('turn dark mode')} onClick={() => toggleMode(props)}>🌙</button>;
+        return <button className="rounded-3xl border-1 border-solid border-gray-300 p-1 dark:bg-gray-700 dark:text-gray-300" title={t('light mode')} onClick={() => toggleMode(props)}>🌞</button>;
     } else if (props.displayMode === DisplayMode.Dark) {
-        return <button className="rounded-3xl border-1 border-solid border-gray-300 p-1 dark:bg-gray-700 dark:text-gray-300" title={t('turn light mode')} onClick={() => toggleMode(props)}>🌞</button>;
+        return <button className="rounded-3xl border-1 border-solid border-gray-300 p-1 dark:bg-gray-700 dark:text-gray-300" title={t('dark mode')} onClick={() => toggleMode(props)}>🌙</button>;
     } else {
         return <div>error: invalid mode!</div>
     }
