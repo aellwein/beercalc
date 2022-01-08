@@ -55,7 +55,7 @@ const grainAdditions = function* (props: MaltAdderProps, t: TFunction<"translati
         yield <div key={i + "-col3-1"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-4 col-span-6 2xl:text-right xl:text-right lg:text-right md:text-right sm:text-right xs:text-right text-right">{t('mass unit')}</div>;
         yield (
             <div key={i + "-col3-2"} className="2xl:col-span-6 xl:col-span-6 lg:col-span-6 md:col-span-6 sm:col-span-6 xs:col-span-8 col-span-6 2xl:text-left xl:text-left lg:text-left md:text-left sm:text-left xs:text-left text-left">
-                <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" defaultValue="kg" onChange={(e) => onChangeMassUnit(props, i, e.target.value as MassUnit)}>
+                <select className="p-1 appearance-none rounded-none border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" defaultValue="kg" onChange={(e) => onChangeMassUnit(props, i, e.target.value as MassUnit)}>
                     <option value="kg">{t('kg')}</option>
                     <option value="g">{t('g')}</option>
                 </select>

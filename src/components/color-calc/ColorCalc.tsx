@@ -59,7 +59,7 @@ const ColorCalc: React.FC<ColorCalcProps> = (props: ColorCalcProps) => {
                         onChange={(e) => changeOriginalGravity(props, e.target.value)}></input>
                 </div>
                 <div className="2xl:col-span-7 xl:col-span-5 lg:col-span-4 md:col-span-2 sm:col-span-6 xs:col-span-4 col-span-4">
-                    <select className="p-1 border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit(props, e.target.value as Unit)}>
+                    <select className="p-1 appearance-none rounded-none border-gray-300 border-1 border-solid dark:bg-gray-700 dark:text-gray-300" onChange={(e) => onChangeUnit(props, e.target.value as Unit)}>
                         {[...getOptions(props, t)]}
                     </select>
                 </div>
