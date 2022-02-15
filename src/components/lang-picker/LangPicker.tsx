@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 const languages = function* (): Generator<JSX.Element, void, undefined> {
     const langs = [
-        { 'short': 'en', 'long': '🇺🇸 EN' },
+        { 'short': 'en', 'long': '🇬🇧 EN' },
         { 'short': 'de', 'long': '🇩🇪 DE' },
         { 'short': 'ru', 'long': '🇷🇺 РУ' },
     ];
