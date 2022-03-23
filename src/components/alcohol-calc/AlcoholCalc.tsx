@@ -16,19 +16,19 @@ export interface AlcoholCalcProps {
 const columns = function* (props: AlcoholCalcProps): Generator<JSX.Element, void, undefined> {
     if (props.unit === Unit.Brix) {
         yield (
-                <CalcStandard key='calc-standard' />
+            <CalcStandard key='calc-standard' />
         );
         yield (
-                <CalcTerrill key='calc-terrill' />
+            <CalcTerrill key='calc-terrill' />
         );
     } else {
         yield (
-                <CalcStandard key='calc-standard' />
+            <CalcStandard key='calc-standard' />
         );
     }
 }
 
-const AlcoholCalc: React.FC<AlcoholCalcProps> = (props: AlcoholCalcProps) => {
+const AlcoholCalc = (props: AlcoholCalcProps) => {
     const { t } = useTranslation();
     return (
         <div className="flex flex-col gap-4 dark:text-gray-400">

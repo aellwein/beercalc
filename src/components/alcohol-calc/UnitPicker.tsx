@@ -11,7 +11,7 @@ interface UnitPickerProps extends PropsFromRedux {
     unit: Unit
 }
 
-const UnitPicker: React.FC<UnitPickerProps> = (props: UnitPickerProps) => {
+const UnitPicker = (props: UnitPickerProps) => {
     const { t } = useTranslation();
     if (!props.unit) {
         return <div></div>;

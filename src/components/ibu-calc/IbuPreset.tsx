@@ -61,7 +61,7 @@ const onFlameoutTempChange = (props: IbuPresetProps, newTemp: string) => {
 }
 
 
-const IbuPreset: React.FC<IbuPresetProps> = (props: IbuPresetProps) => {
+const IbuPreset = (props: IbuPresetProps) => {
     const { t } = useTranslation();
     if (!props || !props.unit) {
         return <div>Loading...</div>;

@@ -118,7 +118,7 @@ const getGrainMassFromBrewhouse = (props: BrewhouseCalcProps): number => {
     return Number.parseFloat(grainMassKg.toFixed(1));
 }
 
-const BrewhouseEfficiencyCalc: React.FC<BrewhouseCalcProps> = (props: BrewhouseCalcProps) => {
+const BrewhouseEfficiencyCalc = (props: BrewhouseCalcProps) => {
     const { t } = useTranslation();
     return (
         <div className="flex flex-col gap-4 dark:text-gray-400">

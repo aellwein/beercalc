@@ -69,7 +69,7 @@ const grainAdditions = function* (props: MaltAdderProps, t: TFunction<"translati
     }
 }
 
-const MaltAdder: React.FC<MaltAdderProps> = (props: MaltAdderProps) => {
+const MaltAdder = (props: MaltAdderProps) => {
     const { t } = useTranslation();
     return (
         <div className="flex flex-col gap-4 shadow-md p-4">

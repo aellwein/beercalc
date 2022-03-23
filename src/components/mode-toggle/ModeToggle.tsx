@@ -14,7 +14,7 @@ const toggleMode = (props: ModeToggleProps) => {
     }
 }
 
-const ModeToggle: React.FC<ModeToggleProps> = (props: ModeToggleProps) => {
+const ModeToggle = (props: ModeToggleProps) => {
     const { t } = useTranslation();
     if (typeof (props.displayMode) === 'undefined') {
         return <div></div>;

@@ -23,7 +23,7 @@ const getLang = (lang: string): string => {
     return lang.split('-')[0].toLowerCase();
 }
 
-const LangPicker: React.FC<any> = (_) => {
+const LangPicker = () => {
     const { i18n } = useTranslation();
 
     return (

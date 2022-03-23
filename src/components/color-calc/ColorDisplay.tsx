@@ -23,7 +23,7 @@ const calculateEbc = (props: ColorDisplayProps): number => {
     return Number.parseFloat(ebc.toFixed(0));
 }
 
-const ColorDisplay: React.FC<ColorDisplayProps> = (props: ColorDisplayProps) => {
+const ColorDisplay = (props: ColorDisplayProps) => {
     if (props.grain.malt.length === 0) {
         return <div></div>;
     }

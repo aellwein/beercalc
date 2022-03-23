@@ -41,7 +41,7 @@ const onChangeUnit = (props: ColorCalcProps, unit: Unit) => {
     props.changeUnit(unit);
 }
 
-const ColorCalc: React.FC<ColorCalcProps> = (props: ColorCalcProps) => {
+const ColorCalc = (props: ColorCalcProps) => {
     const { t } = useTranslation();
     return (
         <div className="flex flex-col gap-4 dark:text-gray-400">

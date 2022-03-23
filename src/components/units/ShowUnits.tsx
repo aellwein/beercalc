@@ -6,7 +6,7 @@ interface ShowUnitsProps {
     gravity: Gravity;
 }
 
-const ShowUnits: React.FC<ShowUnitsProps> = (props: ShowUnitsProps) => {
+const ShowUnits = (props: ShowUnitsProps) => {
     const { t } = useTranslation();
     if (!props.gravity) {
         return <span></span>;

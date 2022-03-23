@@ -102,7 +102,7 @@ const calcBitterness = (props: IbuCalcProps): number => {
     return Number.parseFloat(b.toFixed(1));
 }
 
-const HopsAdder: React.FC<IbuCalcProps> = (props: IbuCalcProps) => {
+const HopsAdder = (props: IbuCalcProps) => {
     const { t } = useTranslation();
     return (
         <div className="flex flex-col gap-4 p-4 shadow-md">

@@ -25,7 +25,7 @@ const onChangeFg = (props: GravityPickerProps, newFg: string) => {
     props.setFinalGravity({ unit: props.finalGravity.unit, amount: fg });
 }
 
-const GravityPicker: React.FC<GravityPickerProps> = (props: GravityPickerProps) => {
+const GravityPicker = (props: GravityPickerProps) => {
     const { t } = useTranslation();
     return (
         <div className="flex flex-col gap-4 shadow-md p-4 items-baseline">

@@ -4,7 +4,7 @@ import HopsAdder from "./HopsAdder";
 import IbuPreset from "./IbuPreset";
 
 
-const IbuCalc: React.FC<void> = () => {
+const IbuCalc = () => {
     const { t } = useTranslation();
     return (
         <div className="flex flex-col gap-4 dark:text-gray-400">
