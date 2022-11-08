@@ -1,5 +1,6 @@
+import { TFunction } from 'i18next';
 import GitInfo, { GitInformation } from 'react-git-info/macro';
-import { TFunction, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const baseUrl = "https://github.com/aellwein/beercalc";
 

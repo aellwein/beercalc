@@ -1,4 +1,5 @@
-import { TFunction, useTranslation } from "react-i18next";
+import { TFunction } from 'i18next';
+import { useTranslation } from "react-i18next";
 import { connect, ConnectedProps } from "react-redux";
 import { changeHopsAlpha, changeHopsAmount, changeHopsBoil, changeHopsForm, newHopsAddition, removeHopsAddition } from '../../actions';
 import { CalculatorState, HopsForm } from "../../types";

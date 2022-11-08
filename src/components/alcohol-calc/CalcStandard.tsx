@@ -1,4 +1,5 @@
-import { TFunction, useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { CalculatorState, Gravity, Unit } from '../../types';
 import { AlcoholCalculationResult, alcoholStandardFormula, alcoholStandardFormulaPlato } from '../units/calculations';

@@ -1,4 +1,5 @@
-import { TFunction, useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from "react-redux";
 import { boilingTime, changeUnit, setOriginalGravity } from "../../actions";
 import { CalculatorState, Gravity, IbuState, Unit } from '../../types';

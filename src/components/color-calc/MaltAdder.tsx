@@ -1,6 +1,7 @@
-import { TFunction, useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
-import { newMaltAddition, removeMaltAddition, changeMaltMass, changeMaltMassUnit, changeMaltColor } from '../../actions';
+import { changeMaltColor, changeMaltMass, changeMaltMassUnit, newMaltAddition, removeMaltAddition } from '../../actions';
 import { CalculatorState, ColorCalcState, MassUnit } from '../../types';
 
 interface MaltAdderProps extends PropsFromRedux {

@@ -1,4 +1,5 @@
-import { TFunction, useTranslation } from "react-i18next";
+import { TFunction } from 'i18next';
+import { useTranslation } from "react-i18next";
 import { connect, ConnectedProps } from "react-redux";
 import { changeBrewhouseEfficiency, changeUnit, changeUnit2, changeVolumeMeasuredAt, changeVolumeMeasuredAt2, changeWortVolume, changeWortVolume2, setGrainMassAndUnit, setOriginalGravity, setOriginalGravity2 } from '../../actions';
 import { BrewhouseEfficiencyState, CalculatorState, Gravity, MassUnit, Unit, VolumeMeasuredAt } from "../../types";
