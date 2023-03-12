@@ -12,4 +12,4 @@ The calculator is powered by formulas kindly provided by
 
 Since published release 0.7.1 there will be no GitHub releases anymore.
 
-I will deploy the application continuously on every push to master instead.
+I will deploy the application continuously on every push to "main" instead.

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 const baseUrl = "https://github.com/aellwein/beercalc";
 
 const commit = (gitInfo: GitInformation, t: TFunction<"translation", undefined>) => {
-    if (gitInfo.branch !== 'master') {
+    if (gitInfo.branch !== 'main') {
         return <span>{t('commit')} {gitInfo.commit.shortHash}</span>;
     } else {
         return <span>{t('commit')} <a className="text-indigo-600 hover:underline" href={baseUrl + "/commit/" + gitInfo.commit.hash}>{gitInfo.commit.shortHash}</a></span>;
