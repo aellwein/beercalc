@@ -16,7 +16,10 @@ const onChangeLang = (lang: string, i18n: i18n) => {
     i18n.changeLanguage(lang);
 }
 
-const getLang = (lang: string): string => {
+const getLang = (lang: string | undefined): string => {
+    if (typeof(lang) === 'undefined') {
+        return 'en';
+    }
     if (lang.indexOf("-") === -1) {
         return lang;
     }
@@ -28,7 +31,9 @@ const LangPicker = () => {
 
     return (
         <div>
-            <select className="appearance-none rounded-none bg-white border-gray-300 p-1 border-solid border-1 dark:bg-gray-700 dark:text-gray-300" onChange={e => onChangeLang(e.target.value, i18n)} value={getLang(i18n.resolvedLanguage)}>
+            <select className="appearance-none rounded-none bg-white border-gray-300 p-1 border-solid border-1 dark:bg-gray-700 dark:text-gray-300" 
+            onChange={e => onChangeLang(e.target.value, i18n)} 
+            value={getLang(i18n.resolvedLanguage)}>
                 {[...languages()]}
             </select>
         </div>
