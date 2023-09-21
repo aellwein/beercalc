@@ -1,6 +1,6 @@
 # BeerCalc
 
-See [beercalc.ellwein.net](https://beercalc.ellwein.net)
+See [https://aellwein.github.io/beercalc/](https://aellwein.github.io/beercalc/)
 
 ## Formula
 
