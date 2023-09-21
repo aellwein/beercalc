@@ -19,7 +19,7 @@ const Footer = () => {
         <footer className="my-6 text-center dark:text-gray-400">
             <a className="text-indigo-600 hover:underline" href={baseUrl}>{t('project on github')}</a> | &nbsp;
             {commit(gitInfo, t)} | &nbsp;
-            {t('licensed under')} <a className="text-indigo-600 hover:underline" href="/license.html">{t('mit license')}</a>
+            {t('licensed under')} <a className="text-indigo-600 hover:underline" href={(process.env.PUBLIC_URL || "") + "/license.html"}>{t('mit license')}</a>
         </footer >
     );
 }

@@ -11,7 +11,7 @@ const NavBar = () => {
     const { t } = useTranslation();
 
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL || "/"}>
             <div className="flex flex-row flex-wrap gap-4 xs:gap-2 items-baseline">
                 <NavLink to="/alcohol" className={({ isActive }) => "nav-link " + (isActive ? "text-indigo-600" : "hover:underline flex-shrink-0 text-gray-500")}>{t('alcohol calculator')}</NavLink>
                 <NavLink to="/ibu" className={({ isActive }) => "nav-link " + (isActive ? "text-indigo-600" : "hover:underline flex-shrink-0 text-gray-500")}>{t('ibu calculator')}</NavLink>
