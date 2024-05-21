@@ -6,21 +6,21 @@ import translationEN from './i18n/en.json';
 import translationRU from './i18n/ru.json';
 
 const resources = {
-    en: { translation: translationEN },
-    de: { translation: translationDE },
-    ru: { translation: translationRU },
+  en: { translation: translationEN },
+  de: { translation: translationDE },
+  ru: { translation: translationRU },
 };
 
 i18n
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-        resources,
-        fallbackLng: 'en',
-        detection: {
-            order: ['navigator'],
-            caches: []
-        }
-    });
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources,
+    fallbackLng: 'en',
+    detection: {
+      order: ['navigator'],
+      caches: []
+    }
+  });
 
 export default i18n;
