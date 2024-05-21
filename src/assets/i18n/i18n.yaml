@@ -1,0 +1,240 @@
+add hops:
+  de: Hopfengabe
+  en: Add Hops
+  ru: Добавить хмель
+add malt:
+  de: Malz hinzufügen
+  en: Add malt
+  ru: Добавить солод
+alcohol by volume:
+  de: Alkohol in % des Volumens
+  en: Alcohol By Volume (%)
+  ru: Алкоголь в % объёма
+alcohol by weight:
+  de: Alkohol in % des Gewichts
+  en: Alcohol By Weight (%)
+  ru: Алкоголь в % веса
+alcohol calculator:
+  de: Alkohol-Rechner
+  en: alcohol calculator
+  ru: Калькулятор алкоголя
+alpha acid:
+  de: '% α-Säure'
+  en: '% α-acid'
+  ru: '% Альфа-кислоты'
+amount:
+  de: Menge, g
+  en: Amount, g
+  ru: Количество, г
+apparent attenuation:
+  de: Scheinbarer EVG
+  en: Apparent Attenuation
+  ru: Видимое сбраживание
+apparent extract:
+  de: Scheinbarer Restextrakt
+  en: Apparent Extract
+  ru: Видимый экстракт
+bitterness:
+  de: Bitterkeit
+  en: Bitterness
+  ru: Горечь
+boil time:
+  de: Kochzeit, min
+  en: Boil Time, mins
+  ru: Время варки, мин
+boiling time:
+  de: Hopfenkochen
+  en: Boiling Time
+  ru: Время кипячения
+brewhouse calculator:
+  de: Sudhausausbeute-Rechner
+  en: brewhouse efficiency calculator
+  ru: Калькулятор эффективности пивоварни
+brewhouse efficiency:
+  de: Sudhausausbeute
+  en: brewhouse efficiency
+  ru: Эффективность пивоварни
+brix:
+  de: Brix
+  en: °Bx
+  ru: °Брикс
+calculation not possible:
+  de: Berechnung nicht möglich
+  en: Calculation is not possible
+  ru: Расчёт невыполним
+color calculator:
+  de: Bierfarben-Rechner
+  en: beer color calculator
+  ru: Калькулятор цвета пива
+color ebc:
+  de: Farbe (EBC)
+  en: color, EBC
+  ru: Цвет по шкале EBC
+commit:
+  de: Commit
+  en: commit
+  ru: commit
+dark theme:
+  de: Dunkles Theme
+  en: dark theme
+  ru: тёмный режим
+developer version:
+  de: Entwickler-Version
+  en: Developer Version
+  ru: Неофициальная версия
+final gravity:
+  de: Restextrakt
+  en: Final Gravity
+  ru: Конечная плотность
+flameout temp:
+  de: Temperatur am Ende der Nachisomerisierung
+  en: Temperature At The End Of Flameout
+  ru: Температура после остывания
+flameout time:
+  de: Nachisomerisierungszeit
+  en: Time After Flameout
+  ru: Время остывания
+form:
+  de: Form
+  en: Hops Form
+  ru: Форма
+g:
+  de: g
+  en: g
+  ru: г
+grain mass:
+  de: Schüttung
+  en: Grain mass
+  ru: Масса затора
+grain mass relative to brewhouse efficiency:
+  de: Schüttung bei bekannter Sudhausausbeute
+  en: grain mass relative to brewhouse efficiency
+  ru: Масса затора при известной эффективности пивоварни
+gravity unit:
+  de: Maßeinheit
+  en: Gravity Unit
+  ru: Единица измерения плотности
+hops addition:
+  de: Hopfengabe
+  en: Hops Addition
+  ru: Хмель
+ibu calculator:
+  de: IBU-Rechner
+  en: IBU calculator
+  ru: Калькулятор горечи в IBU
+kg:
+  de: kg
+  en: kg
+  ru: кг
+licensed under:
+  de: Lizensiert unter der
+  en: Licensed under the
+  ru: лицензия
+light theme:
+  de: Helles Theme
+  en: light theme
+  ru: светлый режим
+liter:
+  de: L
+  en: liters
+  ru: л
+malt:
+  de: Malz
+  en: malt
+  ru: Солод
+mass:
+  de: Masse
+  en: mass
+  ru: Вес
+mass unit:
+  de: Einheit, g/kg
+  en: mass unit, g/kg
+  ru: г / кг
+minutes:
+  de: Minuten
+  en: minutes
+  ru: минут
+mit license:
+  de: MIT-Lizenz
+  en: MIT License
+  ru: MIT
+oechsle:
+  de: °Oe
+  en: °Oe
+  ru: °Oe
+original gravity:
+  de: Stammwürze
+  en: Original Gravity
+  ru: Начальная плотность
+plato:
+  de: °Plato
+  en: °Plato
+  ru: °Плато
+plugs:
+  de: Dolden
+  en: Plugs
+  ru: Шишки
+project on github:
+  de: Github-Projekt
+  en: GitHub project
+  ru: Проект на Гитxабe
+real attenuation:
+  de: Tatsächlicher EVG
+  en: Real Attenuation
+  ru: Действительное сбраживание
+real extract:
+  de: Tatsächlicher Restextrakt
+  en: Real Extract
+  ru: Действительный экстракт
+results:
+  de: Ergebnisse
+  en: Results
+  ru: Результаты
+sg:
+  de: SG
+  en: SG
+  ru: SG
+standard equation:
+  de: Berechnung nach Standard-Formel
+  en: Standard Equation
+  ru: По стандартному уравнению
+terrill equation:
+  de: Berechnung nach Terrill-Formel
+  en: Terrill Equation
+  ru: По уравнению Террилла
+title:
+  de: Bierrechner
+  en: beer calculators
+  ru: Пивные калькуляторы
+total bitterness:
+  de: Bitterkeit gesamt
+  en: Total bitterness
+  ru: Общая горечь
+version:
+  de: Version
+  en: version
+  ru: Версия
+volume:
+  de: Volumen
+  en: Volume
+  ru: Объём
+volume measured at:
+  de: Volumen gemessen bei
+  en: volume measured at
+  ru: Объём замерян при
+whole:
+  de: Pellets
+  en: Whole
+  ru: Пеллеты
+wort volume:
+  de: Ausschlagwürze
+  en: Wort volume
+  ru: Объём сусла
+go_back:
+  de: Zurück
+  en: Go back
+  ru: Назад
+page_not_found:
+  de: Seite nicht gefunden
+  en: Page not found
+  ru: Страница не найдена

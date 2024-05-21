@@ -1,24 +1,18 @@
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html",
-  ],
-  darkMode: 'class',
-  theme: {
-    extend: {
-      container: {
-        center: true,
-      },
-      borderWidth: {
-        '1': '1px',
-      },
-      screens: {
-        'xs': { 'max': '475px' },
-      },
-      gridTemplateColumns: {
-        'narrow-3': 'grid-template-columns: repeat(3, minmax(auto, 1fr))',
-      },
+    mode: "jit",
+    content: {
+        files: ["src/**/*.rs", "index.html"],
     },
-  },
-  plugins: [],
-}
+    darkMode: "class", // 'media' or 'class'
+    theme: {
+        extend: {
+            screens: {
+                "xs": "475px",
+            },
+        },
+    },
+    variants: {
+        extend: {},
+    },
+    plugins: [],
+};
