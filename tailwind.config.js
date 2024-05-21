@@ -1,24 +1,12 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: "all",
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html",
+    "./src/**/*.{rs,html,css}",
+    "./dist/**/*.html"
   ],
-  darkMode: 'class',
   theme: {
-    extend: {
-      container: {
-        center: true,
-      },
-      borderWidth: {
-        '1': '1px',
-      },
-      screens: {
-        'xs': { 'max': '475px' },
-      },
-      gridTemplateColumns: {
-        'narrow-3': 'grid-template-columns: repeat(3, minmax(auto, 1fr))',
-      },
-    },
+    extend: {},
   },
   plugins: [],
-}
+};
