@@ -4,6 +4,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { changeBrewhouseEfficiency, changeUnit, changeUnit2, changeVolumeMeasuredAt, changeVolumeMeasuredAt2, changeWortVolume, changeWortVolume2, setGrainMassAndUnit, setOriginalGravity, setOriginalGravity2 } from '../../actions';
 import { BrewhouseEfficiencyState, CalculatorState, Gravity, MassUnit, Unit, VolumeMeasuredAt } from "../../types";
 import { convertUnits } from "../units/calculations";
+import { ReactElement } from 'react';
 
 interface BrewhouseCalcProps extends PropsFromRedux {
   unit: Unit;
@@ -51,7 +52,7 @@ const onChangeBrewhouseEfficiency = (props: BrewhouseCalcProps, val: string) => 
   props.changeBrewhouseEfficiency(be);
 }
 
-const getOptions = function*(props: BrewhouseCalcProps, t: TFunction<"translation", undefined>): Generator<JSX.Element, void, undefined> {
+const getOptions = function* (props: BrewhouseCalcProps, t: TFunction<"translation", undefined>): Generator<ReactElement, void, undefined> {
   if (props.unit === Unit.Brix) {
     yield <option value='brix' key='brix'>{t('brix')}</option>;
     yield <option value='plato' key='plato'>{t('plato')}</option>;
@@ -61,7 +62,7 @@ const getOptions = function*(props: BrewhouseCalcProps, t: TFunction<"translatio
   }
 }
 
-const getOptions2 = function*(props: BrewhouseCalcProps, t: TFunction<"translation", undefined>): Generator<JSX.Element, void, undefined> {
+const getOptions2 = function* (props: BrewhouseCalcProps, t: TFunction<"translation", undefined>): Generator<ReactElement, void, undefined> {
   if (props.brewhouse.grainMassFromBrewhouse.originalGravity.unit === Unit.Brix) {
     yield <option value='brix' key='brix'>{t('brix')}</option>;
     yield <option value='plato' key='plato'>{t('plato')}</option>;

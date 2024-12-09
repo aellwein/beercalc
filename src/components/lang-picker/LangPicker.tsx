@@ -1,7 +1,8 @@
 import { i18n } from "i18next";
+import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 
-const languages = function*(): Generator<JSX.Element, void, undefined> {
+const languages = function* (): Generator<ReactElement, void, undefined> {
   const langs = [
     { 'short': 'en', 'long': '🇬🇧 EN' },
     { 'short': 'de', 'long': '🇩🇪 DE' },

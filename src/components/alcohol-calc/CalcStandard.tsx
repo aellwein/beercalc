@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { CalculatorState, Gravity, Unit } from '../../types';
 import { AlcoholCalculationResult, alcoholStandardFormula, alcoholStandardFormulaPlato } from '../units/calculations';
+import { ReactElement } from 'react';
 
 interface StandardCalcProps {
   originalGravity: Gravity;
@@ -10,7 +11,7 @@ interface StandardCalcProps {
   unit: Unit;
 }
 
-const calcNotPossible = (t: TFunction<"translation", undefined>): JSX.Element => {
+const calcNotPossible = (t: TFunction<"translation", undefined>): ReactElement => {
   return (
     <div className="flex flex-wrap flex-col shadow-md p-4 gap-2 flex-grow">
       <div className="text-center flex-grow text-red-400 table"><span className="table-cell align-middle">{t('calculation not possible')}</span></div>
@@ -18,7 +19,7 @@ const calcNotPossible = (t: TFunction<"translation", undefined>): JSX.Element =>
   )
 }
 
-const calcStandard = (props: StandardCalcProps, t: TFunction<"translation", undefined>): JSX.Element => {
+const calcStandard = (props: StandardCalcProps, t: TFunction<"translation", undefined>): ReactElement => {
   if (props.originalGravity.amount <= props.finalGravity.amount) {
     return calcNotPossible(t);
   }
@@ -75,7 +76,7 @@ const calcStandard = (props: StandardCalcProps, t: TFunction<"translation", unde
   );
 }
 
-const CalcStandard = (props: StandardCalcProps): JSX.Element => {
+const CalcStandard = (props: StandardCalcProps): ReactElement => {
   const { t } = useTranslation();
   if (!props.unit || !props.originalGravity || !props.finalGravity) {
     return <div>...</div>;

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { CalculatorState, Gravity, Unit } from '../../types';
 import { alcoholTerrillFormula } from '../units/calculations';
+import { ReactElement } from 'react';
 
 interface TerrillCalcProps {
   originalGravity: Gravity;
@@ -10,7 +11,7 @@ interface TerrillCalcProps {
   unit: Unit;
 }
 
-const calcNotPossible = (t: TFunction<"translation", undefined>): JSX.Element => {
+const calcNotPossible = (t: TFunction<"translation", undefined>): ReactElement => {
   return (
     <div className="flex flex-wrap flex-col shadow-md p-4 gap-2 flex-grow items-center">
       <div className="text-center flex-grow text-red-400 table"><span className="table-cell align-middle">{t('calculation not possible')}</span></div>
@@ -18,7 +19,7 @@ const calcNotPossible = (t: TFunction<"translation", undefined>): JSX.Element =>
   )
 }
 
-const calcTerrill = (props: TerrillCalcProps, t: TFunction<"translation", undefined>): JSX.Element => {
+const calcTerrill = (props: TerrillCalcProps, t: TFunction<"translation", undefined>): ReactElement => {
 
   if (props.originalGravity.amount <= props.finalGravity.amount) {
     return calcNotPossible(t);

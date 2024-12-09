@@ -5,6 +5,7 @@ import CalcStandard from './CalcStandard';
 import CalcTerrill from './CalcTerrill';
 import GravityPicker from './GravityPicker';
 import UnitPicker from './UnitPicker';
+import { ReactElement } from 'react';
 
 export interface AlcoholCalcProps {
   unit: Unit;
@@ -13,7 +14,7 @@ export interface AlcoholCalcProps {
 }
 
 
-const columns = function*(props: AlcoholCalcProps): Generator<JSX.Element, void, undefined> {
+const columns = function* (props: AlcoholCalcProps): Generator<ReactElement, void, undefined> {
   if (props.unit === Unit.Brix) {
     yield (
       <CalcStandard key='calc-standard' />
