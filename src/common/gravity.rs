@@ -61,4 +61,13 @@ impl Gravity {
             Gravity::SG(v) => Gravity::Oechsle(sg_to_oechsle(*v)),
         }
     }
+    pub fn translator_key(&self) -> String {
+        match self {
+            Gravity::Plato(_) => "plato",
+            Gravity::Brix(_) => "brix",
+            Gravity::SG(_) => "sg",
+            Gravity::Oechsle(_) => "oechsle",
+        }
+        .to_string()
+    }
 }

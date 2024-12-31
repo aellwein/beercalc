@@ -1,3 +1,4 @@
+use crate::Gravity;
 use crate::Theme;
 
 pub fn window() -> web_sys::Window {
@@ -67,5 +68,14 @@ pub fn set_theme_classes(theme: &Theme) {
         Theme::Dark => {
             set_classes("dark");
         }
+    }
+}
+
+pub fn format_gravity(g: &Gravity) -> String {
+    match g {
+        Gravity::Plato(v) => format!("{:.1}", v),
+        Gravity::Brix(v) => format!("{:.1}", v),
+        Gravity::Oechsle(v) => format!("{:.1}", v),
+        Gravity::SG(v) => format!("{:.3}", v),
     }
 }

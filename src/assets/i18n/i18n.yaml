@@ -170,10 +170,10 @@ plato:
   de: °Plato
   en: °Plato
   ru: °Плато
-plugs:
-  de: Dolden
-  en: Plugs
-  ru: Шишки
+pellets:
+  de: Pellets
+  en: Pellets
+  ru: Пеллеты
 project on github:
   de: Github-Projekt
   en: GitHub project
@@ -223,9 +223,9 @@ volume measured at:
   en: volume measured at
   ru: Объём замерян при
 whole:
-  de: Pellets
-  en: Whole
-  ru: Пеллеты
+  de: Dolden
+  en: Whole hops
+  ru: Шишки
 wort volume:
   de: Ausschlagwürze
   en: Wort volume

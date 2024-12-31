@@ -6,7 +6,7 @@ use web_sys::HtmlInputElement;
 use yew::prelude::*;
 use yewdux::prelude::*;
 
-fn change_og(s: Rc<CalcState>, e: Event) -> Rc<CalcState> {
+pub fn change_og_value(s: Rc<CalcState>, e: Event) -> Rc<CalcState> {
     let new_og = e
         .target()
         .unwrap()
@@ -26,7 +26,7 @@ fn change_og(s: Rc<CalcState>, e: Event) -> Rc<CalcState> {
     .into()
 }
 
-fn change_fg(s: Rc<CalcState>, e: Event) -> Rc<CalcState> {
+fn change_fg_value(s: Rc<CalcState>, e: Event) -> Rc<CalcState> {
     let new_fg = e
         .target()
         .unwrap()
@@ -46,15 +46,6 @@ fn change_fg(s: Rc<CalcState>, e: Event) -> Rc<CalcState> {
     .into()
 }
 
-fn format_gravity(g: &Gravity) -> String {
-    match g {
-        Gravity::Plato(v) => format!("{:.1}", v),
-        Gravity::Brix(v) => format!("{:.1}", v),
-        Gravity::Oechsle(v) => format!("{:.1}", v),
-        Gravity::SG(v) => format!("{:.3}", v),
-    }
-}
-
 #[function_component]
 pub fn GravityPicker() -> Html {
     let t = use_context::<Translator>().unwrap();
@@ -62,8 +53,8 @@ pub fn GravityPicker() -> Html {
     let original_gravity = format_gravity(&state.original_gravity);
     let final_gravity = format_gravity(&state.final_gravity);
 
-    let change_og = dispatch.reduce_callback_with(change_og);
-    let change_fg = dispatch.reduce_callback_with(change_fg);
+    let change_og = dispatch.reduce_callback_with(change_og_value);
+    let change_fg = dispatch.reduce_callback_with(change_fg_value);
 
     html! {
         <div class="flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline">

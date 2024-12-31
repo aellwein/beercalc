@@ -13,10 +13,10 @@ pub mod prelude {
     pub use super::gravity::Gravity;
     pub use super::lang::Language;
     pub use super::route::{Calculator, Route};
-    pub use super::state::CalcState;
+    pub use super::state::{CalcState, Hops, HopsForm, Ibu};
     pub use super::theme::{Theme, ThemeSwitcher};
     pub use super::translator::Translator;
     pub use super::utils::{
-        get_preferred_theme, set_body_classes, set_page_title, set_theme_classes,
+        format_gravity, get_preferred_theme, set_body_classes, set_page_title, set_theme_classes,
     };
 }
