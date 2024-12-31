@@ -77,6 +77,9 @@ pub fn calc_apparent_extract_sg(
         + 0.00003344 * fg_brix.powi(2)
         + 0.000000086 * fg_brix.powi(3);
 
+    if apparent_extract_sg <= 0.0 {
+        return Err(anyhow!("apparent extract is less or equal zero"));
+    }
     Ok(apparent_extract_sg)
 }
 
@@ -94,11 +97,20 @@ pub fn calc_apparent_extract_sg_terrill(
             "original gravity is less or equal than final gravity"
         ));
     }
-    Ok(1.0000 - 0.00085683 * og_plato + 0.0034941 * fg_plato)
+    let result = 1.0000 - 0.00085683 * og_plato + 0.0034941 * fg_plato;
+    if result <= 0.0 {
+        return Err(anyhow!("apparent extract is less or equal zero"));
+    }
+    Ok(result)
 }
 
-pub fn calc_real_extract(original_gravity: &Gravity, apparent_extract_plato: f64) -> f64 {
-    0.1808 * original_gravity.to_plato().value() + 0.8192 * apparent_extract_plato
+pub fn calc_real_extract(original_gravity: &Gravity, apparent_extract_plato: f64) -> Result<f64> {
+    let result = 0.1808 * original_gravity.to_plato().value() + 0.8192 * apparent_extract_plato;
+    match result {
+        r if r <= 0.0 => Err(anyhow!("real extract is less or equal zero")),
+        r if r >= 100.0 => Err(anyhow!("real extract is greater or equal 100")),
+        _ => Ok(result),
+    }
 }
 
 pub fn calc_apparent_attenuation(
@@ -109,7 +121,12 @@ pub fn calc_apparent_attenuation(
     if og_plato == 0.0 {
         return Err(anyhow!("original gravity is zero"));
     }
-    Ok((1.0 - apparent_extract_plato / og_plato) * 100.0)
+    let result = (1.0 - apparent_extract_plato / og_plato) * 100.0;
+    match result {
+        r if r <= 0.0 => Err(anyhow!("apparent attenuation is less or equal zero")),
+        r if r >= 100.0 => Err(anyhow!("apparent attenuation is greater or equal 100")),
+        _ => Ok(result),
+    }
 }
 
 pub fn calc_real_attenuation(original_gravity: &Gravity, real_extract_plato: f64) -> Result<f64> {
@@ -166,7 +183,7 @@ pub fn calc_alcohol_standard_equation(
         // calculation not possible for this combination of units
         return Err(anyhow!("calculation not possible"));
     }
-    let real_extract_plato = calc_real_extract(original_gravity, apparent_extract_plato);
+    let real_extract_plato = calc_real_extract(original_gravity, apparent_extract_plato)?;
     let apparent_attenuation_plato =
         calc_apparent_attenuation(original_gravity, apparent_extract_plato)?;
     let real_attenuation_plato = calc_real_attenuation(original_gravity, real_extract_plato)?;
@@ -192,7 +209,7 @@ pub fn calc_alcohol_terrill_equation(
     }
     let apparent_extract_sg = calc_apparent_extract_sg_terrill(original_gravity, final_gravity)?;
     let apparent_extract_plato = sg_to_plato(apparent_extract_sg);
-    let real_extract_plato = calc_real_extract(original_gravity, apparent_extract_plato);
+    let real_extract_plato = calc_real_extract(original_gravity, apparent_extract_plato)?;
     let apparent_attenuation_plato =
         calc_apparent_attenuation(original_gravity, apparent_extract_plato)?;
     let real_attenuation_plato = calc_real_attenuation(original_gravity, real_extract_plato)?;
