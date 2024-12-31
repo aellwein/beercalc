@@ -16,6 +16,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Enable Rust cache
+        uses: Swatinem/rust-cache@v2
+
       - name: Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
 
