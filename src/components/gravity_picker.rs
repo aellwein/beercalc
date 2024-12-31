@@ -62,8 +62,8 @@ pub fn GravityPicker() -> Html {
     let original_gravity = format_gravity(&state.original_gravity);
     let final_gravity = format_gravity(&state.final_gravity);
 
-    let change_og = dispatch.reduce_callback_with(|s, e| change_og(s, e));
-    let change_fg = dispatch.reduce_callback_with(|s, e| change_fg(s, e));
+    let change_og = dispatch.reduce_callback_with(change_og);
+    let change_fg = dispatch.reduce_callback_with(change_fg);
 
     html! {
         <div class="flex flex-col gap-4 shadow-md p-4 items-baseline">

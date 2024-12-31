@@ -157,7 +157,7 @@ pub fn calc_alcohol_standard_equation(
     let apparent_extract_plato;
     if matches!(original_gravity, Gravity::Brix(_)) {
         // refractometer method is used here with SG conversion from Brix units
-        let apparent_extract_sg = calc_apparent_extract_sg(&original_gravity, &final_gravity)?;
+        let apparent_extract_sg = calc_apparent_extract_sg(original_gravity, final_gravity)?;
         apparent_extract_plato = sg_to_plato(apparent_extract_sg);
     } else if matches!(final_gravity, Gravity::Plato(_)) {
         // standard method for calculation with Plato units
@@ -166,12 +166,12 @@ pub fn calc_alcohol_standard_equation(
         // calculation not possible for this combination of units
         return Err(anyhow!("calculation not possible"));
     }
-    let real_extract_plato = calc_real_extract(&original_gravity, apparent_extract_plato);
+    let real_extract_plato = calc_real_extract(original_gravity, apparent_extract_plato);
     let apparent_attenuation_plato =
-        calc_apparent_attenuation(&original_gravity, apparent_extract_plato)?;
-    let real_attenuation_plato = calc_real_attenuation(&original_gravity, real_extract_plato)?;
-    let alcohol_by_weight = calc_alcohol_by_weight(&original_gravity, real_extract_plato)?;
-    let alcohol_by_volume = calc_alcohol_by_volume(&original_gravity, real_extract_plato)?;
+        calc_apparent_attenuation(original_gravity, apparent_extract_plato)?;
+    let real_attenuation_plato = calc_real_attenuation(original_gravity, real_extract_plato)?;
+    let alcohol_by_weight = calc_alcohol_by_weight(original_gravity, real_extract_plato)?;
+    let alcohol_by_volume = calc_alcohol_by_volume(original_gravity, real_extract_plato)?;
 
     Ok(AlcCalcResult {
         apparent_extract: apparent_extract_plato,
@@ -190,14 +190,14 @@ pub fn calc_alcohol_terrill_equation(
     if !matches!(original_gravity, Gravity::Brix(_)) {
         return Err(anyhow!("this equation requires Brix units"));
     }
-    let apparent_extract_sg = calc_apparent_extract_sg_terrill(&original_gravity, &final_gravity)?;
+    let apparent_extract_sg = calc_apparent_extract_sg_terrill(original_gravity, final_gravity)?;
     let apparent_extract_plato = sg_to_plato(apparent_extract_sg);
-    let real_extract_plato = calc_real_extract(&original_gravity, apparent_extract_plato);
+    let real_extract_plato = calc_real_extract(original_gravity, apparent_extract_plato);
     let apparent_attenuation_plato =
-        calc_apparent_attenuation(&original_gravity, apparent_extract_plato)?;
-    let real_attenuation_plato = calc_real_attenuation(&original_gravity, real_extract_plato)?;
-    let alcohol_by_weight = calc_alcohol_by_weight(&original_gravity, real_extract_plato)?;
-    let alcohol_by_volume = calc_alcohol_by_volume(&original_gravity, real_extract_plato)?;
+        calc_apparent_attenuation(original_gravity, apparent_extract_plato)?;
+    let real_attenuation_plato = calc_real_attenuation(original_gravity, real_extract_plato)?;
+    let alcohol_by_weight = calc_alcohol_by_weight(original_gravity, real_extract_plato)?;
+    let alcohol_by_volume = calc_alcohol_by_volume(original_gravity, real_extract_plato)?;
 
     Ok(AlcCalcResult {
         apparent_extract: apparent_extract_plato,
