@@ -63,7 +63,7 @@ fn AlcCalc(props: &CalcResultProps) -> Html {
         }
     };
     html! {
-        <div class="flex flex-wrap flex-col shadow-md p-4 gap-2 flex-grow">
+        <div class="flex flex-wrap flex-col shadow-md dark:shadow-slate-600 p-4 gap-2 flex-grow">
             <div class="text-2xl text-center my-3">{title}</div>
             {
                 if let Ok(result) = calc_result {

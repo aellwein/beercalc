@@ -66,7 +66,7 @@ pub fn GravityPicker() -> Html {
     let change_fg = dispatch.reduce_callback_with(change_fg);
 
     html! {
-        <div class="flex flex-col gap-4 shadow-md p-4 items-baseline">
+        <div class="flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline">
 
             <div class="flex flex-row gap-4 items-baseline flex-wrap">
                 <span>{t.t("original gravity", &state.language)}</span>

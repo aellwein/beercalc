@@ -36,7 +36,7 @@ pub fn UnitPicker() -> Html {
     let to_brix = dispatch.reduce_callback(change_to_brix);
     let to_plato = dispatch.reduce_callback(change_to_plato);
     html! {
-        <div class="flex flex-row gap-4 shadow-md p-4">
+        <div class="flex flex-row gap-4 shadow-md dark:shadow-slate-600 p-4">
             <span>{t.t("gravity unit", &lang)}</span>
             <div>
             <input type="radio" class="dark:bg-gray-700 dark:text-gray-300" id="brix" name="unit" checked={matches!(state.chosen_unit, Gravity::Brix(_))} onchange={to_brix} />
