@@ -15,7 +15,8 @@ pub fn Header(props: &HeaderProps) -> Html {
     let t = use_context::<Translator>().unwrap();
     let (state, _) = use_store::<CalcState>();
     let lang = &state.language;
-    let active_classes = "nav-link text-indigo-600 dark:text-indigo-500";
+    let active_classes =
+        "nav-link text-indigo-600 dark:text-indigo-500 border-b-2 border-indigo-600 pb-2";
     let inactive_classes =
         "nav-link hover:underline flex-shrink-0 text-gray-500 dark:text-gray-400";
     let items = all::<Calculator>()
