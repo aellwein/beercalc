@@ -1,4 +1,4 @@
-use super::utils::window;
+use super::utils::{get_base_href, window};
 use crate::Language;
 use anyhow::Result;
 use std::collections::HashMap;
@@ -13,7 +13,8 @@ pub struct Translator {
 
 impl Translator {
     pub async fn new() -> Result<Self> {
-        let translations = parse_yaml(load_table_from_yaml("/i18n/i18n.yaml").await)
+        let url = get_base_href() + "i18n/i18n.yaml";
+        let translations = parse_yaml(load_table_from_yaml(url.as_str()).await)
             .await
             .unwrap();
         Ok(Translator { translations })

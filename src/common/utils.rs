@@ -17,6 +17,14 @@ pub fn set_body_classes(classes: &str) {
     body.set_class_name(classes);
 }
 
+pub fn get_base_href() -> String {
+    let base = document().get_elements_by_tag_name("base").item(0);
+    match base {
+        Some(base) => base.get_attribute("href").unwrap(),
+        None => "/".to_string(),
+    }
+}
+
 fn set_classes(class: &str) {
     document()
         .document_element()
