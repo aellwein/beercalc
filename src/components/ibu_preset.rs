@@ -6,7 +6,7 @@ use web_sys::{HtmlInputElement, HtmlSelectElement};
 use yew::prelude::*;
 use yewdux::prelude::*;
 
-fn change_og_unit(s: Rc<CalcState>, event: Event) -> Rc<CalcState> {
+pub fn change_og_unit(s: Rc<CalcState>, event: Event) -> Rc<CalcState> {
     let new_unit = event
         .target()
         .unwrap()
@@ -41,7 +41,7 @@ fn change_og_unit(s: Rc<CalcState>, event: Event) -> Rc<CalcState> {
     .into()
 }
 
-fn change_boiling_time(s: Rc<CalcState>, event: Event) -> Rc<CalcState> {
+pub fn change_boiling_time(s: Rc<CalcState>, event: Event) -> Rc<CalcState> {
     let new_boiling_time = event
         .target()
         .unwrap()

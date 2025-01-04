@@ -12,6 +12,7 @@ pub struct CalcState {
     pub original_gravity: Gravity,
     pub final_gravity: Gravity,
     pub ibu: Ibu,
+    pub grain: Grain,
 }
 
 #[derive(Clone, Serialize, Deserialize, PartialEq)]
@@ -21,6 +22,11 @@ pub struct Ibu {
     pub flameout: f64,
     pub flameout_temp: f64,
     pub hops: Vec<Hops>,
+}
+
+#[derive(Clone, Serialize, Deserialize, PartialEq)]
+pub struct Grain {
+    pub malt: Vec<Malt>,
 }
 
 #[derive(Clone, Serialize, Deserialize, PartialEq, Sequence)]
@@ -38,6 +44,19 @@ pub struct Hops {
     pub ibu: f64,
 }
 
+#[derive(Clone, Serialize, Deserialize, PartialEq)]
+pub struct Malt {
+    pub amount: f64,
+    pub mass_unit: MassUnit,
+    pub color: f64,
+}
+
+#[derive(Clone, Serialize, Deserialize, PartialEq, Sequence)]
+pub enum MassUnit {
+    Kilogram,
+    Gram,
+}
+
 impl Default for CalcState {
     fn default() -> Self {
         CalcState {
@@ -53,6 +72,7 @@ impl Default for CalcState {
                 flameout_temp: 85.0,
                 hops: vec![],
             },
+            grain: Grain { malt: vec![] },
         }
     }
 }
@@ -72,6 +92,25 @@ impl From<String> for HopsForm {
             "whole" => HopsForm::Whole,
             "pellets" => HopsForm::Pellets,
             _ => HopsForm::Whole,
+        }
+    }
+}
+
+impl MassUnit {
+    pub fn translator_key(&self) -> String {
+        match self {
+            MassUnit::Kilogram => "kg".to_string(),
+            MassUnit::Gram => "g".to_string(),
+        }
+    }
+}
+
+impl From<String> for MassUnit {
+    fn from(value: String) -> Self {
+        match value.as_str() {
+            "kg" => MassUnit::Kilogram,
+            "g" => MassUnit::Gram,
+            _ => MassUnit::Kilogram,
         }
     }
 }

@@ -24,7 +24,7 @@ pub mod prelude {
     pub use super::header::Header;
     pub use super::hops_adder::HopsAdder;
     pub use super::ibu_calc::IBUCalculator;
-    pub use super::ibu_preset::IBUPreset;
+    pub use super::ibu_preset::{change_boiling_time, change_og_unit, IBUPreset};
     pub use super::lang_picker::LanguagePicker;
     pub use super::not_found::NotFound;
     pub use super::show_units::ShowUnits;

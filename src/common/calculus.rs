@@ -225,3 +225,18 @@ pub fn calc_alcohol_terrill_equation(
         alcohol_by_volume,
     })
 }
+
+pub fn calculate_ebc(original_gravity: &Gravity, grain: &Vec<Malt>, boiling_time: f64) -> i32 {
+    let mut total_mass_kg = 0.0;
+    let og_plato = original_gravity.to_plato().value();
+    let mut prod_mass_ebc = 0.0;
+    for malt in grain {
+        let factor = match malt.mass_unit {
+            MassUnit::Kilogram => 1.0,
+            MassUnit::Gram => 0.001,
+        };
+        total_mass_kg += malt.amount * factor;
+        prod_mass_ebc = malt.color * malt.amount * factor;
+    }
+    ((prod_mass_ebc / total_mass_kg) * og_plato / 10.0 + 1.5 * boiling_time / 60.0) as i32
+}
