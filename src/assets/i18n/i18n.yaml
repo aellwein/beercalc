@@ -138,6 +138,10 @@ liter:
   de: L
   en: liters
   ru: л
+made with love:
+  de: Mit ❤️ gebaut in Rust + WASM
+  en: Made with ❤️ in Rust + WASM
+  ru: Сделано с ❤️ на Rust + WASM
 malt:
   de: Malz
   en: malt

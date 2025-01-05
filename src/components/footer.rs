@@ -18,6 +18,7 @@ pub fn Footer() -> Html {
             <a class="text-indigo-600 hover:underline" href={BASE_URL}>{t.t("project on github", &state.language)}</a>{{" | "}}
             <span>{t.t("commit", &state.language)}{" "}<a class="text-indigo-600 hover:underline" href={String::from(BASE_URL) + format!("/commit/{}", commit_hash_long.as_str()).as_str() }>{commit_hash.as_str()}</a></span>{{" | "}}
             {t.t("licensed under", &state.language)}{" "}<a class="text-indigo-600 hover:underline" href={String::from(BASE_URL) + LICENSE_SUFFIX}>{t.t("mit license", &state.language)}</a>
+            {format!(r#" | {}"#, t.t("made with love", &state.language))}
         </footer>
     }
 }
