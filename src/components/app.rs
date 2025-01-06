@@ -19,13 +19,13 @@ pub fn App(props: &AppProps) -> Html {
     set_body_classes(BODY_CLASSES);
 
     html! {
-        <BrowserRouter>
+        <HashRouter>
             <ContextProvider<Translator> context={props.translator.as_ref().clone()}>
                 <div class="container p-3 dark:bg-gray-800 mx-auto">
                     <Switch<Route> render={switch} />
                 </div>
             </ContextProvider<Translator>>
-        </BrowserRouter>
+        </HashRouter>
     }
 }
 
