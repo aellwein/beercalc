@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "NotoNerdFont";
+    src: url("fonts/NotoNerdFont/NotoSansNerdFont-Regular.ttf") format("truetype");
+}
+
+body {
+    font-family: "NotoNerdFont", sans, monospace;
+    font-style: normal;
+}
