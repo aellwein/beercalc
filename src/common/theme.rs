@@ -1,3 +1,4 @@
+//! Theme switcher component.
 use crate::common::prelude::*;
 use serde::{Deserialize, Serialize};
 use yew::prelude::*;

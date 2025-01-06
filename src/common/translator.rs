@@ -1,3 +1,4 @@
+//! Translator module for internationalization.
 use super::utils::{get_base_href, window};
 use crate::Language;
 use anyhow::Result;

@@ -1,3 +1,4 @@
+//! Handling of [`Language`] enum and its conversions.
 use enum_iterator::Sequence;
 use serde::{Deserialize, Serialize};
 

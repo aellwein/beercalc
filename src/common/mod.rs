@@ -9,6 +9,7 @@ mod translator;
 mod utils;
 
 pub mod prelude {
+    //! Re-exports of the most commonly used items from the common module.
     pub use super::calculus::*;
     pub use super::gravity::Gravity;
     pub use super::lang::Language;

@@ -1,3 +1,4 @@
+//! This module contains functions for various calculations related to brewing.
 use crate::common::prelude::*;
 use anyhow::{anyhow, Result};
 

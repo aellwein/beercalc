@@ -1,3 +1,4 @@
+//! This module contains the state of the application.
 use crate::common::prelude::*;
 use enum_iterator::Sequence;
 use serde::{Deserialize, Serialize};

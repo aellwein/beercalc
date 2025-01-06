@@ -1,3 +1,4 @@
+//! Miscellaneous utility functions for web front-end.
 use crate::Gravity;
 use crate::Theme;
 

@@ -1,3 +1,7 @@
+//! Gravity is a measure of the density of a liquid. It is commonly used in brewing to measure the amount of sugar
+//! in a liquid. The most common units of gravity are Plato, Brix, Specific Gravity (SG), and Oechsle. This module
+//! provides a Gravity enum that can be used to represent any of these units.
+//! The enum also provides methods to convert between the different units.
 use crate::common::prelude::*;
 use serde::{Deserialize, Serialize};
 
