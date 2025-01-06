@@ -20,6 +20,7 @@ pub mod prelude {
     pub use super::theme::{Theme, ThemeSwitcher};
     pub use super::translator::Translator;
     pub use super::utils::{
-        format_gravity, get_preferred_theme, set_body_classes, set_page_title, set_theme_classes,
+        format_gravity, get_base_href, get_preferred_theme, set_body_classes, set_page_title,
+        set_theme_classes,
     };
 }
