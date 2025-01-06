@@ -1,10 +1,10 @@
 //! Calculators for homebrewers.
 //!
 //! Contains different useful calculators:
-//! * [`components::alcohol_calc`] - alcohol by volume/weight calculator.
-//! * [`components::ibu_calc`] - Bitterness (IBU) calculator.
-//! * [`components::ebc_calc`] - beer color (EBC) calculator.
-//! * [`components::brewhouse`] - brewhouse efficiency calculator.
+//! * [`components::prelude::AlcoholCalculator`] - alcohol by volume/weight calculator.
+//! * [`components::prelude::IBUCalculator`] - Bitterness (IBU) calculator.
+//! * [`components::prelude::EbcCalculator`] - beer color (EBC) calculator.
+//! * [`components::prelude::BrewhouseEfficiencyCalculator`] - brewhouse efficiency calculator.
 //!
 use common::prelude::*;
 use components::prelude::*;
