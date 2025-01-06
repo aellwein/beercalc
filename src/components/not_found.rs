@@ -9,9 +9,12 @@ pub fn NotFound() -> Html {
     let (state, _) = use_store::<CalcState>();
     let lang = &state.language;
     html! {
-        <div class="flex flex-col items-center justify-center text-center min-h-screen">
-            <div class="text-lg">{t.t("page_not_found", lang)}</div>
-            <Link<Route> to={Route::Home}><a class="underline" href="#">{t.t("go_back", lang) }</a></Link<Route>>
+
+        <div class="flex flex-col items-center justify-center text-center">
+            <div class="flex flex-col gap-4 dark:text-gray-400">
+                <div class="text-2xl">{t.t("page_not_found", lang)}</div>
+                <Link<Route> to={Route::Home}><a class="underline" href="#">{t.t("go_back", lang) }</a></Link<Route>>
+            </div>
         </div>
     }
 }
