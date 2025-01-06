@@ -13,7 +13,10 @@ pub mod prelude {
     pub use super::gravity::Gravity;
     pub use super::lang::Language;
     pub use super::route::{Calculator, Route};
-    pub use super::state::{CalcState, Hops, HopsForm, Ibu, Malt, MassUnit};
+    pub use super::state::{
+        Brewhouse, CalcState, GrainMassFromBrewhouse, Hops, HopsForm, Ibu, Malt, MassUnit,
+        VolumeMeasuredAt,
+    };
     pub use super::theme::{Theme, ThemeSwitcher};
     pub use super::translator::Translator;
     pub use super::utils::{

@@ -13,6 +13,7 @@ pub struct CalcState {
     pub final_gravity: Gravity,
     pub ibu: Ibu,
     pub grain: Grain,
+    pub brewhouse: Brewhouse,
 }
 
 #[derive(Clone, Serialize, Deserialize, PartialEq)]
@@ -57,6 +58,29 @@ pub enum MassUnit {
     Gram,
 }
 
+#[derive(Clone, Serialize, Deserialize, PartialEq)]
+pub enum VolumeMeasuredAt {
+    HundredDegreesCelsius,
+    TwentyDegreesCelsius,
+}
+
+#[derive(Clone, Serialize, Deserialize, PartialEq)]
+pub struct Brewhouse {
+    pub grain_mass: f64,
+    pub grain_mass_unit: MassUnit,
+    pub volume_measured_at: VolumeMeasuredAt,
+    pub wort_volume: f64,
+    pub grain_mass_from_brewhouse: GrainMassFromBrewhouse,
+}
+
+#[derive(Clone, Serialize, Deserialize, PartialEq)]
+pub struct GrainMassFromBrewhouse {
+    pub original_gravity: Gravity,
+    pub wort_volume: f64,
+    pub volume_measured_at: VolumeMeasuredAt,
+    pub brewhouse_efficiency: f64,
+}
+
 impl Default for CalcState {
     fn default() -> Self {
         CalcState {
@@ -73,6 +97,18 @@ impl Default for CalcState {
                 hops: vec![],
             },
             grain: Grain { malt: vec![] },
+            brewhouse: Brewhouse {
+                volume_measured_at: VolumeMeasuredAt::HundredDegreesCelsius,
+                grain_mass: 5.0,
+                grain_mass_unit: MassUnit::Kilogram,
+                wort_volume: 28.0,
+                grain_mass_from_brewhouse: GrainMassFromBrewhouse {
+                    original_gravity: Gravity::Brix(12.0),
+                    wort_volume: 28.0,
+                    volume_measured_at: VolumeMeasuredAt::HundredDegreesCelsius,
+                    brewhouse_efficiency: 65.6,
+                },
+            },
         }
     }
 }

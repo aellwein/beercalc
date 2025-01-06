@@ -240,3 +240,28 @@ pub fn calculate_ebc(original_gravity: &Gravity, grain: &Vec<Malt>, boiling_time
     }
     ((prod_mass_ebc / total_mass_kg) * og_plato / 10.0 + 1.5 * boiling_time / 60.0) as i32
 }
+
+pub fn calculate_brewhouse_efficiency(original_gravity: &Gravity, brewhouse: &Brewhouse) -> f64 {
+    let og_plato = original_gravity.to_plato().value();
+    let og_sg = plato_to_sg(og_plato);
+    let temp_factor = match brewhouse.volume_measured_at {
+        VolumeMeasuredAt::HundredDegreesCelsius => 0.96,
+        VolumeMeasuredAt::TwentyDegreesCelsius => 1.0,
+    };
+    let grain_mass_kg = match brewhouse.grain_mass_unit {
+        MassUnit::Kilogram => brewhouse.grain_mass,
+        MassUnit::Gram => brewhouse.grain_mass * 0.001,
+    };
+    (brewhouse.wort_volume * og_sg * (og_plato / 100.0) * temp_factor / grain_mass_kg) * 100.0
+}
+
+pub fn calculate_grain_mass_from_brewhouse(gmvb: &GrainMassFromBrewhouse) -> f64 {
+    let temp_factor = match gmvb.volume_measured_at {
+        VolumeMeasuredAt::HundredDegreesCelsius => 0.96,
+        VolumeMeasuredAt::TwentyDegreesCelsius => 1.0,
+    };
+    let og_plato = gmvb.original_gravity.to_plato().value();
+    let og_sg = plato_to_sg(og_plato);
+    (gmvb.wort_volume * og_sg * (og_plato / 100.0) * temp_factor / gmvb.brewhouse_efficiency)
+        * 100.0
+}
