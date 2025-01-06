@@ -5,3 +5,8 @@ minify = "on_release"
 
 [serve]
 addresses = ["::"]
+
+[[hooks]]
+stage = "pre_build"
+command = "cargo"
+command_arguments = ["doc", "--no-deps"]
