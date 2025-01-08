@@ -43,10 +43,16 @@ jobs:
         env:
           TRUNK_BUILD_PUBLIC_URL: "/beercalc/"
 
+      - name: replace branch name
+        run: |
+          echo "REPL_BRANCH_NAME=${BR_NAME////_}" >> $GITHUB_ENV
+        env:
+          BR_NAME: ${{ github.head_ref || github.ref_name }}
+
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: dist-${{ github.head_ref || github.ref_name }}
+          name: dist-${{ env.REPL_BRANCH_NAME }}
           path: dist/
           retention-days: 1
 
