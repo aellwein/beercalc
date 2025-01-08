@@ -68,10 +68,16 @@ jobs:
       - name: Setup pages
         uses: actions/configure-pages@v5
 
+      - name: replace branch name
+        run: |
+          echo "REPL_BRANCH_NAME=${BR_NAME////_}" >> $GITHUB_ENV
+        env:
+          BR_NAME: ${{ github.head_ref || github.ref_name }}
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: dist-${{ github.head_ref || github.ref_name }}
+          name: dist-${{ env.REPL_BRANCH_NAME }}
           path: dist/
 
       - name: Upload artifact
