@@ -74,6 +74,6 @@ async fn load_table_from_yaml(url: &str) -> String {
 async fn parse_yaml(s: String) -> Result<HashMap<String, HashMap<String, String>>> {
     let s1 = s.clone();
     let s1s = s1.as_str();
-    let result = serde_yaml::from_str(s1s)?;
+    let result = serde_yml::from_str(s1s)?;
     Ok(result)
 }
