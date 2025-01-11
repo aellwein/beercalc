@@ -32,7 +32,7 @@ enum-iterator = "2.1.0"
 yewdux = "0.10.0"
 
 [build-dependencies]
-vergen-gitcl = "1.0.3"
+vergen-gitcl = "1.0.5"
 
 [profile.release]
 panic = 'abort'
