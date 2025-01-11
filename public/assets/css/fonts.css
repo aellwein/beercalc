@@ -6,4 +6,5 @@
 body {
     font-family: "NotoNerdFont", sans, monospace;
     font-style: normal;
+    font-optical-sizing: auto;
 }
