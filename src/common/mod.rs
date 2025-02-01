@@ -1,5 +1,6 @@
 //! Common features for the calculator.
 mod calculus;
+mod color;
 mod gravity;
 mod lang;
 mod route;
@@ -11,12 +12,13 @@ mod utils;
 pub mod prelude {
     //! Re-exports of the most commonly used items from the common module.
     pub use super::calculus::*;
+    pub use super::color::ColorUnit;
     pub use super::gravity::Gravity;
     pub use super::lang::Language;
     pub use super::route::{Calculator, Route};
     pub use super::state::{
-        Brewhouse, CalcState, GrainMassFromBrewhouse, Hops, HopsForm, Ibu, Malt, MassUnit,
-        VolumeMeasuredAt,
+        Brewhouse, CalcState, ColorConversion, GrainMassFromBrewhouse, Hops, HopsForm, Ibu, Malt,
+        MassUnit, VolumeMeasuredAt,
     };
     pub use super::theme::{Theme, ThemeSwitcher};
     pub use super::translator::Translator;

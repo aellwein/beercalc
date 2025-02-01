@@ -14,6 +14,8 @@ pub enum Route {
     IbuCalculator,
     #[at("/color")]
     BeerColorCalculator,
+    #[at("/color-conversion")]
+    ColorConversionCalculator,
     #[at("/brewhouse")]
     BrewhouseEfficiencyCalculator,
     #[not_found]
@@ -27,5 +29,6 @@ pub enum Calculator {
     Alcohol,
     Ibu,
     EbcColor,
+    ColorConversion,
     BrewhouseEfficiency,
 }

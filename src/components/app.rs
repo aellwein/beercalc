@@ -36,6 +36,7 @@ fn switch(route: Route) -> Html {
         Route::IbuCalculator => html! {<IBUCalculator />},
         Route::BeerColorCalculator => html! {<EbcCalculator />},
         Route::BrewhouseEfficiencyCalculator => html! {<BrewhouseEfficiencyCalculator />},
+        Route::ColorConversionCalculator => html! {<ColorConversionCalculator />},
         Route::NotFound => html! {<NotFound />},
     }
 }

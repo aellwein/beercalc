@@ -266,3 +266,27 @@ pub fn calculate_grain_mass_from_brewhouse(gmvb: &GrainMassFromBrewhouse) -> f64
     (gmvb.wort_volume * og_sg * (og_plato / 100.0) * temp_factor / gmvb.brewhouse_efficiency)
         * 100.0
 }
+
+pub fn srm_to_ebc(srm: f64) -> f64 {
+    srm * 1.97
+}
+
+pub fn lovibond_to_ebc(lovibond: f64) -> f64 {
+    lovibond * 2.65 - 1.2
+}
+
+pub fn ebc_to_srm(ebc: f64) -> f64 {
+    ebc * 0.508
+}
+
+pub fn lovibond_to_srm(lovibond: f64) -> f64 {
+    lovibond * 1.3546 - 0.76
+}
+
+pub fn ebc_to_lovibond(ebc: f64) -> f64 {
+    ebc * 0.377 + 0.45
+}
+
+pub fn srm_to_lovibond(srm: f64) -> f64 {
+    (srm + 0.76) / 1.3546
+}

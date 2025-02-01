@@ -34,6 +34,9 @@ pub fn Header(props: &HeaderProps) -> Html {
                 Calculator::BrewhouseEfficiency => html! {
                     <Link<Route> to={Route::BrewhouseEfficiencyCalculator}><a class={if props.active == Route::BrewhouseEfficiencyCalculator {active_classes} else {inactive_classes}}>{t.t("brewhouse calculator", lang)}</a></Link<Route>>
                 },
+                Calculator::ColorConversion => html! {
+                    <Link<Route> to={Route::ColorConversionCalculator}><a class={if props.active == Route::ColorConversionCalculator {active_classes} else {inactive_classes}}>{t.t("color conversion", lang)}</a></Link<Route>>
+                },
             }
         })
         .collect::<Vec<_>>();

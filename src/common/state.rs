@@ -15,6 +15,7 @@ pub struct CalcState {
     pub ibu: Ibu,
     pub grain: Grain,
     pub brewhouse: Brewhouse,
+    pub color_conversion: ColorConversion,
 }
 
 #[derive(Clone, Serialize, Deserialize, PartialEq)]
@@ -82,6 +83,11 @@ pub struct GrainMassFromBrewhouse {
     pub brewhouse_efficiency: f64,
 }
 
+#[derive(Clone, Serialize, Deserialize, PartialEq)]
+pub struct ColorConversion {
+    pub color: ColorUnit,
+}
+
 impl Default for CalcState {
     fn default() -> Self {
         CalcState {
@@ -109,6 +115,9 @@ impl Default for CalcState {
                     volume_measured_at: VolumeMeasuredAt::HundredDegreesCelsius,
                     brewhouse_efficiency: 65.6,
                 },
+            },
+            color_conversion: ColorConversion {
+                color: ColorUnit::Ebc(12.0),
             },
         }
     }

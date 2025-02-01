@@ -2,6 +2,7 @@
 mod alcohol_calc;
 mod app;
 mod brewhouse;
+mod color_converter;
 mod ebc_calc;
 mod footer;
 mod gravity_picker;
@@ -18,6 +19,7 @@ pub mod prelude {
     pub use super::alcohol_calc::AlcoholCalculator;
     pub use super::app::{App, AppProps};
     pub use super::brewhouse::BrewhouseEfficiencyCalculator;
+    pub use super::color_converter::ColorConversionCalculator;
     pub use super::ebc_calc::EbcCalculator;
     pub use super::footer::Footer;
     pub use super::gravity_picker::{change_og_value, GravityPicker};
