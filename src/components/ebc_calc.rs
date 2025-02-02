@@ -20,6 +20,11 @@ pub fn EbcCalculator() -> Html {
             }
         })
         .collect::<Vec<_>>();
+    let ebc = calculate_ebc(
+        &state.original_gravity,
+        &state.grain.malt,
+        state.ibu.boiling,
+    );
     html! {
         <>
             <Header active={Route::BeerColorCalculator} />
@@ -55,7 +60,7 @@ pub fn EbcCalculator() -> Html {
                      </div>
                 </div>
                 <MaltAdder />
-                <EbcColorDisplay />
+                <EbcColorDisplay ebc={ebc as f64} />
             </div>
             <Footer />
         </>
@@ -205,28 +210,22 @@ pub fn MaltAdder() -> Html {
     }
 }
 
+#[derive(Properties, Clone, PartialEq)]
+pub struct EbcColorDisplayProps {
+    pub ebc: f64,
+}
+
 #[function_component]
-pub fn EbcColorDisplay() -> Html {
-    let (state, _dispatch) = use_store::<CalcState>();
-    if state.grain.malt.is_empty() {
-        return html! {
-            <div/>
-        };
-    } else {
-        let ebc = calculate_ebc(
-            &state.original_gravity,
-            &state.grain.malt,
-            state.ibu.boiling,
-        );
-        let ebc_class_name = match ebc {
-            0..100 => format!("ebc-{}", ebc),
-            _ => "ebc-100".to_string(),
-        };
-        return html! {
-            <div class="flex flex-row shadow-md dark:shadow-slate-600 p-4 gap-4 items-baseline">
-                <div class="my-auto grow"><strong>{format!(r#"{} EBC"#, ebc)}</strong></div>
-                <div class={ebc_class_name + " grow"} style="height: 100px"></div>
-            </div>
-        };
+pub fn EbcColorDisplay(props: &EbcColorDisplayProps) -> Html {
+    let ebc = props.ebc.round() as i32;
+    let ebc_class_name = match ebc {
+        0..100 => format!("ebc-{}", ebc),
+        _ => "ebc-100".to_string(),
+    };
+    html! {
+        <div class="flex flex-row shadow-md dark:shadow-slate-600 p-4 gap-4 items-baseline">
+            <div class="my-auto grow"><strong>{format!(r#"{} EBC"#, ebc)}</strong></div>
+            <div class={ebc_class_name + " grow"} style="height: 100px"></div>
+        </div>
     }
 }

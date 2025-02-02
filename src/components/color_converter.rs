@@ -88,6 +88,13 @@ pub fn ColorConversionCalculator() -> Html {
             }
         })
         .collect::<Vec<_>>();
+
+    let min_value_color = match state.color_conversion.color {
+        ColorUnit::Ebc(_) => 0.5,
+        ColorUnit::Srm(_) => 0.3,
+        ColorUnit::Lovibond(_) => 0.7,
+    };
+
     html! {
         <>
             <Header active={Route::ColorConversionCalculator} />
@@ -96,7 +103,7 @@ pub fn ColorConversionCalculator() -> Html {
                     <div class="flex flex-row gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline">
                         <span>{t.t("malt color", &state.language)}</span>
                         <input
-                            type="number" min=".1" max="200" step=".1"
+                            type="number" min={format!("{:.1}", min_value_color)} max="200" step=".1"
                             value={format!("{:.1}", state.color_conversion.color.value())}
                             onchange={dispatch.reduce_callback_with(change_color_value)}
                             class="border-gray-300 p-1 border-solid border
@@ -109,6 +116,7 @@ pub fn ColorConversionCalculator() -> Html {
                         >{for color_units}</select>
                         {show_color_units(&state.color_conversion.color, t.clone(), &state.language)}
                     </div>
+                    <EbcColorDisplay ebc={state.color_conversion.color.to_ebc().value()} />
             </div>
             <Footer />
         </>

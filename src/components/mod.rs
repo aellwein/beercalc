@@ -21,6 +21,7 @@ pub mod prelude {
     pub use super::brewhouse::BrewhouseEfficiencyCalculator;
     pub use super::color_converter::ColorConversionCalculator;
     pub use super::ebc_calc::EbcCalculator;
+    pub use super::ebc_calc::EbcColorDisplay;
     pub use super::footer::Footer;
     pub use super::gravity_picker::{change_og_value, GravityPicker};
     pub use super::header::Header;
