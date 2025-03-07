@@ -29,7 +29,7 @@ wasm-bindgen-futures = "0.4.49"
 wasm-bindgen = "0.2.99"
 js-sys = "0.3.76"
 enum-iterator = "2.1.0"
-yewdux = "0.10.0"
+yewdux = "0.11.0"
 
 [build-dependencies]
 vergen-gitcl = "1.0.5"
