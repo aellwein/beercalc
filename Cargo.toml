@@ -23,7 +23,7 @@ web-sys = { version = "0.3.76", features = [
 ] }
 yew-router = "0.18.0"
 anyhow = "1.0.97"
-serde = "1.0.218"
+serde = "1.0.219"
 serde_yml = "0.0.12"
 wasm-bindgen-futures = "0.4.49"
 wasm-bindgen = "0.2.99"
