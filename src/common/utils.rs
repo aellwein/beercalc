@@ -74,9 +74,9 @@ pub fn set_theme_classes(theme: &Theme) {
 
 pub fn format_gravity(g: &Gravity) -> String {
     match g {
-        Gravity::Plato(v) => format!("{:.1}", v),
-        Gravity::Brix(v) => format!("{:.1}", v),
-        Gravity::Oechsle(v) => format!("{:.1}", v),
-        Gravity::SG(v) => format!("{:.3}", v),
+        Gravity::Plato(v) => format!("{v:.1}"),
+        Gravity::Brix(v) => format!("{v:.1}"),
+        Gravity::Oechsle(v) => format!("{v:.1}"),
+        Gravity::SG(v) => format!("{v:.3}"),
     }
 }

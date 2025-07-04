@@ -25,11 +25,11 @@ impl Translator {
         let l: &'static str = From::<&Language>::from(lang);
         let translations = self.translations.get(key);
         if translations.is_none() {
-            return format!("_(\"{}\")", key);
+            return format!("_(\"{key}\")");
         }
         match translations.unwrap().get(l) {
             Some(v) => v.clone(),
-            None => format!("_(\"{}\")", key),
+            None => format!("_(\"{key}\")"),
         }
     }
 

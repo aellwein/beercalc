@@ -219,7 +219,7 @@ pub struct EbcColorDisplayProps {
 pub fn EbcColorDisplay(props: &EbcColorDisplayProps) -> Html {
     let ebc = props.ebc.round() as i32;
     let ebc_class_name = match ebc {
-        0..100 => format!("ebc-{}", ebc),
+        0..100 => format!("ebc-{ebc}"),
         _ => "ebc-100".to_string(),
     };
     html! {
