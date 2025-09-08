@@ -28,7 +28,7 @@ serde_yml = "0.0.12"
 wasm-bindgen-futures = "0.4.50"
 wasm-bindgen = "0.2.100"
 js-sys = "0.3.77"
-enum-iterator = "2.1.0"
+enum-iterator = "2.3.0"
 yewdux = "0.11.0"
 
 [build-dependencies]
