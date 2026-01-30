@@ -6,7 +6,7 @@ license = "MIT"
 build = "build.rs"
 
 [dependencies]
-yew = { version = "0.21.0", features = ["csr"] }
+yew = { version = "0.22.0", features = ["csr"] }
 console_error_panic_hook = "0.1.7"
 web-sys = { version = "0.3.82", features = [
     "Request",
