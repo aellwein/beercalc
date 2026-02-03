@@ -1,35 +1,18 @@
-//! This module contains all the components and calculators.
-mod alcohol_calc;
-mod app;
+mod alcohol;
 mod brewhouse;
-mod color_converter;
-mod ebc_calc;
-mod footer;
-mod gravity_picker;
+mod color;
+mod ebc;
 mod header;
-mod hops_adder;
-mod ibu_calc;
-mod ibu_preset;
-mod lang_picker;
-mod not_found;
-mod show_units;
-mod unit_picker;
+mod ibu;
+mod lang;
+mod theme;
 
 pub mod prelude {
-    pub use super::alcohol_calc::AlcoholCalculator;
-    pub use super::app::{App, AppProps};
-    pub use super::brewhouse::BrewhouseEfficiencyCalculator;
-    pub use super::color_converter::ColorConversionCalculator;
-    pub use super::ebc_calc::EbcCalculator;
-    pub use super::ebc_calc::EbcColorDisplay;
-    pub use super::footer::Footer;
-    pub use super::gravity_picker::{change_og_value, GravityPicker};
-    pub use super::header::Header;
-    pub use super::hops_adder::HopsAdder;
-    pub use super::ibu_calc::IBUCalculator;
-    pub use super::ibu_preset::{change_boiling_time, change_og_unit, IBUPreset};
-    pub use super::lang_picker::LanguagePicker;
-    pub use super::not_found::NotFound;
-    pub use super::show_units::ShowUnits;
-    pub use super::unit_picker::UnitPicker;
+    pub use crate::components::alcohol::AlcoholCalc;
+    pub use crate::components::brewhouse::BrewhouseCalc;
+    pub use crate::components::color::{ColorCalc, ColorConversionCalc};
+    pub use crate::components::ebc::EbcCalc;
+    pub use crate::components::header::Header;
+    pub use crate::components::ibu::IBUCalc;
+    pub use crate::components::theme::{set_theme, ThemeSwitcher};
 }

@@ -1,37 +1,58 @@
-//! Calculators for homebrewers.
-//!
-//! Contains different useful calculators:
-//! * [`components::prelude::AlcoholCalculator`] - alcohol by volume/weight calculator.
-//! * [`components::prelude::IBUCalculator`] - Bitterness (IBU) calculator.
-//! * [`components::prelude::EbcCalculator`] - beer color (EBC) calculator.
-//! * [`components::prelude::BrewhouseEfficiencyCalculator`] - brewhouse efficiency calculator.
-//!
-use common::prelude::*;
-use components::prelude::*;
-use std::sync::Arc;
-use wasm_bindgen_futures::spawn_local;
+use crate::common::prelude::*;
+use crate::components::prelude::*;
+use dioxus::logger::tracing::Level;
+use dioxus::prelude::*;
+use dioxus_i18n::{prelude::*, t};
+use unic_langid::langid;
 
+mod calculus;
 mod common;
 mod components;
 
-/// Main (async) entry point for the web application.
-/// Sets up the error handler, page title, body classes, and the app props,
-/// then renders the main [`App`] component.
-async fn async_main() {
-    console_error_panic_hook::set_once();
-
-    let translator = Translator::new()
-        .await
-        .expect("unable to load translations");
-    let props = AppProps {
-        translator: Arc::new(translator),
-    };
-
-    yew::Renderer::<App>::with_props(props).render();
+#[derive(Debug, Clone, Routable, PartialEq)]
+#[rustfmt::skip]
+enum Route {
+    #[redirect("/", || Route::AlcoholCalc {})]
+    #[route("/alcohol")]
+    AlcoholCalc{},
+    #[route("/ibu")]
+    IBUCalc{},
+    #[route("/color")]
+    ColorCalc{},
+    #[route("/color-conversion")]
+    ColorConversionCalc{},
+    #[route("/brewhouse")]
+    BrewhouseCalc{},
 }
 
-/// Entry point for the web application.
-/// Spawns a future for the main async function to run and wait for it to finish.
+const FAVICON: Asset = asset!("/assets/images/favicon.ico");
+const APP_CSS: Asset = asset!("/assets/css/app.css");
+
 fn main() {
-    spawn_local(async_main());
+    dioxus::logger::init(Level::INFO).expect("unable to init logger");
+    dioxus::launch(App);
+}
+
+fn i18n_config() -> I18nConfig {
+    I18nConfig::new(langid!("en"))
+        .with_locale((langid!("en"), include_str!("../i18n/en.ftl")))
+        .with_locale((langid!("de"), include_str!("../i18n/de.ftl")))
+        .with_locale((langid!("ru"), include_str!("../i18n/ru.ftl")))
+}
+
+#[component]
+fn App() -> Element {
+    let preferred_theme = use_signal(get_preferred_theme);
+    let preferred_language = use_signal(get_preferred_language);
+    use_context_provider(|| AppState::new(preferred_theme, preferred_language));
+
+    use_init_i18n(i18n_config);
+    set_theme(&preferred_theme());
+
+    rsx! {
+        document::Title { {t!("title")} }
+        document::Link { rel: "icon", href: FAVICON }
+        document::Link { rel: "stylesheet", href: APP_CSS }
+        Router::<Route> {}
+    }
 }
