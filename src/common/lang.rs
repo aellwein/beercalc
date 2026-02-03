@@ -1,20 +1,57 @@
-//! Handling of [`Language`] enum and its conversions.
-use enum_iterator::Sequence;
 use serde::{Deserialize, Serialize};
+use unic_langid::{langid, LanguageIdentifier};
 
-#[derive(Debug, PartialEq, Clone, Sequence, Serialize, Deserialize)]
+#[derive(Clone, Copy, PartialEq, Serialize, Deserialize, Debug)]
 pub enum Language {
     English,
     German,
     Russian,
 }
 
-impl From<&Language> for &'static str {
-    fn from(value: &Language) -> Self {
-        match value {
-            Language::English => "en",
-            Language::German => "de",
-            Language::Russian => "ru",
+pub const ALL_LANGUAGES: [Language; 3] = [Language::English, Language::German, Language::Russian];
+
+#[derive(Clone, PartialEq)]
+pub struct LanguageIndicator(pub String);
+
+#[derive(Clone, PartialEq)]
+pub struct LanguageShort(pub String);
+
+impl From<&Language> for LanguageShort {
+    fn from(lang: &Language) -> Self {
+        match *lang {
+            Language::English => LanguageShort("EN".into()),
+            Language::German => LanguageShort("DE".into()),
+            Language::Russian => LanguageShort("RU".into()),
+        }
+    }
+}
+impl From<&str> for Language {
+    fn from(short: &str) -> Self {
+        match short.to_lowercase().as_str() {
+            "en" => Language::English,
+            "de" => Language::German,
+            "ru" => Language::Russian,
+            _ => Language::English,
+        }
+    }
+}
+
+impl From<&Language> for LanguageIndicator {
+    fn from(lang: &Language) -> Self {
+        match *lang {
+            Language::English => LanguageIndicator("🇬🇧".into()),
+            Language::German => LanguageIndicator("🇩🇪".into()),
+            Language::Russian => LanguageIndicator("🇷🇺".into()),
+        }
+    }
+}
+
+impl From<Language> for LanguageIdentifier {
+    fn from(lang: Language) -> Self {
+        match lang {
+            Language::English => langid!("en"),
+            Language::German => langid!("de"),
+            Language::Russian => langid!("ru"),
         }
     }
 }
@@ -32,22 +69,13 @@ impl TryInto<Language> for String {
     }
 }
 
-impl From<&Language> for String {
-    fn from(value: &Language) -> Self {
-        match value {
-            Language::English => "en".into(),
-            Language::German => "de".into(),
-            Language::Russian => "ru".into(),
-        }
-    }
-}
-
-impl Language {
-    pub fn as_caption(&self) -> String {
-        match self {
-            Language::English => "🇬🇧 EN".into(),
-            Language::German => "🇩🇪 DE".into(),
-            Language::Russian => "🇷🇺 РУ".into(),
-        }
-    }
+pub fn get_lang_list(selected_lang: Language) -> Vec<(LanguageIndicator, LanguageShort, bool)> {
+    ALL_LANGUAGES
+        .iter()
+        .map(|lang| {
+            let indicator: LanguageIndicator = lang.into();
+            let short: LanguageShort = lang.into();
+            (indicator, short, *lang == selected_lang)
+        })
+        .collect()
 }
