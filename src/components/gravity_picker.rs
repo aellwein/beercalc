@@ -1,84 +1,37 @@
 use crate::common::prelude::*;
-use crate::components::prelude::*;
-use std::rc::Rc;
-use wasm_bindgen::JsCast;
-use web_sys::HtmlInputElement;
-use yew::prelude::*;
-use yewdux::prelude::*;
+use dioxus::prelude::*;
+use dioxus_i18n::t;
+use dioxus_sdk_storage::{use_synced_storage, LocalStorage};
 
-pub fn change_og_value(s: Rc<CalcState>, e: Event) -> Rc<CalcState> {
-    let new_og = e
-        .target()
-        .unwrap()
-        .dyn_into::<HtmlInputElement>()
-        .unwrap()
-        .value()
-        .parse::<f64>();
-
-    let original_gravity = match new_og {
-        Ok(v) => s.original_gravity.update_value(v),
-        Err(_) => Gravity::Brix(12.0),
-    };
-    CalcState {
-        original_gravity,
-        ..(*s).clone()
-    }
-    .into()
-}
-
-fn change_fg_value(s: Rc<CalcState>, e: Event) -> Rc<CalcState> {
-    let new_fg = e
-        .target()
-        .unwrap()
-        .dyn_into::<HtmlInputElement>()
-        .unwrap()
-        .value()
-        .parse::<f64>();
-
-    let final_gravity = match new_fg {
-        Ok(v) => s.final_gravity.update_value(v),
-        Err(_) => Gravity::Brix(6.0),
-    };
-    CalcState {
-        final_gravity,
-        ..(*s).clone()
-    }
-    .into()
-}
-
-#[function_component]
-pub fn GravityPicker() -> Html {
-    let t = use_context::<Translator>().unwrap();
-    let (state, dispatch) = use_store::<CalcState>();
-    let original_gravity = format_gravity(&state.original_gravity);
-    let final_gravity = format_gravity(&state.final_gravity);
-
-    let change_og = dispatch.reduce_callback_with(change_og_value);
-    let change_fg = dispatch.reduce_callback_with(change_fg_value);
-
-    html! {
-        <div class="flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline">
-
-            <div class="flex flex-row gap-4 items-baseline flex-wrap">
-                <span>{t.t("original gravity", &state.language)}</span>
-
-                <input class="border-gray-300 p-1 border-solid border focus:border-blue-300
-                focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
-                type="number" id="og" min=".1" max="60.0" step=".1" value={original_gravity} onchange={change_og} />
-
-                <ShowUnits gravity={state.original_gravity.clone()} />
-            </div>
-
-            <div class="flex flex-row gap-4 items-baseline flex-wrap">
-                <span>{t.t("final gravity", &state.language)}</span>
-
-                <input class="border-gray-300 p-1 border-solid border focus:border-blue-300
-                focus:ring outline-none dark:bg-gray-700 dark:text-gray-300"
-                type="number" id="fg" min=".1" max="60.0" step=".1" value={final_gravity} onchange={change_fg} />
-
-                <ShowUnits gravity={state.final_gravity.clone()} />
-            </div>
-
-        </div>
+#[component]
+pub fn GravityPicker() -> Element {
+    let mut state =
+        use_synced_storage::<LocalStorage, AppState>(STORAGE_KEY.to_string(), AppState::default);
+    rsx! {
+        div { class: "flex flex-col gap-4 p-4",
+            div { class: "flex flex-row gap-4 items-baseline flex-wrap",
+                span {
+                    {t!("original-gravity")}
+                    ": "
+                }
+                input {
+                    r#type: "number",
+                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300
+                focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                    value: state.read().original_gravity.value().to_string(),
+                    min: ".1",
+                    step: ".1",
+                    max: "60.0",
+                    onchange: move |evt| {
+                        let mut new_state = state.read().clone();
+                        new_state.original_gravity = state
+                            .read()
+                            .original_gravity
+                            .update_value(evt.value().parse::<f64>().unwrap_or(0.0));
+                        state.set(new_state);
+                    },
+                }
+            }
+        }
     }
 }
