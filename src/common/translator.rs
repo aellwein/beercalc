@@ -74,6 +74,29 @@ async fn load_table_from_yaml(url: &str) -> String {
 async fn parse_yaml(s: String) -> Result<HashMap<String, HashMap<String, String>>> {
     let s1 = s.clone();
     let s1s = s1.as_str();
-    let result = serde_yaml2::from_str(s1s)?;
+    let result = yaml_rust2::YamlLoader::load_from_str(s1s)?
+        .first()
+        .expect("unable to parse YAML")
+        .as_hash()
+        .map(|h| {
+            h.iter()
+                .map(|(k, v)| {
+                    let key = k.as_str().unwrap().to_string();
+                    let value = v
+                        .as_hash()
+                        .unwrap()
+                        .iter()
+                        .map(|(vk, vv)| {
+                            (
+                                vk.as_str().unwrap().to_string(),
+                                vv.as_str().unwrap().to_string(),
+                            )
+                        })
+                        .collect::<HashMap<String, String>>();
+                    (key, value)
+                })
+                .collect::<HashMap<String, HashMap<String, String>>>()
+        })
+        .expect("unable to convert hash map");
     Ok(result)
 }
