@@ -2,6 +2,7 @@
 use super::utils::{get_base_href, window};
 use crate::Language;
 use anyhow::Result;
+use saphyr::LoadableYamlNode;
 use std::collections::HashMap;
 use wasm_bindgen::JsCast;
 use wasm_bindgen_futures::JsFuture;
@@ -74,16 +75,16 @@ async fn load_table_from_yaml(url: &str) -> String {
 async fn parse_yaml(s: String) -> Result<HashMap<String, HashMap<String, String>>> {
     let s1 = s.clone();
     let s1s = s1.as_str();
-    let result = yaml_rust2::YamlLoader::load_from_str(s1s)?
+    let result = saphyr::Yaml::load_from_str(s1s)?
         .first()
         .expect("unable to parse YAML")
-        .as_hash()
+        .as_mapping()
         .map(|h| {
             h.iter()
                 .map(|(k, v)| {
                     let key = k.as_str().unwrap().to_string();
                     let value = v
-                        .as_hash()
+                        .as_mapping()
                         .unwrap()
                         .iter()
                         .map(|(vk, vv)| {

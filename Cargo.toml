@@ -29,7 +29,7 @@ wasm-bindgen = "0.2.115"
 js-sys = "0.3.92"
 enum-iterator = "2.3.0"
 yewdux = "0.12.0"
-yaml-rust2 = "0.11.0"
+saphyr = "0.0.6"
 
 [build-dependencies]
 vergen-gitcl = "9.1.0"
