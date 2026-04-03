@@ -1,0 +1,24 @@
+[application]
+tailwind_input = "tailwind.css"
+tailwind_output = "assets/css/app.css"
+
+[web.app]
+
+# HTML title tag content
+# (will be overriden by the app)
+title = "... Loading ..."
+
+# include `assets` in web platform
+[web.resource]
+
+# Additional CSS style files
+style = []
+
+# Additional JavaScript files
+script = []
+
+[web.resource.dev]
+
+# Javascript code file
+# serve: [dev-server] only
+script = []

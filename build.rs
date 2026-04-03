@@ -1,10 +1,19 @@
-use vergen_gitcl::{Emitter, GitclBuilder};
+use std::{fs::OpenOptions, io::Write, path::PathBuf, process};
 
-fn main() {
-    let gitcl = GitclBuilder::all_git().expect("failed getting git information");
-    Emitter::default()
-        .add_instructions(&gitcl)
-        .expect("failed to add instructions")
-        .emit()
-        .expect("failed emitting git information");
+fn main() -> Result<(), std::io::Error> {
+    let output: Vec<u8> = process::Command::new("git")
+        .args(["describe", "--tags", "--always", "HEAD"])
+        .output()?
+        .stdout;
+
+    let git_sha = String::from_utf8_lossy(&output).trim().to_string();
+    let path = PathBuf::from("assets/commit_sha.txt");
+    OpenOptions::new()
+        .create(true)
+        .write(true)
+        .truncate(true)
+        .open(path)?
+        .write_all(git_sha.as_bytes())?;
+
+    Ok(())
 }

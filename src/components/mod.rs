@@ -1,35 +1,18 @@
 //! This module contains all the components and calculators.
-mod alcohol_calc;
-mod app;
-mod brewhouse;
-mod color_converter;
-mod ebc_calc;
+mod alcohol;
 mod footer;
-mod gravity_picker;
 mod header;
-mod hops_adder;
-mod ibu_calc;
-mod ibu_preset;
-mod lang_picker;
-mod not_found;
-mod show_units;
+mod ibu;
+mod lang;
+mod theme;
 mod unit_picker;
 
 pub mod prelude {
-    pub use super::alcohol_calc::AlcoholCalculator;
-    pub use super::app::{App, AppProps};
-    pub use super::brewhouse::BrewhouseEfficiencyCalculator;
-    pub use super::color_converter::ColorConversionCalculator;
-    pub use super::ebc_calc::EbcCalculator;
-    pub use super::ebc_calc::EbcColorDisplay;
+    pub use super::alcohol::AlcoholCalculator;
     pub use super::footer::Footer;
-    pub use super::gravity_picker::{change_og_value, GravityPicker};
     pub use super::header::Header;
-    pub use super::hops_adder::HopsAdder;
-    pub use super::ibu_calc::IBUCalculator;
-    pub use super::ibu_preset::{change_boiling_time, change_og_unit, IBUPreset};
-    pub use super::lang_picker::LanguagePicker;
-    pub use super::not_found::NotFound;
-    pub use super::show_units::ShowUnits;
-    pub use super::unit_picker::UnitPicker;
+    pub use super::ibu::IbuCalculator;
+    pub use super::lang::LanguageSwitcher;
+    pub use super::theme::ThemeSwitcher;
+    pub use super::unit_picker::GravityUnitPicker;
 }
