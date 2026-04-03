@@ -1,11 +1,8 @@
 //! This module contains the state of the application.
 use crate::common::prelude::*;
-use enum_iterator::Sequence;
 use serde::{Deserialize, Serialize};
-use yewdux::prelude::*;
 
-#[derive(Store, Clone, Serialize, Deserialize, PartialEq)]
-#[store(storage = "local")]
+#[derive(Clone, Serialize, Deserialize, PartialEq)]
 pub struct CalcState {
     pub theme: Theme,
     pub language: Language,
@@ -16,6 +13,7 @@ pub struct CalcState {
     pub grain: Grain,
     pub brewhouse: Brewhouse,
     pub color_conversion: ColorConversion,
+    pub commit_hash: String,
 }
 
 #[derive(Clone, Serialize, Deserialize, PartialEq)]
@@ -32,7 +30,7 @@ pub struct Grain {
     pub malt: Vec<Malt>,
 }
 
-#[derive(Clone, Serialize, Deserialize, PartialEq, Sequence)]
+#[derive(Clone, Serialize, Deserialize, PartialEq)]
 pub enum HopsForm {
     Whole,
     Pellets,
@@ -54,7 +52,7 @@ pub struct Malt {
     pub color: f64,
 }
 
-#[derive(Clone, Serialize, Deserialize, PartialEq, Sequence)]
+#[derive(Clone, Serialize, Deserialize, PartialEq)]
 pub enum MassUnit {
     Kilogram,
     Gram,
@@ -92,7 +90,7 @@ impl Default for CalcState {
     fn default() -> Self {
         CalcState {
             theme: get_preferred_theme(),
-            language: Translator::get_preferred_language(),
+            language: get_preferred_language(),
             chosen_unit: Gravity::Brix(0.0),
             original_gravity: Gravity::Brix(12.0),
             final_gravity: Gravity::Brix(6.0),
@@ -119,6 +117,7 @@ impl Default for CalcState {
             color_conversion: ColorConversion {
                 color: ColorUnit::Ebc(12.0),
             },
+            commit_hash: String::new(),
         }
     }
 }

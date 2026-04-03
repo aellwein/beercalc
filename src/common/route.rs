@@ -1,34 +1,44 @@
 //! This module defines the routes for the application.
-use enum_iterator::Sequence;
-use serde::{Deserialize, Serialize};
-use yew_router::prelude::*;
+use crate::components::prelude::*;
+use dioxus::prelude::*;
+
+#[component]
+pub fn Home() -> Element {
+    // Placeholder component, will never be rendered due to the redirect in the Route enum.
+    todo!()
+}
+
+#[component]
+fn NotFound(_not_found: Vec<String>) -> Element {
+    rsx!(
+        div { "404 - Not Found" }
+    )
+}
 
 /// Navigation routes for the application.
-#[derive(Clone, Routable, PartialEq, Serialize, Deserialize, Sequence)]
+#[derive(Clone, Routable, PartialEq)]
 pub enum Route {
-    #[at("/")]
-    Home,
-    #[at("/alcohol")]
+    #[route("/")]
+    #[redirect("/", || Route::AlcoholCalculator)]
+    Home {},
+    #[route("/alcohol")]
     AlcoholCalculator,
-    #[at("/ibu")]
+    #[route("/ibu")]
     IbuCalculator,
-    #[at("/color")]
-    BeerColorCalculator,
-    #[at("/color-conversion")]
-    ColorConversionCalculator,
-    #[at("/brewhouse")]
-    BrewhouseEfficiencyCalculator,
-    #[not_found]
-    #[at("/404")]
-    NotFound,
+    // #[route("/color")]
+    // BeerColorCalculator {},
+    // #[route("/color-conversion")]
+    // ColorConversionCalculator {},
+    // #[route("/brewhouse")]
+    // BrewhouseEfficiencyCalculator {},
+    // #[route("/404")]
+    // NotFound {},
+    #[route("/:.._not_found")]
+    NotFound { _not_found: Vec<String> },
 }
 
-/// Enum for different calculators, used to determine which calculator to display.
-#[derive(Sequence)]
-pub enum Calculator {
-    Alcohol,
-    Ibu,
-    EbcColor,
-    ColorConversion,
-    BrewhouseEfficiency,
-}
+// Tuple of all calculators with their corresponding route and i18n key for the header.
+pub const CALCULATORS: [(Route, &'static str); 2] = [
+    (Route::AlcoholCalculator, "alcohol_calculator"),
+    (Route::IbuCalculator, "ibu_calculator"),
+];

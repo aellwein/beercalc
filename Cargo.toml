@@ -3,12 +3,17 @@ name = "beercalc"
 version = "0.0.0+git"
 edition = "2021"
 license = "MIT"
+authors = ["Alex Ellwein <alex.ellwein@gmail.com>"]
 build = "build.rs"
 
 [dependencies]
-yew = { version = "0.22.1", features = ["csr"] }
-console_error_panic_hook = "0.1.7"
-web-sys = { version = "0.3.92", features = [
+dioxus = { version = "0.7.4", features = ["web", "router"] }
+dioxus-i18n = "0.5.1"
+dioxus-sdk-storage = "0.7.0"
+serde = "1.0.228"
+tracing = "0.1.44"
+unic-langid = { version = "0.9.6", features = ["macros"] }
+web-sys = { version = "0.3.94", features = [
     "Request",
     "RequestInit",
     "Response",
@@ -21,21 +26,13 @@ web-sys = { version = "0.3.92", features = [
     "MediaQueryList",
     "DomTokenList",
 ] }
-yew-router = "0.19.0"
 anyhow = "1.0.102"
-serde = "1.0.228"
-wasm-bindgen-futures = "0.4.65"
-wasm-bindgen = "0.2.115"
-js-sys = "0.3.92"
-enum-iterator = "2.3.0"
-yewdux = "0.12.0"
-saphyr = "0.0.6"
 
-[build-dependencies]
-vergen-gitcl = "9.1.0"
 
 [profile.release]
 panic = 'abort'
 codegen-units = 1
 opt-level = 'z'
+debug = false
 lto = true
+incremental = false
