@@ -6,7 +6,6 @@ use serde::{Deserialize, Serialize};
 pub struct CalcState {
     pub theme: Theme,
     pub language: Language,
-    pub chosen_unit: Gravity,
     pub original_gravity: Gravity,
     pub final_gravity: Gravity,
     pub ibu: Ibu,
@@ -91,7 +90,6 @@ impl Default for CalcState {
         CalcState {
             theme: get_preferred_theme(),
             language: get_preferred_language(),
-            chosen_unit: Gravity::Brix(0.0),
             original_gravity: Gravity::Brix(12.0),
             final_gravity: Gravity::Brix(6.0),
             ibu: Ibu {

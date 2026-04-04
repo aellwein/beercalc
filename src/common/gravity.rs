@@ -5,7 +5,7 @@
 use crate::common::prelude::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, Debug)]
 pub enum Gravity {
     Plato(f64),
     Brix(f64),

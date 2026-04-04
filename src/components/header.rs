@@ -2,9 +2,10 @@ use crate::common::prelude::*;
 use crate::components::prelude::*;
 use dioxus::prelude::*;
 use dioxus_i18n::t;
+use dioxus_sdk_storage::{use_synced_storage, LocalStorage};
 
 #[component]
-pub fn Header(active: Route, language: Signal<Language>) -> Element {
+pub fn Header(active: Route) -> Element {
     let active_classes =
         "nav-link text-indigo-600 dark:text-indigo-500 border-b-2 border-indigo-600 pb-1";
     let inactive_classes =
@@ -27,7 +28,7 @@ pub fn Header(active: Route, language: Signal<Language>) -> Element {
             }
             div { class: "grow shrink-0",
                 div { class: "flex flex-row gap-4 items-center justify-end",
-                    LanguageSwitcher { language: *language.read() }
+                    LanguageSwitcher {}
                     ThemeSwitcher {}
                 }
             }
