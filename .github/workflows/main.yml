@@ -9,13 +9,13 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-    contents: read
-    pages: write
-    id-token: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
-    name: trunk build
+    name: dx build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,11 +26,13 @@ jobs:
 
       - name: Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@150fca883cd4034361b621bd4e6a9d34e5143606 # v1.15.4
-
-      - name: Setup trunk
-        uses: jetli/trunk-action@1346cc09eace4beb84e403e199a471346d4684c9 # v0.5.1
         with:
-          version: 'latest'
+          toolchain: stable
+          target: wasm32-unknown-unknown
+          cache: true
+
+      - name: Install dx
+        run: curl -sSL https://dioxus.dev/install.sh | bash
 
       - name: Check format
         run: cargo fmt --all -- --check
@@ -38,10 +40,8 @@ jobs:
       - name: cargo clippy
         run: cargo clippy --all-features -- -D warnings
 
-      - name: trunk build
-        run: trunk build --release && ls -laR dist/
-        env:
-          TRUNK_BUILD_PUBLIC_URL: "/beercalc/"
+      - name: dx build
+        run: dx build --release && ls -laR target/dx/beercalc/release
 
       - name: replace branch name
         run: |
@@ -53,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: dist-${{ env.REPL_BRANCH_NAME }}
-          path: dist/
+          path: target/dx/beercalc/release/
           retention-days: 1
 
   deploy:
@@ -78,12 +78,12 @@ jobs:
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: dist-${{ env.REPL_BRANCH_NAME }}
-          path: dist/
+          path: target/dx/beercalc/release/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
-          path: 'dist'
+          path: "target/dx/beercalc/release"
 
       - name: Deploy to GitHub pages
         id: deployment
