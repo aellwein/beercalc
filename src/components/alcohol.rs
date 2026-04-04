@@ -102,8 +102,21 @@ fn StandardCalculation() -> Element {
         }
     } else {
         rsx! {
-            div { class: "text-center grow text-red-400 table",
-                span { class: "table-cell align-middle", {t!("calculation_not_possible")} }
+            Fragment {
+                div { class: "flex flex-wrap flex-col shadow-md dark:shadow-slate-600 p-4 gap-2 grow",
+                    div { class: "text-2xl text-center my-3",
+                        {
+                            if matches!(STATE.read().original_gravity, Gravity::Brix(_)) {
+                                t!("standard_equation")
+                            } else {
+                                t!("results")
+                            }
+                        }
+                    }
+                    div { class: "text-center grow text-red-400 table",
+                        span { class: "table-cell align-middle", {t!("calculation_not_possible")} }
+                    }
+                }
             }
         }
     }
@@ -116,7 +129,6 @@ fn TerrillCalculation() -> Element {
     {
         rsx! {
             Fragment {
-
                 div { class: "flex flex-wrap flex-col shadow-md dark:shadow-slate-600 p-4 gap-2 grow",
                     div { class: "text-2xl text-center my-3", {t!("terrill_equation")} }
                     RenderCalcResult { calc_result: calc_result.clone() }
@@ -125,8 +137,13 @@ fn TerrillCalculation() -> Element {
         }
     } else {
         rsx! {
-            div { class: "text-center grow text-red-400 table",
-                span { class: "table-cell align-middle", {t!("calculation_not_possible")} }
+            Fragment {
+                div { class: "flex flex-wrap flex-col shadow-md dark:shadow-slate-600 p-4 gap-2 grow",
+                    div { class: "text-2xl text-center my-3", {t!("terrill_equation")} }
+                    div { class: "text-center grow text-red-400 table",
+                        span { class: "table-cell align-middle", {t!("calculation_not_possible")} }
+                    }
+                }
             }
         }
     }
