@@ -23,7 +23,7 @@ impl Gravity {
         }
     }
 
-    pub fn update_value(&self, newval: f64) -> Self {
+    pub fn new_with_updated_value(&self, newval: f64) -> Self {
         match self {
             Gravity::Plato(_) => Gravity::Plato(newval),
             Gravity::Brix(_) => Gravity::Brix(newval),

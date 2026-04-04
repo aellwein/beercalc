@@ -2,14 +2,17 @@ use crate::common::prelude::*;
 use crate::components::prelude::*;
 use dioxus::prelude::*;
 use dioxus_i18n::t;
-use dioxus_sdk_storage::{use_synced_storage, LocalStorage};
 
 #[component]
 pub fn Header(active: Route) -> Element {
-    let active_classes =
-        "nav-link text-indigo-600 dark:text-indigo-500 border-b-2 border-indigo-600 pb-1";
-    let inactive_classes =
-        "nav-link hover:underline flex-shrink-0 text-gray-500 dark:text-gray-400";
+    let active_classes = format!(
+        "nav-link {} {} pb-1",
+        LT_ANCHOR_CLASSES_ACTIVE, DT_ANCHOR_CLASSES_ACTIVE
+    );
+    let inactive_classes = format!(
+        "nav-link {} {} flex-shrink-0",
+        LT_ANCHOR_CLASSES, DT_ANCHOR_CLASSES
+    );
     rsx! {
         div { class: "flex flex-row flex-wrap gap-4 xs:gap-2 items-baseline",
             {
@@ -19,7 +22,7 @@ pub fn Header(active: Route) -> Element {
                         rsx! {
                             Link {
                                 to: route.clone(),
-                                class: if *route == active { active_classes } else { inactive_classes },
+                                class: if *route == active { active_classes.as_str() } else { inactive_classes.as_str() },
                                 key: "{route}",
                                 {t!(key)}
                             }

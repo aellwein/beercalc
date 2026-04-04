@@ -1,7 +1,6 @@
 use crate::{common::prelude::*, STATE};
 use dioxus::prelude::*;
 use dioxus_i18n::prelude::*;
-use dioxus_sdk_storage::{use_synced_storage, LocalStorage};
 
 #[component]
 pub fn LanguageSwitcher() -> Element {

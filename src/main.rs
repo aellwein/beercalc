@@ -12,7 +12,6 @@ use dioxus::logger::tracing::Level;
 use dioxus::prelude::*;
 use dioxus_i18n::prelude::*;
 use dioxus_i18n::t;
-use dioxus_sdk_storage::{use_synced_storage, LocalStorage};
 use unic_langid::langid;
 
 mod common;
@@ -41,6 +40,7 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    set_body_classes(&format!("{} {}", LT_TEXT_CLASSES, DT_TEXT_CLASSES));
     use_init_i18n(i18n_config);
 
     // invalidate commit hash if it doesn't match in state
@@ -57,8 +57,8 @@ fn App() -> Element {
         document::Link { rel: "stylesheet", href: FONTS_CSS }
         document::Title { {t!("title")} }
 
-        div { class: "container p-2 dark:bg-gray-800 bg-neutral-50 mx-auto",
-            div { class: "flex flex-col gap-1",
+        div { class: "container p-2 mx-auto {LT_TEXT_CLASSES} {DT_TEXT_CLASSES}",
+            div { class: "flex flex-col gap-2",
                 Router::<Route> {}
                 Footer {}
             }
