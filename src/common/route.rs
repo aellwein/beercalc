@@ -38,7 +38,7 @@ pub enum Route {
 }
 
 // Tuple of all calculators with their corresponding route and i18n key for the header.
-pub const CALCULATORS: [(Route, &'static str); 2] = [
+pub const CALCULATORS: [(Route, &str); 2] = [
     (Route::AlcoholCalculator, "alcohol_calculator"),
     (Route::IbuCalculator, "ibu_calculator"),
 ];

@@ -50,6 +50,7 @@ pub fn sg_to_oechsle(sg: f64) -> f64 {
     brix_to_oechsle(sg_to_brix(sg))
 }
 
+#[derive(Clone, PartialEq)]
 pub struct AlcCalcResult {
     pub apparent_extract: f64,
     pub real_extract: f64,

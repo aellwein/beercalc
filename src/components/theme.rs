@@ -1,7 +1,6 @@
 use crate::{common::prelude::*, STATE};
 use dioxus::prelude::*;
 use dioxus_i18n::t;
-use dioxus_sdk_storage::{use_synced_storage, LocalStorage};
 
 pub fn set_theme(theme: &Theme) {
     match *theme {
@@ -14,7 +13,7 @@ pub fn set_theme(theme: &Theme) {
 pub fn ThemeSwitcher() -> Element {
     let theme = STATE.read().theme;
     set_theme(&theme);
-    let mut toggle_theme = move || {
+    let toggle_theme = move || {
         let mut new_state = STATE.read().clone();
         new_state.theme = match new_state.theme {
             Theme::Light => Theme::Dark,

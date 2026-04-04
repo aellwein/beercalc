@@ -1,11 +1,7 @@
 use crate::common::prelude::*;
-use crate::components::lang;
-use crate::components::prelude::*;
 use crate::STATE;
 use dioxus::prelude::*;
-use dioxus_i18n::prelude::*;
 use dioxus_i18n::t;
-use dioxus_sdk_storage::{use_synced_storage, LocalStorage};
 
 #[component]
 pub fn Footer() -> Element {
@@ -18,7 +14,7 @@ pub fn Footer() -> Element {
             div {
                 span { " " }
                 a {
-                    class: "hover:underline text-indigo-500",
+                    class: "{LT_ANCHOR_CLASSES} {DT_ANCHOR_CLASSES}",
                     href: "https://github.com/aellwein/beercalc",
                     {t!("project_on_github")}
                 }
@@ -26,20 +22,24 @@ pub fn Footer() -> Element {
             div {
 
                 span { "📝 " }
-                a { class: "hover:underline text-indigo-500", href: "#/docs", "Docs" }
+                a {
+                    class: "{LT_ANCHOR_CLASSES} {DT_ANCHOR_CLASSES}",
+                    href: "#/docs",
+                    "Docs"
+                }
             }
             div {
                 span { " " }
                 a {
-                    class: "hover:underline text-indigo-500",
+                    class: "{LT_ANCHOR_CLASSES} {DT_ANCHOR_CLASSES}",
                     href: commit_link,
-                    {format!("{}", STATE.read().commit_hash)}
+                    {STATE.read().commit_hash.to_string()}
                 }
             }
             div {
                 span { "󰿃 " }
                 a {
-                    class: "hover:underline text-indigo-500",
+                    class: "{LT_ANCHOR_CLASSES} {DT_ANCHOR_CLASSES}",
                     href: "https://github.com/aellwein/beercalc/blob/main/LICENSE",
                     {format!("{} {}", t!("licensed_under"), t!("mit_license"))}
                 }
@@ -47,7 +47,7 @@ pub fn Footer() -> Element {
             div {
                 span { "🛠️ " }
                 a {
-                    class: "hover:underline text-indigo-500",
+                    class: "{LT_ANCHOR_CLASSES} {DT_ANCHOR_CLASSES}",
                     href: "https://github.com/DioxusLabs/dioxus",
                     {t!("made_with_love")}
                 }

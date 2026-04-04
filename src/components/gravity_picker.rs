@@ -1,11 +1,7 @@
-use crate::common::prelude::*;
-use crate::components::lang;
 use crate::components::prelude::*;
 use crate::STATE;
 use dioxus::prelude::*;
-use dioxus_i18n::prelude::*;
 use dioxus_i18n::t;
-use dioxus_sdk_storage::{use_synced_storage, LocalStorage};
 
 #[component]
 pub fn GravityPicker() -> Element {
@@ -22,6 +18,15 @@ pub fn GravityPicker() -> Element {
                         max: "60.0",
                         step: "0.1",
                         value: format!("{:.1}", STATE.read().original_gravity.value().clone()),
+                        onchange: move |evt| {
+                            if let Ok(value) = evt.value().parse::<f64>() {
+                                let mut new_state = STATE.read().clone();
+                                new_state.original_gravity = new_state
+                                    .original_gravity
+                                    .new_with_updated_value(value);
+                                *STATE.write() = new_state;
+                            }
+                        },
                     }
                 }
                 ShowUnits { gravity: STATE.read().original_gravity.clone() }
@@ -37,6 +42,15 @@ pub fn GravityPicker() -> Element {
                         max: "60.0",
                         step: "0.1",
                         value: format!("{:.1}", STATE.read().final_gravity.value().clone()),
+                        onchange: move |evt| {
+                            if let Ok(value) = evt.value().parse::<f64>() {
+                                let mut new_state = STATE.read().clone();
+                                new_state.final_gravity = new_state
+                                    .final_gravity
+                                    .new_with_updated_value(value);
+                                *STATE.write() = new_state;
+                            }
+                        },
                     }
                 }
                 ShowUnits { gravity: STATE.read().final_gravity.clone() }

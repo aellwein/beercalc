@@ -1,4 +1,6 @@
 //! Miscellaneous utility functions for web front-end.
+use web_sys::wasm_bindgen::JsValue;
+
 use crate::common::prelude::*;
 
 pub fn window() -> web_sys::Window {
@@ -23,6 +25,19 @@ pub fn get_preferred_theme() -> Theme {
         }
         None => Theme::Light,
     }
+}
+
+pub fn set_body_classes(class: &str) {
+    let classes = class
+        .split_whitespace()
+        .map(JsValue::from_str)
+        .collect::<web_sys::js_sys::Array>();
+    document()
+        .body()
+        .expect("unable to get body element")
+        .class_list()
+        .add(&classes)
+        .expect("unable to add class");
 }
 
 pub fn set_classes(class: &str) {
