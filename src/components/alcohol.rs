@@ -74,7 +74,7 @@ fn RenderCalcResult(calc_result: AlcCalcResult) -> Element {
                     {" %"}
                 }
             }
-        
+
         }
     }
 }
