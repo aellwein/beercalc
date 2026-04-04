@@ -23,6 +23,8 @@ const APP_CSS: Asset = asset!("../assets/css/app.css");
 const FONTS_CSS: Asset = asset!("../assets/css/fonts.css");
 const _FONTS: Asset = asset!("../assets/fonts", AssetOptions::folder());
 
+pub static STATE: GlobalSignal<CalcState> = Signal::global(CalcState::default);
+
 fn i18n_config() -> I18nConfig {
     I18nConfig::new(langid!("en"))
         .with_locale((langid!("en"), include_str!("../assets/i18n/en.ftl")))
@@ -39,17 +41,15 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-    let mut state =
-        use_synced_storage::<LocalStorage, CalcState>(STATE_NAME.to_string(), CalcState::default);
     use_init_i18n(i18n_config);
 
     // invalidate commit hash if it doesn't match in state
-    if get_commit_hash() != state.read().commit_hash {
-        let mut new_state = state.read().clone();
+    if get_commit_hash() != STATE.read().commit_hash {
+        let mut new_state = STATE.read().clone();
         new_state.commit_hash = get_commit_hash();
-        state.set(new_state);
+        *STATE.write() = new_state;
     }
-    set_theme(&state.read().theme);
+    set_theme(&STATE.read().theme);
 
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
@@ -60,7 +60,7 @@ fn App() -> Element {
         div { class: "container p-2 dark:bg-gray-800 bg-neutral-50 mx-auto",
             div { class: "flex flex-col gap-1",
                 Router::<Route> {}
-                Footer { hash: state.read().commit_hash.clone() }
+                Footer {}
             }
         }
     }
