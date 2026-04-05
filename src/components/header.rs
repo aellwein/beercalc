@@ -10,7 +10,7 @@ pub fn Header(active: Route) -> Element {
         LT_ANCHOR_CLASSES_ACTIVE, DT_ANCHOR_CLASSES_ACTIVE
     );
     let inactive_classes = format!(
-        "nav-link {} {} flex-shrink-0",
+        "nav-link {} {} shrink-0",
         LT_ANCHOR_CLASSES, DT_ANCHOR_CLASSES
     );
     rsx! {
