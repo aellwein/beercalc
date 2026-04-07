@@ -28,7 +28,7 @@ wasm-bindgen-futures = "0.4.65"
 wasm-bindgen = "0.2.115"
 js-sys = "0.3.92"
 enum-iterator = "2.3.0"
-yewdux = "0.12.0"
+yewdux = "0.13.0"
 saphyr = "0.0.6"
 
 [build-dependencies]

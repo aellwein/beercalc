@@ -34,7 +34,7 @@ dependencies = [
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
- "yew",
+ "yew 0.22.1",
  "yew-router",
  "yewdux",
 ]
@@ -1226,7 +1226,32 @@ dependencies = [
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
- "yew-macro",
+ "yew-macro 0.22.1",
+]
+
+[[package]]
+name = "yew"
+version = "0.23.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2c154fadfa97eabdd3f3b79345ceeb9c05ee8f13f76d3d881d17fba618bf558d"
+dependencies = [
+ "console_error_panic_hook",
+ "futures",
+ "gloo",
+ "implicit-clone",
+ "indexmap",
+ "js-sys",
+ "rustversion",
+ "serde",
+ "slab",
+ "thiserror 2.0.18",
+ "tokio",
+ "tokise",
+ "tracing",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "yew-macro 0.23.0",
 ]
 
 [[package]]
@@ -1234,6 +1259,20 @@ name = "yew-macro"
 version = "0.22.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a708a4027c143be6ca160a341700b59f9ecc36a7ebd95e3c477018de8cf71c75"
+dependencies = [
+ "prettyplease",
+ "proc-macro-error",
+ "proc-macro2",
+ "quote",
+ "rustversion",
+ "syn 2.0.117",
+]
+
+[[package]]
+name = "yew-macro"
+version = "0.23.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c08b883d84a035f57519d057f65a2a07ae25f1884ad485e1a9a523c9d880c1ad"
 dependencies = [
  "prettyplease",
  "proc-macro-error",
@@ -1258,7 +1297,7 @@ dependencies = [
  "urlencoding",
  "wasm-bindgen",
  "web-sys",
- "yew",
+ "yew 0.22.1",
  "yew-router-macro",
 ]
 
@@ -1275,9 +1314,9 @@ dependencies = [
 
 [[package]]
 name = "yewdux"
-version = "0.12.0"
+version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d1e09add4723555b531abc118169023c03bbbfb35fa22b4f3364886ab2463a07"
+checksum = "5b37ed5309a91e585402d80a5fbaa136e467ffa2c2f7d8a3eb9d3d87eebf7b4b"
 dependencies = [
  "log",
  "serde",
@@ -1286,15 +1325,15 @@ dependencies = [
  "thiserror 1.0.69",
  "wasm-bindgen",
  "web-sys",
- "yew",
+ "yew 0.23.0",
  "yewdux-macros",
 ]
 
 [[package]]
 name = "yewdux-macros"
-version = "0.12.0"
+version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "34d998a3229b071405334475cd91b4c84dd9f7d5aef2c38dc4fee6bf88e283d9"
+checksum = "f7351c294ea148bf8c2009ea545d21032617524eb376a98d9d8b824022f3ec21"
 dependencies = [
  "darling",
  "proc-macro-error",
