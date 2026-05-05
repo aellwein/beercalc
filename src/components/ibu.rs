@@ -18,29 +18,51 @@ pub fn IbuCalculator() -> Element {
 #[component]
 fn IbuPreset() -> Element {
     rsx! {
-        div { class: "flex flex-row gap-4 items-baseline flex-wrap",
-            div { {t!("original_gravity")} }
-            input {
-                class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
-                r#type: "number",
-                min: "0.1",
-                step: ".1",
-                max: "60.0",
-                value: format!("{:.1}", STATE.read().original_gravity.value()),
+        div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4",
+            div { class: "flex flex-row gap-4 items-baseline flex-wrap",
+                div { {t!("original_gravity")} }
+                input {
+                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                    r#type: "number",
+                    min: "0.1",
+                    step: ".1",
+                    max: "60.0",
+                    value: format!("{:.1}", STATE.read().original_gravity.value()),
+                }
+                select {
+                    class: "p-1 appearance-none rounded-none bg-white border-gray-300 border border-solid dark:bg-gray-700 dark:text-gray-300",
+                    onchange: move |evt| {},
+                    {[Gravity::Plato(0.0), Gravity::Brix(0.0)].iter().map(|g| rsx! {
+                        option {
+                            value: {t!(& g.translator_key())},
+                            key: "{t!(& g.translator_key())}",
+                            selected: {matches!(&STATE.read().original_gravity, g)},
+                            {t!(& g.translator_key())}
+                        }
+                    })}
+                }
+                ShowUnits { gravity: STATE.read().original_gravity.clone() }
             }
-            select {
-                class: "p-1 appearance-none rounded-none bg-white border-gray-300 border border-solid dark:bg-gray-700 dark:text-gray-300",
-                onchange: move |evt| {},
-                {[Gravity::Plato(0.0), Gravity::Brix(0.0)].iter().map(|g| rsx! {
-                    option {
-                        value: {t!(& g.translator_key())},
-                        key: "{t!(& g.translator_key())}",
-                        selected: {matches!(&STATE.read().original_gravity, g)},
-                        {t!(& g.translator_key())}
-                    }
-                })}
+            div { class: "flex flex-row gap-4 items-baseline flex-wrap",
+                div { {t!("boiling_time")} }
+                input {
+                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                    r#type: "number",
+                    min: "1",
+                    step: "1",
+                    max: "600",
+                    value: format!("{}", STATE.read().ibu.boiling),
+                    onchange: move |evt| {
+                        if let Ok(value) = evt.value().parse::<f64>() {
+                            STATE.write().ibu.boiling = value;
+                        }
+                    },
+                }
+                div { {t!("minutes")} }
             }
-            ShowUnits { gravity: STATE.read().original_gravity.clone() }
+            div { class: "flex flex-row gap-4 items-baseline flex-wrap",
+                div { {t!("volume")} }
+            }
         }
     }
 }

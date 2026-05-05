@@ -180,6 +180,15 @@
   }
 }
 @layer utilities {
+  .visible {
+    visibility: visible;
+  }
+  .absolute {
+    position: absolute;
+  }
+  .fixed {
+    position: fixed;
+  }
   .relative {
     position: relative;
   }
@@ -213,11 +222,20 @@
   .mt-1 {
     margin-top: calc(var(--spacing) * 1);
   }
+  .block {
+    display: block;
+  }
   .contents {
     display: contents;
   }
   .flex {
     display: flex;
+  }
+  .hidden {
+    display: none;
+  }
+  .inline {
+    display: inline;
   }
   .table {
     display: table;
@@ -242,6 +260,9 @@
   }
   .cursor-default {
     cursor: default;
+  }
+  .resize {
+    resize: both;
   }
   .appearance-none {
     appearance: none;
