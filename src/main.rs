@@ -12,6 +12,7 @@ use dioxus::logger::tracing::Level;
 use dioxus::prelude::*;
 use dioxus_i18n::prelude::*;
 use dioxus_i18n::t;
+use dioxus_sdk_storage::{use_storage, LocalStorage};
 use unic_langid::langid;
 
 mod common;
@@ -22,6 +23,7 @@ const APP_CSS: Asset = asset!("../assets/css/app.css");
 const EBC_CSS: Asset = asset!("../assets/css/ebc.css");
 const FONTS_CSS: Asset = asset!("../assets/css/fonts.css");
 const _FONTS: Asset = asset!("../assets/fonts", AssetOptions::folder());
+const STORAGE_KEY: &str = "beercalc.state";
 
 pub static STATE: GlobalSignal<CalcState> = Signal::global(CalcState::default);
 
@@ -44,12 +46,30 @@ fn App() -> Element {
     set_body_classes(&format!("{} {}", LT_TEXT_CLASSES, DT_TEXT_CLASSES));
     use_init_i18n(i18n_config);
 
+    let mut storage_state =
+        use_storage::<LocalStorage, CalcState>(STORAGE_KEY.to_string(), CalcState::default);
+    let mut initialized_from_storage = use_signal(|| false);
+
+    if !*initialized_from_storage.read() {
+        *STATE.write() = storage_state.read().clone();
+        *initialized_from_storage.write() = true;
+    }
+
+    use_effect(move || {
+        let current_state = STATE.read().clone();
+        if *storage_state.read() != current_state {
+            *storage_state.write() = current_state;
+        }
+    });
+
     // invalidate commit hash if it doesn't match in state
     if get_commit_hash() != STATE.read().commit_hash {
         let mut new_state = STATE.read().clone();
         new_state.commit_hash = get_commit_hash();
         *STATE.write() = new_state;
     }
+    let mut i18n = i18n();
+    i18n.set_language(STATE.read().language.into());
     set_theme(&STATE.read().theme);
 
     rsx! {
