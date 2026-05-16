@@ -40,9 +40,11 @@ pub fn IbuCalculator() -> Element {
     rsx! {
         Fragment {
             Header { active: Route::IbuCalculator }
-            div { class: "text-2xl my-3", {t!("ibu_calculator")} }
-            IbuPreset {}
-            HopsAdder {}
+            div { class: "flex flex-col gap-4 dark:text-gray-400",
+                div { class: "text-2xl my-3", {t!("ibu_calculator")} }
+                IbuPreset {}
+                HopsAdder {}
+            }
         }
     }
 }
@@ -185,7 +187,7 @@ fn HopsAdder() -> Element {
                 state.ibu.hops.iter().enumerate().map(|(idx, hops)| {
                     let bitterness = calc_hop_ibu(&state.original_gravity, &state.ibu, hops);
                     rsx! {
-                        div { key: "hops-{idx}", class: "flex flex-col gap-3 border-b border-neutral-200 pb-2 dark:border-neutral-700",
+                        div { key: "hops-{idx}", class: "flex flex-col gap-4",
                             div { class: "flex flex-row items-baseline gap-4",
                                 div { class: "underline text-right grow", {format!("{} #{}", t!("hops_addition"), idx + 1)} }
                                 button {
@@ -284,18 +286,18 @@ fn HopsAdder() -> Element {
                                 }
                             }
                             div { class: "flex flex-row items-baseline gap-4",
-                                div { class: "grow", {t!("bitterness")} }
-                                div { class: "text-right", {format!("{:.1} IBU", bitterness)} }
+                                div { class: "grow dark:text-gray-200", {t!("bitterness")} }
+                                div { class: "text-right dark:text-gray-200", {format!("{:.1} IBU", bitterness)} }
                             }
                         }
                     }
                 })
             }
             div { class: "flex flex-row gap-4",
-                div { class: "grow", strong { {t!("total_bitterness")} } }
-                div { class: "text-right", strong { {format!("{:.1} IBU", total)} } }
+                div { class: "grow dark:text-gray-200", strong { {t!("total_bitterness")} } }
+                div { class: "text-right dark:text-gray-200", strong { {format!("{:.1} IBU", total)} } }
             }
-            div {
+            div { class: "mr-auto",
                 button {
                     class: "py-2 px-4 text-white dark:text-gray-200 bg-green-500 dark:bg-green-900 rounded-lg shadow-md dark:shadow-slate-600 hover:bg-green-700 dark:hover:bg-green-800",
                     onclick: move |_| {

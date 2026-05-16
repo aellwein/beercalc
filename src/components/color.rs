@@ -14,11 +14,12 @@ pub fn BeerColorCalculator() -> Element {
     rsx! {
         Fragment {
             Header { active: Route::BeerColorCalculator }
-            div { class: "text-2xl my-3", {t!("color_calculator")} }
-            div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4",
-                div { class: "flex flex-row gap-4 items-baseline flex-wrap",
-                    div { {t!("original_gravity")} }
-                    input {
+            div { class: "flex flex-col gap-4 dark:text-gray-400",
+                div { class: "text-2xl my-3", {t!("color_calculator")} }
+                div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4",
+                    div { class: "flex flex-row gap-4 items-baseline flex-wrap",
+                        div { {t!("original_gravity")} }
+                        input {
                         class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
                         r#type: "number",
                         min: ".1",
@@ -34,7 +35,7 @@ pub fn BeerColorCalculator() -> Element {
                             }
                         },
                     }
-                    select {
+                        select {
                         class: "p-1 appearance-none rounded-none bg-white border-gray-300 border border-solid dark:bg-gray-700 dark:text-gray-300",
                         onchange: move |evt| {
                             let unit = evt.value();
@@ -56,11 +57,11 @@ pub fn BeerColorCalculator() -> Element {
                                 {t!(&g.translator_key())}
                             }
                         })}
+                        }
                     }
-                }
-                div { class: "flex flex-row gap-4 items-baseline flex-wrap",
-                    div { {t!("boiling_time")} }
-                    input {
+                    div { class: "flex flex-row gap-4 items-baseline flex-wrap",
+                        div { {t!("boiling_time")} }
+                        input {
                         class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
                         r#type: "number",
                         min: "1",
@@ -80,12 +81,13 @@ pub fn BeerColorCalculator() -> Element {
                                 *STATE.write() = new_state;
                             }
                         },
+                        }
+                        div { {t!("minutes")} }
                     }
-                    div { {t!("minutes")} }
                 }
+                MaltAdder {}
+                EbcColorDisplay { ebc: ebc as f64 }
             }
-            MaltAdder {}
-            EbcColorDisplay { ebc: ebc as f64 }
         }
     }
 }
@@ -97,7 +99,7 @@ fn MaltAdder() -> Element {
             {
                 STATE.read().grain.malt.iter().enumerate().map(|(idx, grain)| {
                     rsx! {
-                        div { key: "malt-{idx}", class: "flex flex-col gap-3 border-b border-neutral-200 pb-2 dark:border-neutral-700",
+                        div { key: "malt-{idx}", class: "flex flex-col gap-4",
                             div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                                 div { {format!("{} #{}", t!("malt"), idx + 1)} }
                                 button {
@@ -178,7 +180,7 @@ fn MaltAdder() -> Element {
                     }
                 })
             }
-            div {
+            div { class: "mr-auto",
                 button {
                     class: "py-2 px-4 bg-yellow-600 dark:bg-yellow-700 text-white dark:text-gray-100 rounded-lg shadow-md dark:shadow-slate-600 hover:bg-yellow-800 dark:hover:bg-yellow-500 dark:hover:text-gray-800",
                     onclick: move |_| {

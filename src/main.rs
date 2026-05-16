@@ -59,7 +59,7 @@ fn App() -> Element {
         document::Link { rel: "stylesheet", href: FONTS_CSS }
         document::Title { {t!("title")} }
 
-        div { class: "container p-2 mx-auto {LT_TEXT_CLASSES} {DT_TEXT_CLASSES}",
+        div { class: "container p-3 mx-auto {LT_TEXT_CLASSES} {DT_TEXT_CLASSES}",
             div { class: "flex flex-col gap-2",
                 Router::<Route> {}
                 Footer {}

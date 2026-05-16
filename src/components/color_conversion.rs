@@ -16,10 +16,11 @@ pub fn ColorConversionCalculator() -> Element {
     rsx! {
         Fragment {
             Header { active: Route::ColorConversionCalculator }
-            div { class: "text-2xl my-3", {t!("color_conversion")} }
-            div { class: "flex flex-row gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline flex-wrap",
-                span { {t!("malt_color")} }
-                input {
+            div { class: "flex flex-col gap-4 dark:text-gray-400",
+                div { class: "text-2xl my-3", {t!("color_conversion")} }
+                div { class: "flex flex-row gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline flex-wrap",
+                    span { {t!("malt_color")} }
+                    input {
                     r#type: "number",
                     min: "{min_value}",
                     max: "200",
@@ -35,7 +36,7 @@ pub fn ColorConversionCalculator() -> Element {
                         }
                     },
                 }
-                select {
+                    select {
                     class: "p-1 appearance-none rounded-none bg-white border-gray-300 border border-solid dark:bg-gray-700 dark:text-gray-300",
                     onchange: move |evt| {
                         let mut new_state = STATE.read().clone();
@@ -57,7 +58,7 @@ pub fn ColorConversionCalculator() -> Element {
                         }
                     })}
                 }
-                span {
+                    span {
                     {
                         let c = STATE.read().color_conversion.color.clone();
                         match c {
@@ -84,9 +85,10 @@ pub fn ColorConversionCalculator() -> Element {
                             ),
                         }
                     }
+                    }
                 }
+                EbcColorDisplay { ebc: STATE.read().color_conversion.color.to_ebc().value() }
             }
-            EbcColorDisplay { ebc: STATE.read().color_conversion.color.to_ebc().value() }
         }
     }
 }

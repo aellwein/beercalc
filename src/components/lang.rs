@@ -10,7 +10,7 @@ pub fn LanguageSwitcher() -> Element {
 
     return rsx! {
         select {
-            class: "p-2 rounded-full bg-white hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 hover:cursor-pointer border border-zinc-500 grow-0 appearance-none",
+            class: "appearance-none rounded-none bg-white border-gray-300 p-1 border-solid border dark:bg-gray-700 dark:text-gray-300",
             onchange: move |evt| {
                 let selected_value = evt.value().clone();
                 let selected_lang: Language = selected_value.as_str().into();

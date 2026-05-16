@@ -9,18 +9,20 @@ pub fn AlcoholCalculator() -> Element {
     rsx! {
         Fragment {
             Header { active: Route::AlcoholCalculator }
-            div { class: "text-2xl my-3", {t!("alcohol_calculator")} }
-            GravityUnitPicker {}
-            GravityPicker {}
-            div { class: "flex flex-row flex-wrap gap-2",
-                StandardCalculation {}
-                {
-                    if matches!(STATE.read().original_gravity, Gravity::Brix(_)) {
-                        rsx! {
-                            TerrillCalculation {}
+            div { class: "flex flex-col gap-4 dark:text-gray-400",
+                div { class: "text-2xl my-3", {t!("alcohol_calculator")} }
+                GravityUnitPicker {}
+                GravityPicker {}
+                div { class: "flex flex-row flex-wrap gap-4",
+                    StandardCalculation {}
+                    {
+                        if matches!(STATE.read().original_gravity, Gravity::Brix(_)) {
+                            rsx! {
+                                TerrillCalculation {}
+                            }
+                        } else {
+                            rsx! {}
                         }
-                    } else {
-                        rsx! {}
                     }
                 }
             }

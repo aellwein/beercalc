@@ -13,9 +13,10 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
     rsx! {
         Fragment {
             Header { active: Route::BrewhouseEfficiencyCalculator }
-            div { class: "text-2xl my-3", {t!("brewhouse_calculator")} }
-            div { class: "flex flex-row gap-4 flex-wrap",
-                div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline grow",
+            div { class: "flex flex-col gap-4 dark:text-gray-400",
+                div { class: "text-2xl my-3", {t!("brewhouse_calculator")} }
+                div { class: "flex flex-row gap-4 flex-wrap",
+                    div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline grow",
                     div { class: "text-xl", {t!("brewhouse_efficiency")} }
                     div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                         div { {t!("grain_mass")} }
@@ -146,9 +147,9 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                         }
                     }
                     div { strong { {format!("{}: {:.1} %", t!("brewhouse_efficiency"), eff)} } }
-                }
+                    }
 
-                div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline grow",
+                    div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline grow",
                     div { class: "text-xl", {t!("grain_mass_relative_to_brewhouse_efficiency")} }
                     div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                         div { {t!("brewhouse_efficiency")} }
@@ -291,6 +292,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                         }
                     }
                     div { strong { {format!("{}: {:.1} {}", t!("grain_mass"), gm, t!("kg"))} } }
+                    }
                 }
             }
         }
