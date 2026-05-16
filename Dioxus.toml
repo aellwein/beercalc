@@ -3,6 +3,7 @@ tailwind_input = "tailwind.css"
 tailwind_output = "assets/css/app.css"
 
 [web.app]
+base_path = "beercalc"
 
 # HTML title tag content
 # (will be overriden by the app)
