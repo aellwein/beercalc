@@ -25,20 +25,21 @@ pub enum Route {
     AlcoholCalculator,
     #[route("/ibu")]
     IbuCalculator,
-    // #[route("/color")]
-    // BeerColorCalculator {},
-    // #[route("/color-conversion")]
-    // ColorConversionCalculator {},
-    // #[route("/brewhouse")]
-    // BrewhouseEfficiencyCalculator {},
-    // #[route("/404")]
-    // NotFound {},
+    #[route("/color")]
+    BeerColorCalculator,
+    #[route("/color-conversion")]
+    ColorConversionCalculator,
+    #[route("/brewhouse")]
+    BrewhouseEfficiencyCalculator,
     #[route("/:.._not_found")]
     NotFound { _not_found: Vec<String> },
 }
 
 // Tuple of all calculators with their corresponding route and i18n key for the header.
-pub const CALCULATORS: [(Route, &str); 2] = [
+pub const CALCULATORS: [(Route, &str); 5] = [
     (Route::AlcoholCalculator, "alcohol_calculator"),
     (Route::IbuCalculator, "ibu_calculator"),
+    (Route::BeerColorCalculator, "color_calculator"),
+    (Route::ColorConversionCalculator, "color_conversion"),
+    (Route::BrewhouseEfficiencyCalculator, "brewhouse_calculator"),
 ];

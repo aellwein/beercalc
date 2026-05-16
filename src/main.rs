@@ -19,6 +19,7 @@ mod components;
 
 const FAVICON: Asset = asset!("../assets/images/favicon.ico");
 const APP_CSS: Asset = asset!("../assets/css/app.css");
+const EBC_CSS: Asset = asset!("../assets/css/ebc.css");
 const FONTS_CSS: Asset = asset!("../assets/css/fonts.css");
 const _FONTS: Asset = asset!("../assets/fonts", AssetOptions::folder());
 
@@ -54,6 +55,7 @@ fn App() -> Element {
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: APP_CSS }
+        document::Link { rel: "stylesheet", href: EBC_CSS }
         document::Link { rel: "stylesheet", href: FONTS_CSS }
         document::Title { {t!("title")} }
 
