@@ -5,7 +5,10 @@ use dioxus_i18n::t;
 
 #[component]
 pub fn Header(active: Route) -> Element {
-    let active_classes = format!("nav-link {} {}", LT_ANCHOR_CLASSES_ACTIVE, DT_ANCHOR_CLASSES_ACTIVE);
+    let active_classes = format!(
+        "nav-link {} {}",
+        LT_ANCHOR_CLASSES_ACTIVE, DT_ANCHOR_CLASSES_ACTIVE
+    );
     let inactive_classes = format!(
         "nav-link {} {} shrink-0 text-gray-500 dark:text-gray-400",
         LT_ANCHOR_CLASSES, DT_ANCHOR_CLASSES
