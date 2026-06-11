@@ -13,7 +13,7 @@ dioxus-sdk-storage = "0.7.0"
 serde = "1.0.228"
 tracing = "0.1.44"
 unic-langid = { version = "0.9.6", features = ["macros"] }
-web-sys = { version = "0.3.99", features = [
+web-sys = { version = "0.3.100", features = [
     "Request",
     "RequestInit",
     "Response",
