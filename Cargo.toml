@@ -13,7 +13,7 @@ dioxus-sdk-storage = "0.7.0"
 serde = "1.0.228"
 tracing = "0.1.44"
 unic-langid = { version = "0.9.6", features = ["macros"] }
-web-sys = { version = "0.3.100", features = [
+web-sys = { version = "0.3.103", features = [
     "Request",
     "RequestInit",
     "Response",
@@ -26,7 +26,7 @@ web-sys = { version = "0.3.100", features = [
     "MediaQueryList",
     "DomTokenList",
 ] }
-anyhow = "1.0.102"
+anyhow = "1.0.103"
 
 
 [profile.release]
