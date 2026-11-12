@@ -59,25 +59,16 @@ pub fn remove_classes(class: &str) {
 }
 
 pub fn get_preferred_language() -> Language {
-    let navigator = window().navigator();
-    let languages: Vec<Language> = navigator
+    window()
+        .navigator()
         .languages()
         .iter()
-        .map(|j| {
-            let s_lang = j.as_string().unwrap().split("-").collect::<Vec<&str>>()[0].to_string();
-            let r = s_lang.try_into();
-            match r {
-                Ok(lang) => lang,
-                Err(_) => Language::English,
-            }
+        .filter_map(|j| j.as_string())
+        .find_map(|tag| {
+            let short = tag.split('-').next()?.to_string();
+            short.try_into().ok()
         })
-        .collect();
-    //console::log_1(&format!("Languages: {:?}", languages).into());
-    if !languages.is_empty() {
-        languages[0]
-    } else {
-        Language::English
-    }
+        .unwrap_or(Language::English)
 }
 
 pub fn get_commit_hash() -> String {
