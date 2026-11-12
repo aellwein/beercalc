@@ -28,15 +28,15 @@ pub fn brix_to_sg(brix: f64) -> f64 {
 }
 
 pub fn oechsle_to_brix(oechsle: f64) -> f64 {
-    oechsle / 4.25
+    sg_to_brix(oechsle_to_sg(oechsle))
 }
 
 pub fn brix_to_oechsle(brix: f64) -> f64 {
-    brix * 4.25
+    sg_to_oechsle(brix_to_sg(brix))
 }
 
 pub fn oechsle_to_sg(oechsle: f64) -> f64 {
-    brix_to_sg(oechsle_to_brix(oechsle))
+    1.0 + oechsle / 1000.0
 }
 
 pub fn oechsle_to_plato(oechsle: f64) -> f64 {
@@ -48,7 +48,7 @@ pub fn plato_to_oechsle(plato: f64) -> f64 {
 }
 
 pub fn sg_to_oechsle(sg: f64) -> f64 {
-    brix_to_oechsle(sg_to_brix(sg))
+    (sg - 1.0) * 1000.0
 }
 
 #[derive(Clone, PartialEq)]
