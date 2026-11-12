@@ -86,7 +86,7 @@ pub fn BeerColorCalculator() -> Element {
                     }
                 }
                 MaltAdder {}
-                EbcColorDisplay { ebc: ebc as f64 }
+                EbcColorDisplay { ebc }
             }
         }
     }
