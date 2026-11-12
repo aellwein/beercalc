@@ -238,7 +238,7 @@ pub fn calculate_ebc(original_gravity: &Gravity, grain: &Vec<Malt>, boiling_time
             MassUnit::Gram => 0.001,
         };
         total_mass_kg += malt.amount * factor;
-        prod_mass_ebc = malt.color * malt.amount * factor;
+        prod_mass_ebc += malt.color * malt.amount * factor;
     }
     ((prod_mass_ebc / total_mass_kg) * og_plato / 10.0 + 1.5 * boiling_time / 60.0) as i32
 }
