@@ -291,3 +291,52 @@ pub fn ebc_to_lovibond(ebc: f64) -> f64 {
 pub fn srm_to_lovibond(srm: f64) -> f64 {
     (srm + 0.76) / 1.3546
 }
+
+/// Factor `f(T)` in `CO2 [g/L] = (P [bar] + 1.013) * f(T)`, from the
+/// Braukaiser carbonation table formula used by maischemalzundmehr.de.
+pub fn co2_solubility_factor(temperature: f64) -> f64 {
+    10.0 * (-10.73797 + 2617.25 / (temperature + 273.15)).exp()
+}
+
+/// Dissolved CO2 in beer in g/L at gauge pressure `pressure_bar` and `temperature` in °C.
+pub fn dissolved_co2(pressure_bar: f64, temperature: f64) -> f64 {
+    (pressure_bar + 1.013) * co2_solubility_factor(temperature)
+}
+
+/// Gauge pressure in bar needed to reach `co2_target` g/L at `temperature` in °C.
+/// Fails when the target is below the CO2 dissolved at atmospheric pressure.
+pub fn spunding_pressure(co2_target: f64, temperature: f64) -> Result<f64> {
+    let pressure = co2_target / co2_solubility_factor(temperature) - 1.013;
+    if pressure < 0.0 {
+        return Err(anyhow!(
+            "target CO2 is below the dissolved CO2 at atmospheric pressure"
+        ));
+    }
+    Ok(pressure)
+}
+
+#[cfg(test)]
+mod carbonation_tests {
+    use super::*;
+
+    #[test]
+    fn dissolved_co2_matches_reference_values() {
+        // maischemalzundmehr page / Braukaiser table: ~1.7 g/L at 20 °C, ~2.3 g/L at 10 °C, 0 bar.
+        assert!((dissolved_co2(0.0, 20.0) - 1.66).abs() < 0.01);
+        assert!((dissolved_co2(0.0, 10.0) - 2.27).abs() < 0.01);
+    }
+
+    #[test]
+    fn spunding_pressure_round_trips_dissolved_co2() {
+        for &(pressure, temperature) in &[(0.0, 20.0), (1.1, 12.0), (2.5, 8.0)] {
+            let co2 = dissolved_co2(pressure, temperature);
+            let back = spunding_pressure(co2, temperature).unwrap();
+            assert!((back - pressure).abs() < 1e-9);
+        }
+    }
+
+    #[test]
+    fn spunding_pressure_rejects_target_below_atmospheric() {
+        assert!(spunding_pressure(0.5, 20.0).is_err());
+    }
+}

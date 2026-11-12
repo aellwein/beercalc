@@ -12,7 +12,30 @@ pub struct CalcState {
     pub grain: Grain,
     pub brewhouse: Brewhouse,
     pub color_conversion: ColorConversion,
+    #[serde(default)]
+    pub carbonation: Carbonation,
     pub commit_hash: String,
+}
+
+#[derive(Clone, Serialize, Deserialize, PartialEq)]
+pub struct Carbonation {
+    pub batch_volume: f64,
+    pub target_co2: f64,
+    pub spunding_temperature: f64,
+    pub vessel_pressure: f64,
+    pub co2_temperature: f64,
+}
+
+impl Default for Carbonation {
+    fn default() -> Self {
+        Carbonation {
+            batch_volume: 23.0,
+            target_co2: 4.5,
+            spunding_temperature: 20.0,
+            vessel_pressure: 1.0,
+            co2_temperature: 20.0,
+        }
+    }
 }
 
 #[derive(Clone, Serialize, Deserialize, PartialEq)]
@@ -115,6 +138,7 @@ impl Default for CalcState {
             color_conversion: ColorConversion {
                 color: ColorUnit::Ebc(12.0),
             },
+            carbonation: Carbonation::default(),
             commit_hash: String::new(),
         }
     }

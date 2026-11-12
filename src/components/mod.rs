@@ -1,6 +1,7 @@
 //! This module contains all the components and calculators.
 mod alcohol;
 mod brewhouse;
+mod carbonation;
 mod color;
 mod color_conversion;
 mod footer;
@@ -15,6 +16,7 @@ mod unit_picker;
 pub mod prelude {
     pub use super::alcohol::AlcoholCalculator;
     pub use super::brewhouse::BrewhouseEfficiencyCalculator;
+    pub use super::carbonation::CarbonationCalculator;
     pub use super::color::{BeerColorCalculator, EbcColorDisplay};
     pub use super::color_conversion::ColorConversionCalculator;
     pub use super::footer::Footer;
