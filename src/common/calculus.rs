@@ -273,7 +273,7 @@ pub fn srm_to_ebc(srm: f64) -> f64 {
 }
 
 pub fn lovibond_to_ebc(lovibond: f64) -> f64 {
-    lovibond * 2.65 - 1.2
+    srm_to_ebc(lovibond_to_srm(lovibond))
 }
 
 pub fn ebc_to_srm(ebc: f64) -> f64 {
@@ -285,7 +285,7 @@ pub fn lovibond_to_srm(lovibond: f64) -> f64 {
 }
 
 pub fn ebc_to_lovibond(ebc: f64) -> f64 {
-    ebc * 0.377 + 0.45
+    srm_to_lovibond(ebc_to_srm(ebc))
 }
 
 pub fn srm_to_lovibond(srm: f64) -> f64 {
