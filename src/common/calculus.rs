@@ -228,7 +228,7 @@ pub fn calc_alcohol_terrill_equation(
     })
 }
 
-pub fn calculate_ebc(original_gravity: &Gravity, grain: &Vec<Malt>, boiling_time: f64) -> i32 {
+pub fn calculate_ebc(original_gravity: &Gravity, grain: &Vec<Malt>, boiling_time: f64) -> f64 {
     let mut total_mass_kg = 0.0;
     let og_plato = original_gravity.to_plato().value();
     let mut prod_mass_ebc = 0.0;
@@ -240,7 +240,7 @@ pub fn calculate_ebc(original_gravity: &Gravity, grain: &Vec<Malt>, boiling_time
         total_mass_kg += malt.amount * factor;
         prod_mass_ebc += malt.color * malt.amount * factor;
     }
-    ((prod_mass_ebc / total_mass_kg) * og_plato / 10.0 + 1.5 * boiling_time / 60.0) as i32
+    (prod_mass_ebc / total_mass_kg) * og_plato / 10.0 + 1.5 * boiling_time / 60.0
 }
 
 pub fn calculate_brewhouse_efficiency(original_gravity: &Gravity, brewhouse: &Brewhouse) -> f64 {
