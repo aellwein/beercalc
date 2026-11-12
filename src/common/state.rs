@@ -14,6 +14,8 @@ pub struct CalcState {
     pub color_conversion: ColorConversion,
     #[serde(default)]
     pub carbonation: Carbonation,
+    #[serde(default = "default_water")]
+    pub water: WaterInput,
     pub commit_hash: String,
 }
 
@@ -108,6 +110,14 @@ pub struct ColorConversion {
     pub color: ColorUnit,
 }
 
+fn default_water() -> WaterInput {
+    WaterInput {
+        volume_l: 20.0,
+        lactic_percent: 80.0,
+        ..Default::default()
+    }
+}
+
 impl Default for CalcState {
     fn default() -> Self {
         CalcState {
@@ -139,6 +149,7 @@ impl Default for CalcState {
                 color: ColorUnit::Ebc(12.0),
             },
             carbonation: Carbonation::default(),
+            water: default_water(),
             commit_hash: String::new(),
         }
     }

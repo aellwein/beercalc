@@ -2,6 +2,7 @@
 //! This module contains functions for various calculations related to brewing.
 use crate::common::prelude::*;
 use anyhow::{anyhow, Result};
+use serde::{Deserialize, Serialize};
 
 pub fn brix_to_plato(brix: f64) -> f64 {
     brix / 1.03
@@ -338,5 +339,142 @@ mod carbonation_tests {
     #[test]
     fn spunding_pressure_rejects_target_below_atmospheric() {
         assert!(spunding_pressure(0.5, 20.0).is_err());
+    }
+}
+
+pub const MW_CA: f64 = 40.08;
+pub const MW_MG: f64 = 24.31;
+pub const MW_NA: f64 = 22.99;
+pub const MW_SO4: f64 = 96.06;
+pub const MW_CL: f64 = 35.45;
+pub const MW_HCO3: f64 = 61.02;
+
+/// Residual alkalinity in mmol/l from HCO3- (mmol/l) and Ca and Mg (mg/l), using the
+/// Kolbach factors 1.75 (Ca) and 3.5 (Mg) from the maischemalzundmehr water calculator.
+pub fn residual_alkalinity(hco3_mmol: f64, ca_mg: f64, mg_mg: f64) -> f64 {
+    hco3_mmol - (ca_mg / MW_CA) / 1.75 - (mg_mg / MW_MG) / 3.5
+}
+
+/// Converts mmol/l into German degrees of carbonate hardness (°dH), as used on the page.
+pub fn mmol_to_dh(mmol: f64) -> f64 {
+    mmol / 0.3566
+}
+
+/// Alkalinity reduction in mmol/l from adding `ml` of lactic acid with mass fraction
+/// `concentration_percent` (%) to `volume_l` litres of water. Density 1.206 g/ml, molar mass 90.08 g/mol.
+pub fn lactic_acid_reduction(ml: f64, concentration_percent: f64, volume_l: f64) -> f64 {
+    ml * 1.206 * (concentration_percent / 100.0) * 1000.0 / 90.08 / volume_l
+}
+
+/// Source water and additions for a mash water volume.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Serialize, Deserialize)]
+pub struct WaterInput {
+    pub hco3_mmol: f64,
+    pub ca_mg: f64,
+    pub mg_mg: f64,
+    pub so4_mg: f64,
+    pub cl_mg: f64,
+    pub na_mg: f64,
+    pub volume_l: f64,
+    /// grams of CaSO4 x 2H2O, CaCl2 x 2H2O, MgSO4 x 7H2O, NaCl, NaHCO3
+    pub caso4_g: f64,
+    pub cacl2_g: f64,
+    pub mgso4_g: f64,
+    pub nacl_g: f64,
+    pub nahco3_g: f64,
+    pub lactic_ml: f64,
+    pub lactic_percent: f64,
+}
+
+/// Resulting mash water: ion profile in mg/l and alkalinity before and after additions.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct MashWater {
+    pub ra_source_mmol: f64,
+    pub ra_mash_mmol: f64,
+    pub ca_mg: f64,
+    pub mg_mg: f64,
+    pub so4_mg: f64,
+    pub cl_mg: f64,
+    pub na_mg: f64,
+    pub hco3_mg: f64,
+}
+
+/// Mash water chemistry: salt additions and lactic acid applied to the source water.
+pub fn mash_water(input: &WaterInput) -> Result<MashWater> {
+    if input.volume_l <= 0.0 {
+        return Err(anyhow!("water volume must be positive"));
+    }
+    let v = input.volume_l;
+    // mmol/l added by each salt: grams / molar mass * 1000 / volume.
+    let mmol = |grams: f64, molar_mass: f64| grams / molar_mass * 1000.0 / v;
+
+    let caso4 = mmol(input.caso4_g, 172.17);
+    let cacl2 = mmol(input.cacl2_g, 147.01);
+    let mgso4 = mmol(input.mgso4_g, 246.47);
+    let nacl = mmol(input.nacl_g, 58.44);
+    let nahco3 = mmol(input.nahco3_g, 84.01);
+
+    let ca_mg = input.ca_mg + (caso4 + cacl2) * MW_CA;
+    let mg_mg = input.mg_mg + mgso4 * MW_MG;
+    let so4_mg = input.so4_mg + (caso4 + mgso4) * MW_SO4;
+    let cl_mg = input.cl_mg + (2.0 * cacl2 + nacl) * MW_CL;
+    let na_mg = input.na_mg + (nacl + nahco3) * MW_NA;
+    let hco3_mmol = input.hco3_mmol + nahco3;
+
+    let ra_source_mmol = residual_alkalinity(input.hco3_mmol, input.ca_mg, input.mg_mg);
+    let ra_after_salts = residual_alkalinity(hco3_mmol, ca_mg, mg_mg);
+    let lactic = lactic_acid_reduction(input.lactic_ml, input.lactic_percent, v);
+    let ra_mash_mmol = ra_after_salts - lactic;
+    let hco3_mg = (hco3_mmol - lactic) * MW_HCO3;
+
+    Ok(MashWater {
+        ra_source_mmol,
+        ra_mash_mmol,
+        ca_mg,
+        mg_mg,
+        so4_mg,
+        cl_mg,
+        na_mg,
+        hco3_mg,
+    })
+}
+
+#[cfg(test)]
+mod water_tests {
+    use super::*;
+
+    #[test]
+    fn residual_alkalinity_uses_kolbach_factors() {
+        // 3 mmol/l HCO3-, no hardness -> RA = 3.
+        assert!((residual_alkalinity(3.0, 0.0, 0.0) - 3.0).abs() < 1e-9);
+        // 45 mg Ca = 1.12 mmol, 45 mg Mg = 1.85 mmol (page examples).
+        let ra = residual_alkalinity(3.0, 45.0, 45.0);
+        assert!((ra - (3.0 - 1.12 / 1.75 - 1.85 / 3.5)).abs() < 0.01);
+    }
+
+    #[test]
+    fn lactic_acid_matches_page_example() {
+        // Page: 3.3 ml of 80% lactic acid in 100 L lowers RA by about 1 °dH.
+        let dh = mmol_to_dh(lactic_acid_reduction(3.3, 80.0, 100.0));
+        assert!((dh - 1.0).abs() < 0.05);
+    }
+
+    #[test]
+    fn nacl_adds_sodium_and_chloride() {
+        let input = WaterInput {
+            volume_l: 10.0,
+            nacl_g: 1.0,
+            lactic_percent: 80.0,
+            ..Default::default()
+        };
+        let mash = mash_water(&input).unwrap();
+        // 1 g NaCl in 10 L = 1.711 mmol/l -> 39.3 mg/l Na and 60.7 mg/l Cl.
+        assert!((mash.na_mg - 39.3).abs() < 0.1);
+        assert!((mash.cl_mg - 60.7).abs() < 0.1);
+    }
+
+    #[test]
+    fn zero_volume_is_rejected() {
+        assert!(mash_water(&WaterInput::default()).is_err());
     }
 }
