@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 //! This module contains functions for various calculations related to brewing.
 use crate::common::prelude::*;
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use serde::{Deserialize, Serialize};
 
 pub fn brix_to_plato(brix: f64) -> f64 {
