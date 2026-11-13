@@ -12,7 +12,7 @@ use dioxus::logger::tracing::Level;
 use dioxus::prelude::*;
 use dioxus_i18n::prelude::*;
 use dioxus_i18n::t;
-use dioxus_sdk_storage::{use_storage, LocalStorage};
+use dioxus_sdk_storage::{LocalStorage, use_storage};
 use unic_langid::langid;
 
 mod common;

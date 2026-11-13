@@ -1,4 +1,4 @@
-use crate::{common::prelude::*, STATE};
+use crate::{STATE, common::prelude::*};
 use dioxus::prelude::*;
 use dioxus_i18n::prelude::*;
 
@@ -8,6 +8,7 @@ pub fn LanguageSwitcher() -> Element {
     let mut i18n = i18n();
     i18n.set_language(language.into());
 
+    let languages = get_lang_list(STATE.read().language);
     return rsx! {
         select {
             class: "appearance-none rounded-none bg-white border-gray-300 p-1 border-solid border dark:bg-gray-700 dark:text-gray-300",
@@ -21,7 +22,7 @@ pub fn LanguageSwitcher() -> Element {
                 debug!("Language switched to {:?}", selected_lang);
             },
             {
-                get_lang_list(STATE.read().language)
+                languages
                     .iter()
                     .map(|(indicator, short, is_selected)| rsx! {
                         option { value: "{short.0}", selected: "{is_selected}", "{indicator.0} {short.0}" }

@@ -1,6 +1,6 @@
+use crate::STATE;
 use crate::common::prelude::*;
 use crate::components::prelude::*;
-use crate::STATE;
 use dioxus::prelude::*;
 use dioxus_i18n::t;
 
@@ -94,10 +94,11 @@ pub fn BeerColorCalculator() -> Element {
 
 #[component]
 fn MaltAdder() -> Element {
+    let malts = STATE.read().grain.malt.clone();
     rsx! {
         div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4",
             {
-                STATE.read().grain.malt.iter().enumerate().map(|(idx, grain)| {
+                malts.iter().enumerate().map(|(idx, grain)| {
                     rsx! {
                         div { key: "malt-{idx}", class: "flex flex-col gap-4",
                             div { class: "flex flex-row gap-4 items-baseline flex-wrap",
