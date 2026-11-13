@@ -1,3 +1,8 @@
+// dioxus-router 0.7.10's Routable derive emits an `unreachable!()` arm that
+// rustc 1.100+ flags as unreachable_code (false positive in generated code,
+// no fix in a stable dioxus-router release yet).
+#![allow(unreachable_code)]
+
 //! Calculators for homebrewers.
 //!
 //! Contains different useful calculators:
