@@ -84,7 +84,7 @@ fn App() -> Element {
     }
     let mut i18n = i18n();
     i18n.set_language(STATE.read().language.into());
-    set_theme(&STATE.read().theme);
+    apply(&STATE.read().theme);
 
     rsx! {
         document::Link { rel: "icon", href: FAVICON }

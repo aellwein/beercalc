@@ -3,7 +3,9 @@
 @source "./src/**/*.{rs,html,css}";
 
 /* Semantic colour tokens. Components use bg-card, text-ink, ... and never raw palette
-   colours, so a theme only has to define these variables. */
+   colours. The app sets the --c-* variables for the chosen theme at runtime
+   (see apply_theme in src/common/theme.rs); the block below is only the fallback
+   before the first theme is applied, and matches Nord Light. */
 @theme {
   --color-page: var(--c-page);
   --color-card: var(--c-card);
@@ -17,27 +19,14 @@
 }
 
 :root {
-  --c-page: #f5f5f4;
-  --c-card: #ffffff;
-  --c-field: #ffffff;
-  --c-line: #e7e5e4;
-  --c-ink: #1c1917;
-  --c-muted: #57534e;
-  --c-accent: #b45309;
-  --c-accent-ink: #ffffff;
-  --c-danger: #b91c1c;
+  --c-page: #e5e9f0;
+  --c-card: #d8dee9;
+  --c-field: #eceff4;
+  --c-line: #aeb7c7;
+  --c-ink: #2e3440;
+  --c-muted: #6b7487;
+  --c-accent: #5e81ac;
+  --c-accent-ink: #eceff4;
+  --c-danger: #a84e57;
   color-scheme: light;
-}
-
-.dark {
-  --c-page: #1c1917;
-  --c-card: #292524;
-  --c-field: #1c1917;
-  --c-line: #44403c;
-  --c-ink: #f5f5f4;
-  --c-muted: #a8a29e;
-  --c-accent: #f59e0b;
-  --c-accent-ink: #1c1917;
-  --c-danger: #f87171;
-  color-scheme: dark;
 }

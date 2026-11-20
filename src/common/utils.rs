@@ -11,22 +11,6 @@ pub fn document() -> web_sys::Document {
     window().document().expect("unable to get document element")
 }
 
-pub fn get_preferred_theme() -> Theme {
-    match window()
-        .match_media("(prefers-color-scheme: dark)")
-        .expect("unable to query media list")
-    {
-        Some(x) => {
-            if x.matches() {
-                Theme::Dark
-            } else {
-                Theme::Light
-            }
-        }
-        None => Theme::Light,
-    }
-}
-
 pub fn set_body_classes(class: &str) {
     let classes = class
         .split_whitespace()

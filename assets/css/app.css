@@ -7,8 +7,6 @@
     'Noto Color Emoji';
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
-    --color-orange-400: oklch(75% 0.183 55.934);
-    --color-orange-500: oklch(70.5% 0.213 47.604);
     --color-neutral-100: oklch(97% 0 0);
     --color-neutral-400: oklch(70.8% 0 0);
     --color-neutral-700: oklch(37.1% 0 0);
@@ -218,29 +216,14 @@
   .table-cell {
     display: table-cell;
   }
-  .h-5 {
-    height: calc(var(--spacing) * 5);
-  }
   .min-h-screen {
     min-height: 100vh;
-  }
-  .w-5 {
-    width: calc(var(--spacing) * 5);
   }
   .max-w-5xl {
     max-width: var(--container-5xl);
   }
-  .flex-grow {
-    flex-grow: 1;
-  }
   .grow {
     flex-grow: 1;
-  }
-  .border-collapse {
-    border-collapse: collapse;
-  }
-  .resize {
-    resize: both;
   }
   .appearance-none {
     appearance: none;
@@ -274,9 +257,6 @@
   }
   .gap-6 {
     gap: calc(var(--spacing) * 6);
-  }
-  .overflow-x-auto {
-    overflow-x: auto;
   }
   .rounded {
     border-radius: 0.25rem;
@@ -319,33 +299,6 @@
   .bg-page {
     background-color: var(--color-page);
   }
-  .fill-accent {
-    fill: var(--color-accent);
-  }
-  .fill-orange-400 {
-    fill: var(--color-orange-400);
-  }
-  .fill-orange-400\/20 {
-    fill: color-mix(in srgb, oklch(75% 0.183 55.934) 20%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      fill: color-mix(in oklab, var(--color-orange-400) 20%, transparent);
-    }
-  }
-  .fill-transparent {
-    fill: transparent;
-  }
-  .stroke-orange-400 {
-    stroke: var(--color-orange-400);
-  }
-  .stroke-orange-500 {
-    stroke: var(--color-orange-500);
-  }
-  .p-1 {
-    padding: calc(var(--spacing) * 1);
-  }
-  .p-1\.5 {
-    padding: calc(var(--spacing) * 1.5);
-  }
   .p-5 {
     padding: calc(var(--spacing) * 5);
   }
@@ -369,9 +322,6 @@
   }
   .py-6 {
     padding-block: calc(var(--spacing) * 6);
-  }
-  .pb-1 {
-    padding-bottom: calc(var(--spacing) * 1);
   }
   .pb-4 {
     padding-bottom: calc(var(--spacing) * 4);
@@ -439,13 +389,12 @@
   .underline {
     text-decoration-line: underline;
   }
+  .accent-ink {
+    accent-color: var(--color-ink);
+  }
   .shadow-sm {
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .outline {
-    outline-style: var(--tw-outline-style);
-    outline-width: 1px;
   }
   .transition-colors {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
@@ -518,16 +467,6 @@
       }
     }
   }
-  .md\:flex-wrap {
-    @media (width >= 48rem) {
-      flex-wrap: wrap;
-    }
-  }
-  .md\:overflow-visible {
-    @media (width >= 48rem) {
-      overflow: visible;
-    }
-  }
   .dark\:bg-black {
     &:where(.dark, .dark *) {
       background-color: var(--color-black);
@@ -540,28 +479,16 @@
   }
 }
 :root {
-  --c-page: #f5f5f4;
-  --c-card: #ffffff;
-  --c-field: #ffffff;
-  --c-line: #e7e5e4;
-  --c-ink: #1c1917;
-  --c-muted: #57534e;
-  --c-accent: #b45309;
-  --c-accent-ink: #ffffff;
-  --c-danger: #b91c1c;
+  --c-page: #e5e9f0;
+  --c-card: #d8dee9;
+  --c-field: #eceff4;
+  --c-line: #aeb7c7;
+  --c-ink: #2e3440;
+  --c-muted: #6b7487;
+  --c-accent: #5e81ac;
+  --c-accent-ink: #eceff4;
+  --c-danger: #a84e57;
   color-scheme: light;
-}
-.dark {
-  --c-page: #1c1917;
-  --c-card: #292524;
-  --c-field: #1c1917;
-  --c-line: #44403c;
-  --c-ink: #f5f5f4;
-  --c-muted: #a8a29e;
-  --c-accent: #f59e0b;
-  --c-accent-ink: #1c1917;
-  --c-danger: #f87171;
-  color-scheme: dark;
 }
 @property --tw-border-style {
   syntax: "*";
@@ -641,11 +568,6 @@
   inherits: false;
   initial-value: 0 0 #0000;
 }
-@property --tw-outline-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
-}
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
@@ -666,7 +588,6 @@
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
-      --tw-outline-style: solid;
     }
   }
 }

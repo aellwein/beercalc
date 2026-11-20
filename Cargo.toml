@@ -25,6 +25,10 @@ web-sys = { version = "0.3.107", features = [
     "HtmlSelectElement",
     "MediaQueryList",
     "DomTokenList",
+    "CssStyleDeclaration",
+    "Document",
+    "Element",
+    "HtmlElement",
 ] }
 anyhow = "1.0.104"
 
