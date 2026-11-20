@@ -29,9 +29,9 @@ pub fn CarbonationCalculator() -> Element {
     rsx! {
         Fragment {
             Header { active: Route::CarbonationCalculator }
-            div { class: "flex flex-col gap-4 dark:text-gray-400",
-                div { class: "text-2xl my-3", {t!("carbonation_calculator")} }
-                div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4",
+            div { class: "flex flex-col gap-4",
+                div { class: TITLE_CLASS, {t!("carbonation_calculator")} }
+                div { class: "flex flex-col gap-4 {CARD_CLASS}",
                     {number_field(
                         t!("batch_volume").to_string(),
                         c.batch_volume,
@@ -40,8 +40,8 @@ pub fn CarbonationCalculator() -> Element {
                         |v| update_carbonation(|c| c.batch_volume = v),
                     )}
                 }
-                div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4",
-                    div { class: "text-xl", {t!("spunding_pressure")} }
+                div { class: "flex flex-col gap-4 {CARD_CLASS}",
+                    div { class: SECTION_TITLE_CLASS, {t!("spunding_pressure")} }
                     {number_field(
                         t!("co2_target").to_string(),
                         c.target_co2,
@@ -57,12 +57,12 @@ pub fn CarbonationCalculator() -> Element {
                         |v| update_carbonation(|c| c.spunding_temperature = v),
                     )}
                     div { class: "flex flex-row gap-4 items-baseline",
-                        div { class: "grow dark:text-gray-200", strong { {t!("spunding_pressure")} } }
-                        div { class: "text-right dark:text-gray-200", strong { {spunding_text} } }
+                        div { class: "grow", strong { {t!("spunding_pressure")} } }
+                        div { class: "text-right", strong { {spunding_text} } }
                     }
                 }
-                div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4",
-                    div { class: "text-xl", {t!("co2_from_pressure")} }
+                div { class: "flex flex-col gap-4 {CARD_CLASS}",
+                    div { class: SECTION_TITLE_CLASS, {t!("co2_from_pressure")} }
                     {number_field(
                         t!("vessel_pressure").to_string(),
                         c.vessel_pressure,
@@ -78,8 +78,8 @@ pub fn CarbonationCalculator() -> Element {
                         |v| update_carbonation(|c| c.co2_temperature = v),
                     )}
                     div { class: "flex flex-row gap-4 items-baseline",
-                        div { class: "grow dark:text-gray-200", strong { {t!("co2_dissolved")} } }
-                        div { class: "text-right dark:text-gray-200", strong { {dissolved_text} } }
+                        div { class: "grow", strong { {t!("co2_dissolved")} } }
+                        div { class: "text-right", strong { {dissolved_text} } }
                     }
                 }
             }

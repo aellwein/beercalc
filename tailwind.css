@@ -1,3 +1,43 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 @source "./src/**/*.{rs,html,css}";
+
+/* Semantic colour tokens. Components use bg-card, text-ink, ... and never raw palette
+   colours, so a theme only has to define these variables. */
+@theme {
+  --color-page: var(--c-page);
+  --color-card: var(--c-card);
+  --color-field: var(--c-field);
+  --color-line: var(--c-line);
+  --color-ink: var(--c-ink);
+  --color-muted: var(--c-muted);
+  --color-accent: var(--c-accent);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-danger: var(--c-danger);
+}
+
+:root {
+  --c-page: #f5f5f4;
+  --c-card: #ffffff;
+  --c-field: #ffffff;
+  --c-line: #e7e5e4;
+  --c-ink: #1c1917;
+  --c-muted: #57534e;
+  --c-accent: #b45309;
+  --c-accent-ink: #ffffff;
+  --c-danger: #b91c1c;
+  color-scheme: light;
+}
+
+.dark {
+  --c-page: #1c1917;
+  --c-card: #292524;
+  --c-field: #1c1917;
+  --c-line: #44403c;
+  --c-ink: #f5f5f4;
+  --c-muted: #a8a29e;
+  --c-accent: #f59e0b;
+  --c-accent-ink: #1c1917;
+  --c-danger: #f87171;
+  color-scheme: dark;
+}

@@ -24,13 +24,13 @@ fn change_to_plato() {
 #[component]
 pub fn GravityUnitPicker() -> Element {
     rsx! {
-        div { class: "flex flex-row gap-4 shadow-md dark:shadow-neutral-600 items-baseline p-4",
+        div { class: "flex flex-row gap-4 items-baseline {CARD_CLASS}",
             span { {format!("{}: ", t!("gravity_unit"))} }
             div {
                 input {
                     r#type: "radio",
                     id: "brix",
-                    class: "dark:bg-gray-700 dark:text-gray-300",
+                    class: "",
                     name: "gravity_unit",
                     checked: matches!(STATE.read().original_gravity, Gravity::Brix(_)),
                     onchange: move |_| change_to_brix(),
@@ -41,7 +41,7 @@ pub fn GravityUnitPicker() -> Element {
                 input {
                     r#type: "radio",
                     id: "plato",
-                    class: "dark:bg-gray-700 dark:text-gray-300",
+                    class: "",
                     name: "gravity_unit",
                     checked: matches!(STATE.read().original_gravity, Gravity::Plato(_)),
                     onchange: move |_| change_to_plato(),

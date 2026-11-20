@@ -13,15 +13,15 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
     rsx! {
         Fragment {
             Header { active: Route::BrewhouseEfficiencyCalculator }
-            div { class: "flex flex-col gap-4 dark:text-gray-400",
-                div { class: "text-2xl my-3", {t!("brewhouse_calculator")} }
+            div { class: "flex flex-col gap-4",
+                div { class: TITLE_CLASS, {t!("brewhouse_calculator")} }
                 div { class: "flex flex-row gap-4 flex-wrap",
-                    div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline grow",
-                    div { class: "text-xl", {t!("brewhouse_efficiency")} }
+                    div { class: "flex flex-col gap-4 items-baseline grow {CARD_CLASS}",
+                    div { class: SECTION_TITLE_CLASS, {t!("brewhouse_efficiency")} }
                     div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                         div { {t!("grain_mass")} }
                         input {
-                            class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                            class: INPUT_CLASS,
                             r#type: "number",
                             min: ".1",
                             max: "100000",
@@ -36,7 +36,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                             },
                         }
                         select {
-                            class: "p-1 appearance-none rounded-none bg-white border-gray-300 border border-solid dark:bg-gray-700 dark:text-gray-300",
+                            class: SELECT_CLASS,
                             onchange: move |evt| {
                                 let mut new_state = STATE.read().clone();
                                 new_state.brewhouse.grain_mass_unit = evt.value().into();
@@ -55,7 +55,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                     div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                         div { {t!("original_gravity")} }
                         input {
-                            class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                            class: INPUT_CLASS,
                             r#type: "number",
                             min: ".1",
                             max: "60",
@@ -71,7 +71,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                             },
                         }
                         select {
-                            class: "p-1 appearance-none rounded-none bg-white border-gray-300 border border-solid dark:bg-gray-700 dark:text-gray-300",
+                            class: SELECT_CLASS,
                             onchange: move |evt| {
                                 let unit = evt.value();
                                 let mut new_state = STATE.read().clone();
@@ -97,7 +97,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                     div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                         div { {t!("wort_volume")} }
                         input {
-                            class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                            class: INPUT_CLASS,
                             r#type: "number",
                             min: ".1",
                             max: "1000",
@@ -118,7 +118,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                         label {
                             input {
                                 r#type: "radio",
-                                class: "dark:bg-gray-700 dark:text-gray-300",
+                                class: "",
                                 name: "vma",
                                 checked: matches!(state.brewhouse.volume_measured_at, VolumeMeasuredAt::HundredDegreesCelsius),
                                 onchange: move |_| {
@@ -133,7 +133,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                         label {
                             input {
                                 r#type: "radio",
-                                class: "dark:bg-gray-700 dark:text-gray-300",
+                                class: "",
                                 name: "vma",
                                 checked: matches!(state.brewhouse.volume_measured_at, VolumeMeasuredAt::TwentyDegreesCelsius),
                                 onchange: move |_| {
@@ -149,12 +149,12 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                     div { strong { {format!("{}: {:.1} %", t!("brewhouse_efficiency"), eff)} } }
                     }
 
-                    div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4 items-baseline grow",
-                    div { class: "text-xl", {t!("grain_mass_relative_to_brewhouse_efficiency")} }
+                    div { class: "flex flex-col gap-4 items-baseline grow {CARD_CLASS}",
+                    div { class: SECTION_TITLE_CLASS, {t!("grain_mass_relative_to_brewhouse_efficiency")} }
                     div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                         div { {t!("brewhouse_efficiency")} }
                         input {
-                            class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                            class: INPUT_CLASS,
                             r#type: "number",
                             min: ".1",
                             max: "100",
@@ -177,7 +177,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                     div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                         div { {t!("original_gravity")} }
                         input {
-                            class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                            class: INPUT_CLASS,
                             r#type: "number",
                             min: ".1",
                             max: "60",
@@ -204,7 +204,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                             },
                         }
                         select {
-                            class: "p-1 appearance-none rounded-none bg-white border-gray-300 border border-solid dark:bg-gray-700 dark:text-gray-300",
+                            class: SELECT_CLASS,
                             onchange: move |evt| {
                                 let unit = evt.value();
                                 let mut new_state = STATE.read().clone();
@@ -238,7 +238,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                     div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                         div { {t!("wort_volume")} }
                         input {
-                            class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                            class: INPUT_CLASS,
                             r#type: "number",
                             min: ".1",
                             max: "1000",
@@ -263,7 +263,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                         label {
                             input {
                                 r#type: "radio",
-                                class: "dark:bg-gray-700 dark:text-gray-300",
+                                class: "",
                                 name: "vma2",
                                 checked: matches!(state.brewhouse.grain_mass_from_brewhouse.volume_measured_at, VolumeMeasuredAt::HundredDegreesCelsius),
                                 onchange: move |_| {
@@ -278,7 +278,7 @@ pub fn BrewhouseEfficiencyCalculator() -> Element {
                         label {
                             input {
                                 r#type: "radio",
-                                class: "dark:bg-gray-700 dark:text-gray-300",
+                                class: "",
                                 name: "vma2",
                                 checked: matches!(state.brewhouse.grain_mass_from_brewhouse.volume_measured_at, VolumeMeasuredAt::TwentyDegreesCelsius),
                                 onchange: move |_| {

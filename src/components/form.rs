@@ -1,6 +1,5 @@
+use crate::common::prelude::*;
 use dioxus::prelude::*;
-
-pub const INPUT_CLASS: &str = "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300";
 
 pub fn number_field(
     label: String,

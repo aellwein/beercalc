@@ -11,7 +11,7 @@ pub fn LanguageSwitcher() -> Element {
     let languages = get_lang_list(STATE.read().language);
     return rsx! {
         select {
-            class: "appearance-none rounded-none bg-white border-gray-300 p-1 border-solid border dark:bg-gray-700 dark:text-gray-300",
+            class: SELECT_CLASS,
             onchange: move |evt| {
                 let selected_value = evt.value().clone();
                 let selected_lang: Language = selected_value.as_str().into();
