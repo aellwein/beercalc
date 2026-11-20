@@ -318,3 +318,94 @@ fn HopsAdder() -> Element {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn hop(form: HopsForm, amount: f64, alpha: f64, boil_time: f64) -> Hops {
+        Hops {
+            form,
+            amount,
+            alpha,
+            boil_time,
+            ibu: 0.0,
+        }
+    }
+
+    fn ibu_settings(hops: Vec<Hops>) -> Ibu {
+        Ibu {
+            boiling: 60.0,
+            volume: 20.0,
+            flameout: 0.0,
+            flameout_temp: 85.0,
+            hops,
+        }
+    }
+
+    #[test]
+    fn whole_hops_snapshot() {
+        // 10 g of 10 % alpha for 60 min in 20 L at 12 °P: about 11.7 IBU.
+        let ibu = ibu_settings(vec![]);
+        let h = hop(HopsForm::Whole, 10.0, 10.0, 60.0);
+        let value = calc_hop_ibu(&Gravity::Plato(12.0), &ibu, &h);
+        assert!((value - 11.74).abs() < 0.05, "got {value}");
+    }
+
+    #[test]
+    fn pellets_are_weighted_higher_than_whole_hops() {
+        let ibu = ibu_settings(vec![]);
+        let whole = calc_hop_ibu(
+            &Gravity::Plato(12.0),
+            &ibu,
+            &hop(HopsForm::Whole, 10.0, 10.0, 60.0),
+        );
+        let pellets = calc_hop_ibu(
+            &Gravity::Plato(12.0),
+            &ibu,
+            &hop(HopsForm::Pellets, 10.0, 10.0, 60.0),
+        );
+        assert!((pellets / whole - 1.1).abs() < 1e-9);
+    }
+
+    #[test]
+    fn no_boil_time_gives_no_bitterness() {
+        let ibu = ibu_settings(vec![]);
+        let value = calc_hop_ibu(
+            &Gravity::Plato(12.0),
+            &ibu,
+            &hop(HopsForm::Whole, 10.0, 10.0, 0.0),
+        );
+        assert_eq!(value, 0.0);
+    }
+
+    #[test]
+    fn longer_boil_adds_bitterness() {
+        let ibu = ibu_settings(vec![]);
+        let short = calc_hop_ibu(
+            &Gravity::Plato(12.0),
+            &ibu,
+            &hop(HopsForm::Whole, 10.0, 10.0, 15.0),
+        );
+        let long = calc_hop_ibu(
+            &Gravity::Plato(12.0),
+            &ibu,
+            &hop(HopsForm::Whole, 10.0, 10.0, 60.0),
+        );
+        assert!(long > short);
+    }
+
+    #[test]
+    fn total_is_sum_of_hops() {
+        let hops = vec![
+            hop(HopsForm::Whole, 10.0, 10.0, 60.0),
+            hop(HopsForm::Pellets, 5.0, 7.0, 15.0),
+        ];
+        let ibu = ibu_settings(hops.clone());
+        let expected: f64 = hops
+            .iter()
+            .map(|h| calc_hop_ibu(&Gravity::Plato(12.0), &ibu, h))
+            .sum();
+        assert!((total_ibu(&Gravity::Plato(12.0), &ibu) - expected).abs() < 1e-9);
+    }
+}

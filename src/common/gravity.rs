@@ -75,3 +75,48 @@ impl Gravity {
         .to_string()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn value_returns_the_inner_number() {
+        assert_eq!(Gravity::Plato(12.0).value(), 12.0);
+        assert_eq!(Gravity::SG(1.05).value(), 1.05);
+    }
+
+    #[test]
+    fn new_with_updated_value_keeps_the_unit() {
+        let updated = Gravity::Brix(10.0).new_with_updated_value(14.0);
+        assert_eq!(updated, Gravity::Brix(14.0));
+    }
+
+    #[test]
+    fn conversions_keep_the_same_unit() {
+        assert_eq!(Gravity::Plato(7.0).to_plato(), Gravity::Plato(7.0));
+        assert_eq!(Gravity::Brix(7.0).to_brix(), Gravity::Brix(7.0));
+    }
+
+    #[test]
+    fn plato_converts_to_brix_and_sg() {
+        let brix = Gravity::Plato(12.0).to_brix().value();
+        assert!((brix - 12.36).abs() < 1e-9);
+        let sg = Gravity::Plato(12.0).to_sg().value();
+        assert!((sg - 1.0484).abs() < 0.0003);
+    }
+
+    #[test]
+    fn sg_converts_to_oechsle() {
+        let oechsle = Gravity::SG(1.050).to_oechsle().value();
+        assert!((oechsle - 50.0).abs() < 1e-9);
+    }
+
+    #[test]
+    fn translator_keys_are_stable() {
+        assert_eq!(Gravity::Plato(0.0).translator_key(), "plato");
+        assert_eq!(Gravity::Brix(0.0).translator_key(), "brix");
+        assert_eq!(Gravity::SG(0.0).translator_key(), "sg");
+        assert_eq!(Gravity::Oechsle(0.0).translator_key(), "oechsle");
+    }
+}
