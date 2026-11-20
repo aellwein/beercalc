@@ -4,7 +4,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Serialize, Deserialize, PartialEq)]
 pub struct CalcState {
-    pub theme: Theme,
+    /// Theme id, or [`SYSTEM`]. Older states stored `Light`/`Dark`; they still resolve, see `resolve`.
+    #[serde(default = "default_theme")]
+    pub theme: String,
     pub language: Language,
     pub original_gravity: Gravity,
     pub final_gravity: Gravity,
@@ -110,6 +112,10 @@ pub struct ColorConversion {
     pub color: ColorUnit,
 }
 
+fn default_theme() -> String {
+    SYSTEM.to_string()
+}
+
 fn default_water() -> WaterInput {
     WaterInput {
         volume_l: 20.0,
@@ -121,7 +127,7 @@ fn default_water() -> WaterInput {
 impl Default for CalcState {
     fn default() -> Self {
         CalcState {
-            theme: get_preferred_theme(),
+            theme: default_theme(),
             language: get_preferred_language(),
             original_gravity: Gravity::Brix(12.0),
             final_gravity: Gravity::Brix(6.0),
