@@ -39,13 +39,11 @@ jobs:
         run: cargo fmt --all -- --check
 
       - name: cargo clippy
-        run: cargo clippy --all-features -- -D warnings
+        run: cargo clippy --target wasm32-unknown-unknown --all-features -- -D warnings
 
       - name: cargo test
-        # .cargo/config.toml defaults to wasm32, which cannot run tests on the runner,
-        # so test for the host target explicitly.
-        run: |
-          cargo test --target "$(rustc -vV | sed -n 's/^host: //p')"
+        # Tests run on the host target; the web app is built for wasm32 only by dx.
+        run: cargo test
 
       - name: dx build
         run: dx build --release && ls -laR target/dx/beercalc/release/web/public
