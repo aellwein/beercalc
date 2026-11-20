@@ -37,6 +37,15 @@ fn i18n_config() -> I18nConfig {
         .with_locale((langid!("en"), include_str!("../assets/i18n/en.ftl")))
         .with_locale((langid!("de"), include_str!("../assets/i18n/de.ftl")))
         .with_locale((langid!("ru"), include_str!("../assets/i18n/ru.ftl")))
+        .with_locale((langid!("it"), include_str!("../assets/i18n/it.ftl")))
+        .with_locale((langid!("fr"), include_str!("../assets/i18n/fr.ftl")))
+        .with_locale((langid!("es"), include_str!("../assets/i18n/es.ftl")))
+        .with_locale((langid!("ro"), include_str!("../assets/i18n/ro.ftl")))
+        .with_locale((langid!("hr"), include_str!("../assets/i18n/hr.ftl")))
+        .with_locale((langid!("sr"), include_str!("../assets/i18n/sr.ftl")))
+        .with_locale((langid!("el"), include_str!("../assets/i18n/el.ftl")))
+        .with_locale((langid!("ja"), include_str!("../assets/i18n/ja.ftl")))
+        .with_locale((langid!("zh"), include_str!("../assets/i18n/zh.ftl")))
 }
 
 /// Entry point for the web application.

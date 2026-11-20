@@ -6,9 +6,31 @@ pub enum Language {
     English,
     German,
     Russian,
+    Italian,
+    French,
+    Spanish,
+    Romanian,
+    Croatian,
+    Serbian,
+    Greek,
+    Japanese,
+    Chinese,
 }
 
-pub const ALL_LANGUAGES: [Language; 3] = [Language::English, Language::German, Language::Russian];
+pub const ALL_LANGUAGES: [Language; 12] = [
+    Language::English,
+    Language::German,
+    Language::Russian,
+    Language::Italian,
+    Language::French,
+    Language::Spanish,
+    Language::Romanian,
+    Language::Croatian,
+    Language::Serbian,
+    Language::Greek,
+    Language::Japanese,
+    Language::Chinese,
+];
 
 #[derive(Clone, PartialEq)]
 pub struct LanguageIndicator(pub String);
@@ -22,6 +44,15 @@ impl From<&Language> for LanguageShort {
             Language::English => LanguageShort("EN".into()),
             Language::German => LanguageShort("DE".into()),
             Language::Russian => LanguageShort("RU".into()),
+            Language::Italian => LanguageShort("IT".into()),
+            Language::French => LanguageShort("FR".into()),
+            Language::Spanish => LanguageShort("ES".into()),
+            Language::Romanian => LanguageShort("RO".into()),
+            Language::Croatian => LanguageShort("HR".into()),
+            Language::Serbian => LanguageShort("SR".into()),
+            Language::Greek => LanguageShort("EL".into()),
+            Language::Japanese => LanguageShort("JA".into()),
+            Language::Chinese => LanguageShort("ZH".into()),
         }
     }
 }
@@ -31,6 +62,15 @@ impl From<&str> for Language {
             "en" => Language::English,
             "de" => Language::German,
             "ru" => Language::Russian,
+            "it" => Language::Italian,
+            "fr" => Language::French,
+            "es" => Language::Spanish,
+            "ro" => Language::Romanian,
+            "hr" => Language::Croatian,
+            "sr" => Language::Serbian,
+            "el" => Language::Greek,
+            "ja" => Language::Japanese,
+            "zh" => Language::Chinese,
             _ => Language::English,
         }
     }
@@ -42,6 +82,15 @@ impl From<&Language> for LanguageIndicator {
             Language::English => LanguageIndicator("🇬🇧".into()),
             Language::German => LanguageIndicator("🇩🇪".into()),
             Language::Russian => LanguageIndicator("🇷🇺".into()),
+            Language::Italian => LanguageIndicator("🇮🇹".into()),
+            Language::French => LanguageIndicator("🇫🇷".into()),
+            Language::Spanish => LanguageIndicator("🇪🇸".into()),
+            Language::Romanian => LanguageIndicator("🇷🇴".into()),
+            Language::Croatian => LanguageIndicator("🇭🇷".into()),
+            Language::Serbian => LanguageIndicator("🇷🇸".into()),
+            Language::Greek => LanguageIndicator("🇬🇷".into()),
+            Language::Japanese => LanguageIndicator("🇯🇵".into()),
+            Language::Chinese => LanguageIndicator("🇨🇳".into()),
         }
     }
 }
@@ -52,6 +101,15 @@ impl From<Language> for LanguageIdentifier {
             Language::English => langid!("en"),
             Language::German => langid!("de"),
             Language::Russian => langid!("ru"),
+            Language::Italian => langid!("it"),
+            Language::French => langid!("fr"),
+            Language::Spanish => langid!("es"),
+            Language::Romanian => langid!("ro"),
+            Language::Croatian => langid!("hr"),
+            Language::Serbian => langid!("sr"),
+            Language::Greek => langid!("el"),
+            Language::Japanese => langid!("ja"),
+            Language::Chinese => langid!("zh"),
         }
     }
 }
@@ -64,6 +122,15 @@ impl TryInto<Language> for String {
             "en" => Ok(Language::English),
             "de" => Ok(Language::German),
             "ru" => Ok(Language::Russian),
+            "it" => Ok(Language::Italian),
+            "fr" => Ok(Language::French),
+            "es" => Ok(Language::Spanish),
+            "ro" => Ok(Language::Romanian),
+            "hr" => Ok(Language::Croatian),
+            "sr" => Ok(Language::Serbian),
+            "el" => Ok(Language::Greek),
+            "ja" => Ok(Language::Japanese),
+            "zh" => Ok(Language::Chinese),
             _ => Err("Unknown language".into()),
         }
     }
@@ -89,11 +156,12 @@ mod tests {
         assert_eq!(Language::from("en"), Language::English);
         assert_eq!(Language::from("DE"), Language::German);
         assert_eq!(Language::from("ru"), Language::Russian);
+        assert_eq!(Language::from("zh"), Language::Chinese);
     }
 
     #[test]
     fn unknown_code_falls_back_to_english() {
-        assert_eq!(Language::from("fr"), Language::English);
+        assert_eq!(Language::from("xx"), Language::English);
         assert_eq!(Language::from(""), Language::English);
     }
 
@@ -101,7 +169,7 @@ mod tests {
     fn string_parsing_rejects_unknown_codes() {
         let parsed: std::result::Result<Language, _> = "de".to_string().try_into();
         assert_eq!(parsed.unwrap(), Language::German);
-        let rejected: std::result::Result<Language, _> = "fr".to_string().try_into();
+        let rejected: std::result::Result<Language, _> = "xx".to_string().try_into();
         assert!(rejected.is_err());
     }
 
