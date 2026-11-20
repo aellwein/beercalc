@@ -4,10 +4,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Shown while the wasm bundle loads. Dioxus replaces the contents of #main once the app starts.
+         Plain CSS, because Tailwind does not run over this file. -->
+    <style>
+        .loading {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner {
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 4px solid rgba(94, 129, 172, 0.25);
+            border-top-color: #5e81ac;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #2e3440;
+            }
+
+            .spinner {
+                border-color: rgba(136, 192, 208, 0.25);
+                border-top-color: #88c0d0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .spinner {
+                animation-duration: 2.4s;
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-neutral-100 text-black dark:bg-black dark:text-neutral-400 font-family-['NotoNerdFont']">
-    <div id="main" />
+    <div id="main">
+        <div class="loading" role="status" aria-label="Loading">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <script>
+        // Dioxus appends the app to #main instead of replacing its content, so remove the
+        // loader once the first element of the app appears.
+        (function () {
+            var main = document.getElementById('main');
+            var loader = main.querySelector('.loading');
+            var observer = new MutationObserver(function () {
+                var appRendered = Array.prototype.some.call(main.children, function (child) {
+                    return child !== loader;
+                });
+                if (appRendered) {
+                    loader.remove();
+                    observer.disconnect();
+                }
+            });
+            observer.observe(main, { childList: true });
+        })();
+    </script>
 </body>
 
 </html>
