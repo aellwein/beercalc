@@ -6,7 +6,7 @@ use dioxus_i18n::t;
 pub fn ShowUnits(gravity: Gravity) -> Element {
     match gravity {
         Gravity::Plato(v) => rsx! {
-            span {
+            div { class: "basis-full sm:basis-auto text-sm sm:text-base",
                 {
                     format!(
                         "{:.1} {} / {:.1} {} / {:.1} {} / {:.3} {}",
@@ -23,7 +23,7 @@ pub fn ShowUnits(gravity: Gravity) -> Element {
             }
         },
         Gravity::Brix(v) => rsx! {
-            span {
+            div { class: "basis-full sm:basis-auto text-sm sm:text-base",
                 {
                     format!(
                         "{:.1} {} / {:.1} {} / {:.1} {} / {:.3} {}",
