@@ -8,7 +8,7 @@ use dioxus_i18n::t;
 pub fn GravityPicker() -> Element {
     rsx! {
         div { class: "flex flex-col gap-4 items-baseline {CARD_CLASS}",
-            div { class: "flex flex-row gap-4 items-baseline",
+            div { class: "flex flex-row flex-wrap gap-4 items-baseline",
                 span { {t!("original_gravity")} }
                 div {
                     input {
@@ -32,7 +32,7 @@ pub fn GravityPicker() -> Element {
                 }
                 ShowUnits { gravity: STATE.read().original_gravity.clone() }
             }
-            div { class: "flex flex-row gap-4 items-baseline",
+            div { class: "flex flex-row flex-wrap gap-4 items-baseline",
                 span { {t!("final_gravity")} }
                 div {
                     input {
