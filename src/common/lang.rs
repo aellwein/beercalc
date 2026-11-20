@@ -79,3 +79,44 @@ pub fn get_lang_list(selected_lang: Language) -> Vec<(LanguageIndicator, Languag
         })
         .collect()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn short_codes_map_to_languages() {
+        assert_eq!(Language::from("en"), Language::English);
+        assert_eq!(Language::from("DE"), Language::German);
+        assert_eq!(Language::from("ru"), Language::Russian);
+    }
+
+    #[test]
+    fn unknown_code_falls_back_to_english() {
+        assert_eq!(Language::from("fr"), Language::English);
+        assert_eq!(Language::from(""), Language::English);
+    }
+
+    #[test]
+    fn string_parsing_rejects_unknown_codes() {
+        let parsed: std::result::Result<Language, _> = "de".to_string().try_into();
+        assert_eq!(parsed.unwrap(), Language::German);
+        let rejected: std::result::Result<Language, _> = "fr".to_string().try_into();
+        assert!(rejected.is_err());
+    }
+
+    #[test]
+    fn short_name_is_upper_case() {
+        let short: LanguageShort = (&Language::German).into();
+        assert_eq!(short.0, "DE");
+    }
+
+    #[test]
+    fn language_list_marks_only_the_selected_one() {
+        let list = get_lang_list(Language::Russian);
+        assert_eq!(list.len(), ALL_LANGUAGES.len());
+        let selected: Vec<_> = list.iter().filter(|(_, _, s)| *s).collect();
+        assert_eq!(selected.len(), 1);
+        assert_eq!(selected[0].1.0, "RU");
+    }
+}

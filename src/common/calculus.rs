@@ -478,3 +478,203 @@ mod water_tests {
         assert!(mash_water(&WaterInput::default()).is_err());
     }
 }
+
+#[cfg(test)]
+mod brewing_tests {
+    use super::*;
+
+    fn malt(amount: f64, mass_unit: MassUnit, color: f64) -> Malt {
+        Malt {
+            amount,
+            mass_unit,
+            color,
+        }
+    }
+
+    fn assert_close(actual: f64, expected: f64, tolerance: f64) {
+        assert!(
+            (actual - expected).abs() <= tolerance,
+            "expected {expected} ± {tolerance}, got {actual}"
+        );
+    }
+
+    #[test]
+    fn plato_and_sg_match_brewing_table() {
+        // 12 °P is SG 1.048 in the standard table.
+        assert_close(plato_to_sg(12.0), 1.0484, 0.0003);
+        assert_close(sg_to_plato(1.0484), 12.0, 0.1);
+    }
+
+    #[test]
+    fn brix_plato_round_trip() {
+        assert_close(brix_to_plato(plato_to_brix(10.0)), 10.0, 1e-9);
+        assert_close(plato_to_brix(brix_to_plato(12.0)), 12.0, 1e-9);
+    }
+
+    #[test]
+    fn oechsle_is_sg_minus_one_times_1000() {
+        assert_close(sg_to_oechsle(1.050), 50.0, 1e-9);
+        assert_close(oechsle_to_sg(50.0), 1.050, 1e-9);
+        // 12 Brix is about 47 °Oe, not 51 (the old 4.25 factor).
+        assert_close(brix_to_oechsle(12.0), 46.9, 0.1);
+    }
+
+    #[test]
+    fn oechsle_and_brix_round_trip() {
+        assert_close(oechsle_to_brix(brix_to_oechsle(12.0)), 12.0, 0.02);
+    }
+
+    #[test]
+    fn srm_and_ebc_are_consistent() {
+        assert_close(srm_to_ebc(1.0), 1.97, 1e-9);
+        // ebc_to_srm uses 0.508 while 1 / 1.97 = 0.5076, so allow 0.2 %.
+        assert_close(ebc_to_srm(srm_to_ebc(7.0)), 7.0, 7.0 * 0.002);
+    }
+
+    #[test]
+    fn lovibond_and_ebc_agree_through_srm() {
+        // 2 °L -> 1.9492 SRM -> 3.84 EBC.
+        assert_close(lovibond_to_ebc(2.0), 3.84, 0.01);
+        // Same 0.508 vs 1 / 1.97 difference as above, so allow 0.5 %.
+        for lovibond in [2.0, 10.0, 40.0] {
+            assert_close(
+                ebc_to_lovibond(lovibond_to_ebc(lovibond)),
+                lovibond,
+                lovibond * 0.005,
+            );
+        }
+    }
+
+    #[test]
+    fn ebc_single_malt() {
+        // 4 EBC malt at 12 °P, 60 min boil: 4 * 12 / 10 + 1.5 = 6.3.
+        let grain = vec![malt(5.0, MassUnit::Kilogram, 4.0)];
+        assert_close(
+            calculate_ebc(&Gravity::Plato(12.0), &grain, 60.0),
+            6.3,
+            1e-9,
+        );
+    }
+
+    #[test]
+    fn ebc_uses_every_malt() {
+        // Regression: only the last malt used to count.
+        // Mass-weighted colour is (5 * 4 + 1 * 40) / 6 = 10 -> 10 * 12 / 10 + 1.5 = 13.5.
+        let grain = vec![
+            malt(5.0, MassUnit::Kilogram, 4.0),
+            malt(1.0, MassUnit::Kilogram, 40.0),
+        ];
+        assert_close(
+            calculate_ebc(&Gravity::Plato(12.0), &grain, 60.0),
+            13.5,
+            1e-9,
+        );
+    }
+
+    #[test]
+    fn ebc_mixes_units() {
+        // 5000 g of 4 EBC is the same as 5 kg.
+        let grain = vec![malt(5000.0, MassUnit::Gram, 4.0)];
+        assert_close(
+            calculate_ebc(&Gravity::Plato(12.0), &grain, 60.0),
+            6.3,
+            1e-9,
+        );
+    }
+
+    #[test]
+    fn ebc_without_malt_is_nan_not_panic() {
+        // An empty recipe divides by zero; the display converts NaN to 0.
+        assert!(calculate_ebc(&Gravity::Plato(12.0), &vec![], 60.0).is_nan());
+    }
+
+    #[test]
+    fn standard_alcohol_equation_from_plato() {
+        // OG 12 °P, FG 3 °P: real extract 4.6272 °P, attenuation 75 %, ABV about 4.8.
+        let result =
+            calc_alcohol_standard_equation(&Gravity::Plato(12.0), &Gravity::Plato(3.0)).unwrap();
+        assert_close(result.apparent_extract, 3.0, 1e-9);
+        assert_close(result.real_extract, 4.6272, 1e-9);
+        assert_close(result.apparent_attenuation, 75.0, 1e-9);
+        assert_close(result.real_attenuation, 61.44, 1e-9);
+        assert_close(result.alcohol_by_volume, 4.8143, 0.001);
+        assert_close(result.alcohol_by_weight, 3.8033, 0.001);
+    }
+
+    #[test]
+    fn standard_alcohol_equation_rejects_zero_gravity() {
+        assert!(
+            calc_alcohol_standard_equation(&Gravity::Plato(0.0), &Gravity::Plato(3.0)).is_err()
+        );
+    }
+
+    #[test]
+    fn terrill_requires_brix() {
+        assert!(
+            calc_alcohol_terrill_equation(&Gravity::Plato(12.0), &Gravity::Plato(3.0)).is_err()
+        );
+        assert!(calc_alcohol_terrill_equation(&Gravity::Brix(12.0), &Gravity::Brix(4.0)).is_ok());
+    }
+
+    #[test]
+    fn real_extract_out_of_range_is_error() {
+        // 0.1808 * 12 + 0.8192 * (-20) is negative.
+        assert!(calc_real_extract(&Gravity::Plato(12.0), -20.0).is_err());
+    }
+
+    #[test]
+    fn brewhouse_efficiency_matches_formula() {
+        // 20 L of 12 °P wort from 5 kg grain: extract = 20 * SG * 0.12 kg -> 50.3 %.
+        let brewhouse = Brewhouse {
+            grain_mass: 5.0,
+            grain_mass_unit: MassUnit::Kilogram,
+            volume_measured_at: VolumeMeasuredAt::TwentyDegreesCelsius,
+            wort_volume: 20.0,
+            grain_mass_from_brewhouse: GrainMassFromBrewhouse {
+                original_gravity: Gravity::Plato(12.0),
+                wort_volume: 20.0,
+                volume_measured_at: VolumeMeasuredAt::TwentyDegreesCelsius,
+                brewhouse_efficiency: 65.6,
+            },
+        };
+        assert_close(
+            calculate_brewhouse_efficiency(&Gravity::Plato(12.0), &brewhouse),
+            50.32,
+            0.01,
+        );
+    }
+
+    #[test]
+    fn brewhouse_efficiency_hot_volume_is_lower() {
+        // Wort measured at 100 °C is corrected by 0.96.
+        let mut brewhouse = Brewhouse {
+            grain_mass: 5.0,
+            grain_mass_unit: MassUnit::Kilogram,
+            volume_measured_at: VolumeMeasuredAt::TwentyDegreesCelsius,
+            wort_volume: 20.0,
+            grain_mass_from_brewhouse: GrainMassFromBrewhouse {
+                original_gravity: Gravity::Plato(12.0),
+                wort_volume: 20.0,
+                volume_measured_at: VolumeMeasuredAt::TwentyDegreesCelsius,
+                brewhouse_efficiency: 65.6,
+            },
+        };
+        let cold = calculate_brewhouse_efficiency(&Gravity::Plato(12.0), &brewhouse);
+        brewhouse.volume_measured_at = VolumeMeasuredAt::HundredDegreesCelsius;
+        let hot = calculate_brewhouse_efficiency(&Gravity::Plato(12.0), &brewhouse);
+        assert_close(hot, cold * 0.96, 1e-9);
+    }
+
+    #[test]
+    fn grain_mass_round_trips_with_efficiency() {
+        // Efficiency from 5 kg of grain gives back 5 kg when used to solve for grain mass.
+        let efficiency = 50.32215562;
+        let gmvb = GrainMassFromBrewhouse {
+            original_gravity: Gravity::Plato(12.0),
+            wort_volume: 20.0,
+            volume_measured_at: VolumeMeasuredAt::TwentyDegreesCelsius,
+            brewhouse_efficiency: efficiency,
+        };
+        assert_close(calculate_grain_mass_from_brewhouse(&gmvb), 5.0, 1e-4);
+    }
+}

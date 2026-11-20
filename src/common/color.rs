@@ -61,3 +61,43 @@ impl ColorUnit {
         .to_string()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn match_unit_compares_only_the_variant() {
+        assert!(ColorUnit::Ebc(1.0).match_unit(&ColorUnit::Ebc(9.0)));
+        assert!(!ColorUnit::Ebc(1.0).match_unit(&ColorUnit::Srm(1.0)));
+    }
+
+    #[test]
+    fn update_value_keeps_the_unit() {
+        assert_eq!(ColorUnit::Srm(2.0).update_value(5.0).value(), 5.0);
+        assert!(matches!(
+            ColorUnit::Srm(2.0).update_value(5.0),
+            ColorUnit::Srm(_)
+        ));
+    }
+
+    #[test]
+    fn same_unit_conversion_is_identity() {
+        assert_eq!(ColorUnit::Ebc(12.0).to_ebc().value(), 12.0);
+        assert_eq!(ColorUnit::Srm(6.0).to_srm().value(), 6.0);
+        assert_eq!(ColorUnit::Lovibond(3.0).to_lovibond().value(), 3.0);
+    }
+
+    #[test]
+    fn ebc_and_srm_convert_both_ways() {
+        assert!((ColorUnit::Ebc(19.7).to_srm().value() - 10.0).abs() < 0.01);
+        assert!((ColorUnit::Srm(10.0).to_ebc().value() - 19.7).abs() < 1e-9);
+    }
+
+    #[test]
+    fn translator_keys_are_stable() {
+        assert_eq!(ColorUnit::Ebc(0.0).translator_key(), "ebc");
+        assert_eq!(ColorUnit::Srm(0.0).translator_key(), "srm");
+        assert_eq!(ColorUnit::Lovibond(0.0).translator_key(), "lovibond");
+    }
+}
