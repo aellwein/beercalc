@@ -40,8 +40,8 @@ pub fn IbuCalculator() -> Element {
     rsx! {
         Fragment {
             Header { active: Route::IbuCalculator }
-            div { class: "flex flex-col gap-4 dark:text-gray-400",
-                div { class: "text-2xl my-3", {t!("ibu_calculator")} }
+            div { class: "flex flex-col gap-4",
+                div { class: TITLE_CLASS, {t!("ibu_calculator")} }
                 IbuPreset {}
                 HopsAdder {}
             }
@@ -52,11 +52,11 @@ pub fn IbuCalculator() -> Element {
 #[component]
 fn IbuPreset() -> Element {
     rsx! {
-        div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4",
+        div { class: "flex flex-col gap-4 {CARD_CLASS}",
             div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                 div { {t!("original_gravity")} }
                 input {
-                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                    class: INPUT_CLASS,
                     r#type: "number",
                     min: "0.1",
                     step: ".1",
@@ -72,7 +72,7 @@ fn IbuPreset() -> Element {
                     },
                 }
                 select {
-                    class: "p-1 appearance-none rounded-none bg-white border-gray-300 border border-solid dark:bg-gray-700 dark:text-gray-300",
+                    class: SELECT_CLASS,
                     onchange: move |evt| {
                         let unit = evt.value();
                         let mut new_state = STATE.read().clone();
@@ -99,7 +99,7 @@ fn IbuPreset() -> Element {
             div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                 div { {t!("boiling_time")} }
                 input {
-                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                    class: INPUT_CLASS,
                     r#type: "number",
                     min: "1",
                     step: "1",
@@ -124,7 +124,7 @@ fn IbuPreset() -> Element {
             div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                 div { {t!("volume")} }
                 input {
-                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                    class: INPUT_CLASS,
                     r#type: "number",
                     min: "1",
                     step: "1",
@@ -141,7 +141,7 @@ fn IbuPreset() -> Element {
             div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                 div { {t!("flameout_time")} }
                 input {
-                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                    class: INPUT_CLASS,
                     r#type: "number",
                     min: "0",
                     step: "1",
@@ -158,7 +158,7 @@ fn IbuPreset() -> Element {
             div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                 div { {t!("flameout_temp")} }
                 input {
-                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                    class: INPUT_CLASS,
                     r#type: "number",
                     min: "0",
                     step: "1",
@@ -182,7 +182,7 @@ fn HopsAdder() -> Element {
     let total = total_ibu(&state.original_gravity, &state.ibu);
 
     rsx! {
-        div { class: "flex flex-col gap-4 p-4 shadow-md dark:shadow-slate-600",
+        div { class: "flex flex-col gap-4 {CARD_CLASS}",
             {
                 state.ibu.hops.iter().enumerate().map(|(idx, hops)| {
                     let bitterness = calc_hop_ibu(&state.original_gravity, &state.ibu, hops);
@@ -191,7 +191,7 @@ fn HopsAdder() -> Element {
                             div { class: "flex flex-row items-baseline gap-4",
                                 div { class: "underline text-right grow", {format!("{} #{}", t!("hops_addition"), idx + 1)} }
                                 button {
-                                    class: "py-2 px-2 bg-red-300 dark:bg-red-900 dark:hover:bg-red-700 text-white hover:bg-red-600",
+                                    class: BUTTON_DANGER_CLASS,
                                     onclick: move |_| {
                                         update_ibu(|ibu| {
                                             if idx < ibu.hops.len() {
@@ -205,7 +205,7 @@ fn HopsAdder() -> Element {
                             div { class: "flex flex-row items-baseline gap-4 flex-wrap",
                                 div { {t!("form")} }
                                 select {
-                                    class: "p-1 appearance-none rounded-none bg-white border-gray-300 border border-solid dark:bg-gray-700 dark:text-gray-300",
+                                    class: SELECT_CLASS,
                                     onchange: move |evt| {
                                         let form: HopsForm = evt.value().into();
                                         update_ibu(|ibu| {
@@ -227,7 +227,7 @@ fn HopsAdder() -> Element {
                             div { class: "flex flex-row items-baseline gap-4 flex-wrap",
                                 div { {t!("amount")} }
                                 input {
-                                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                                    class: INPUT_CLASS,
                                     r#type: "number",
                                     min: "0",
                                     max: "5000",
@@ -247,7 +247,7 @@ fn HopsAdder() -> Element {
                             div { class: "flex flex-row items-baseline gap-4 flex-wrap",
                                 div { {t!("alpha_acid")} }
                                 input {
-                                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                                    class: INPUT_CLASS,
                                     r#type: "number",
                                     min: "0",
                                     max: "90",
@@ -267,7 +267,7 @@ fn HopsAdder() -> Element {
                             div { class: "flex flex-row items-baseline gap-4 flex-wrap",
                                 div { {t!("boil_time")} }
                                 input {
-                                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                                    class: INPUT_CLASS,
                                     r#type: "number",
                                     min: "0",
                                     max: "{state.ibu.boiling}",
@@ -286,20 +286,20 @@ fn HopsAdder() -> Element {
                                 }
                             }
                             div { class: "flex flex-row items-baseline gap-4",
-                                div { class: "grow dark:text-gray-200", {t!("bitterness")} }
-                                div { class: "text-right dark:text-gray-200", {format!("{:.1} IBU", bitterness)} }
+                                div { class: "grow", {t!("bitterness")} }
+                                div { class: "text-right", {format!("{:.1} IBU", bitterness)} }
                             }
                         }
                     }
                 })
             }
             div { class: "flex flex-row gap-4",
-                div { class: "grow dark:text-gray-200", strong { {t!("total_bitterness")} } }
-                div { class: "text-right dark:text-gray-200", strong { {format!("{:.1} IBU", total)} } }
+                div { class: "grow", strong { {t!("total_bitterness")} } }
+                div { class: "text-right", strong { {format!("{:.1} IBU", total)} } }
             }
             div { class: "mr-auto",
                 button {
-                    class: "py-2 px-4 text-white dark:text-gray-200 bg-green-500 dark:bg-green-900 rounded-lg shadow-md dark:shadow-slate-600 hover:bg-green-700 dark:hover:bg-green-800",
+                    class: BUTTON_PRIMARY_CLASS,
                     onclick: move |_| {
                         let boiling = STATE.read().ibu.boiling;
                         update_ibu(|ibu| {

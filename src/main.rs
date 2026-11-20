@@ -93,8 +93,8 @@ fn App() -> Element {
         document::Link { rel: "stylesheet", href: FONTS_CSS }
         document::Title { {t!("title")} }
 
-        div { class: "container p-3 mx-auto {LT_TEXT_CLASSES} {DT_TEXT_CLASSES}",
-            div { class: "flex flex-col gap-2",
+        div { class: "mx-auto min-h-screen max-w-5xl px-4 py-6 {LT_TEXT_CLASSES} {DT_TEXT_CLASSES}",
+            div { class: "flex flex-col gap-6",
                 Router::<Route> {}
                 Footer {}
             }

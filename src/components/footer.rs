@@ -10,7 +10,7 @@ pub fn Footer() -> Element {
         STATE.read().commit_hash
     );
     rsx! {
-        footer { class: "my-6 text-center dark:text-gray-400",
+        footer { class: "my-8 text-center text-sm text-muted",
             a {
                 class: "{LT_ANCHOR_CLASSES} {DT_ANCHOR_CLASSES}",
                 href: "https://github.com/aellwein/beercalc",

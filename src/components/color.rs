@@ -14,13 +14,13 @@ pub fn BeerColorCalculator() -> Element {
     rsx! {
         Fragment {
             Header { active: Route::BeerColorCalculator }
-            div { class: "flex flex-col gap-4 dark:text-gray-400",
-                div { class: "text-2xl my-3", {t!("color_calculator")} }
-                div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4",
+            div { class: "flex flex-col gap-4",
+                div { class: TITLE_CLASS, {t!("color_calculator")} }
+                div { class: "flex flex-col gap-4 {CARD_CLASS}",
                     div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                         div { {t!("original_gravity")} }
                         input {
-                        class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                        class: INPUT_CLASS,
                         r#type: "number",
                         min: ".1",
                         max: "40",
@@ -36,7 +36,7 @@ pub fn BeerColorCalculator() -> Element {
                         },
                     }
                         select {
-                        class: "p-1 appearance-none rounded-none bg-white border-gray-300 border border-solid dark:bg-gray-700 dark:text-gray-300",
+                        class: SELECT_CLASS,
                         onchange: move |evt| {
                             let unit = evt.value();
                             let mut new_state = STATE.read().clone();
@@ -62,7 +62,7 @@ pub fn BeerColorCalculator() -> Element {
                     div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                         div { {t!("boiling_time")} }
                         input {
-                        class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                        class: INPUT_CLASS,
                         r#type: "number",
                         min: "1",
                         max: "600",
@@ -96,7 +96,7 @@ pub fn BeerColorCalculator() -> Element {
 fn MaltAdder() -> Element {
     let malts = STATE.read().grain.malt.clone();
     rsx! {
-        div { class: "flex flex-col gap-4 shadow-md dark:shadow-slate-600 p-4",
+        div { class: "flex flex-col gap-4 {CARD_CLASS}",
             {
                 malts.iter().enumerate().map(|(idx, grain)| {
                     rsx! {
@@ -104,7 +104,7 @@ fn MaltAdder() -> Element {
                             div { class: "flex flex-row gap-4 items-baseline flex-wrap",
                                 div { {format!("{} #{}", t!("malt"), idx + 1)} }
                                 button {
-                                    class: "py-2 px-2 bg-red-300 dark:bg-red-900 dark:hover:bg-red-700 text-white hover:bg-red-600",
+                                    class: BUTTON_DANGER_CLASS,
                                     onclick: move |_| {
                                         let mut new_state = STATE.read().clone();
                                         if idx < new_state.grain.malt.len() {
@@ -118,7 +118,7 @@ fn MaltAdder() -> Element {
                             div { class: "flex flex-row items-baseline gap-4",
                                 div { {t!("mass")} }
                                 input {
-                                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                                    class: INPUT_CLASS,
                                     r#type: "number",
                                     min: "0",
                                     max: "100000",
@@ -138,7 +138,7 @@ fn MaltAdder() -> Element {
                             div { class: "flex flex-row items-baseline gap-4",
                                 div { {t!("mass_unit")} }
                                 select {
-                                    class: "p-1 appearance-none rounded-none bg-white border-gray-300 border border-solid dark:bg-gray-700 dark:text-gray-300",
+                                    class: SELECT_CLASS,
                                     onchange: move |evt| {
                                         let unit: MassUnit = evt.value().into();
                                         let mut new_state = STATE.read().clone();
@@ -160,7 +160,7 @@ fn MaltAdder() -> Element {
                             div { class: "flex flex-row items-baseline gap-4",
                                 div { {t!("color_ebc")} }
                                 input {
-                                    class: "border-gray-300 p-1 border-solid border focus:border-blue-300 focus:ring outline-none dark:bg-gray-700 dark:text-gray-300",
+                                    class: INPUT_CLASS,
                                     r#type: "number",
                                     min: "1",
                                     max: "10000",
@@ -183,7 +183,7 @@ fn MaltAdder() -> Element {
             }
             div { class: "mr-auto",
                 button {
-                    class: "py-2 px-4 bg-yellow-600 dark:bg-yellow-700 text-white dark:text-gray-100 rounded-lg shadow-md dark:shadow-slate-600 hover:bg-yellow-800 dark:hover:bg-yellow-500 dark:hover:text-gray-800",
+                    class: BUTTON_PRIMARY_CLASS,
                     onclick: move |_| {
                         let mut new_state = STATE.read().clone();
                         new_state.grain.malt.push(Malt {
@@ -209,7 +209,7 @@ pub fn EbcColorDisplay(ebc: f64) -> Element {
         "ebc-100".to_string()
     };
     rsx! {
-        div { class: "flex flex-row shadow-md dark:shadow-slate-600 p-4 gap-4 items-baseline",
+        div { class: "flex flex-row gap-4 items-baseline {CARD_CLASS}",
             div { class: "my-auto grow", strong { {format!("{} EBC", ebc_value)} } }
             div { class: "{class_name} grow", style: "height: 100px" }
         }
